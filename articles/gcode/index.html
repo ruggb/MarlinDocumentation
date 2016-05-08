@@ -36,7 +36,7 @@
 <meta property="og:url" content=" http://marlinfw.org/articles/gcode/">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-05-06T14:28:53+01:00">
+<meta property="article:published_time" content="2016-05-08T02:21:38+01:00">
 <link rel="next" href="http://marlinfw.org/articles/gcode/movement.html" title="Movement">
 <link rel="prev" href="http://marlinfw.org/articles/development/reporting-bugs.html" title="Reporting Bugs">
 <script type="application/ld+json">
@@ -44,7 +44,7 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "headline": "G-Code Category",
-    "datePublished": "2016-05-06T14:28:53+01:00",
+    "datePublished": "2016-05-08T02:21:38+01:00",
     "description": "Learn how to get started using Marlin.",
     "logo": " http://marlinfw.org/assets/images/logo/marlin/small.png",
     "url": " http://marlinfw.org/articles/gcode/"
@@ -54,7 +54,6 @@
 
     <link rel="icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/stylesheets/readable.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,18 +87,14 @@
             "/assets/javascript/jquery.tocify.min.js",
             "/assets/javascript/bootstrap.min.js",
             "/assets/javascript/holder.min.js",
-            "/assets/javascript/custom.js"
-            /*
-            "/assets/javascript/tv4.min.js",
-            "/assets/javascript/angular.min.js",
-            "/assets/javascript/angular-sanitize.min.js",
-            "/assets/javascript/ObjectPath.js",
-            "/assets/javascript/ui-bootstrap-1.3.2.min.js",
-            "/assets/javascript/schema-form.min.js",
-            "/assets/javascript/bootstrap-decorator.min.js"
-            */
+            "/assets/javascript/custom.js",
+            "//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"
         );
     --></script>
+
+    <script type="text/javascript">
+      window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":"","theme":"dark-bottom"};
+    </script>
     <!-- /head -->
 
   </head>
@@ -109,7 +104,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="/" class="navbar-brand">
-            <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="40">
+            <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25">
           </a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>

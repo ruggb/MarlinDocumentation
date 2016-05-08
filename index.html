@@ -50,7 +50,6 @@
 
     <link rel="icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/stylesheets/readable.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -84,18 +83,14 @@
             "/assets/javascript/jquery.tocify.min.js",
             "/assets/javascript/bootstrap.min.js",
             "/assets/javascript/holder.min.js",
-            "/assets/javascript/custom.js"
-            /*
-            "/assets/javascript/tv4.min.js",
-            "/assets/javascript/angular.min.js",
-            "/assets/javascript/angular-sanitize.min.js",
-            "/assets/javascript/ObjectPath.js",
-            "/assets/javascript/ui-bootstrap-1.3.2.min.js",
-            "/assets/javascript/schema-form.min.js",
-            "/assets/javascript/bootstrap-decorator.min.js"
-            */
+            "/assets/javascript/custom.js",
+            "//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"
         );
     --></script>
+
+    <script type="text/javascript">
+      window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":"","theme":"dark-bottom"};
+    </script>
     <!-- /head -->
 
   </head>
@@ -105,7 +100,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="/" class="navbar-brand">
-            <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="40">
+            <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25">
           </a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
@@ -172,7 +167,7 @@
     <!-- /navbar -->
 
             <!-- Jumbotron  -->
-        <div class="jumbotron">
+        <div class="jumbotron custom-no-margin">
           <div class="container">
             <h1>Marlin Firmware</h1>
             <p class="text-justify">Marlin is an Open Source firmware for 3D printers based on AVR microprocessors such as those used on the <a href="http://arduino.cc" target="_blank" rel="nofollow">Arduino</a> platform, it allows full control over the 3D printer, extrusors and heated building plate either by being controlled from a host PC or in a standalone mode.</p>
@@ -180,65 +175,129 @@
           </div>
         </div>
 
-        <!-- Feature list row #1 -->
+        <div class="custom-features">
+          <div class="container">
+            <div class="row">
+              
+                <div class="col-md-3 col-sm-6">
+                  <img class="img-circle" src="/assets/images/features/gcode.png" alt="G-Code" width="120" height="120">
+                  <h3 class="custom-features-heading">Rich G-Code Support</h3>
+                  <p class="text-center"><a class="btn btn-sm custom-features-btn" href="/articles/gcode/overview.html" role="button">More info <i class="fa fa-chevron-right fa-1" aria-hidden="true"></i></a></p>
+                </div>
+              
+                <div class="col-md-3 col-sm-6">
+                  <img class="img-circle" src="/assets/images/features/boards.png" alt="Controller Board" width="120" height="120">
+                  <h3 class="custom-features-heading">A sea of boards</h3>
+                  <p class="text-center"><a class="btn btn-sm custom-features-btn" href="/articles/hardware/boards.html" role="button">More info <i class="fa fa-chevron-right fa-1" aria-hidden="true"></i></a></p>
+                </div>
+              
+                <div class="col-md-3 col-sm-6">
+                  <img class="img-circle" src="/assets/images/features/probe.png" alt="Inductive Probe" width="120" height="120">
+                  <h3 class="custom-features-heading">Automatic bed leveling</h3>
+                  <p class="text-center"><a class="btn btn-sm custom-features-btn" href="/articles/howto/bed-auto-leveling.html" role="button">More info <i class="fa fa-chevron-right fa-1" aria-hidden="true"></i></a></p>
+                </div>
+              
+                <div class="col-md-3 col-sm-6">
+                  <img class="img-circle" src="/assets/images/features/kinematics.png" alt="Kinematics" width="120" height="120">
+                  <h3 class="custom-features-heading">Multiple Kinematics</h3>
+                  <p class="text-center"><a class="btn btn-sm custom-features-btn" href="/articles/" role="button">More info <i class="fa fa-chevron-right fa-1" aria-hidden="true"></i></a></p>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+
         <div class="container" role="main">
           <div class="row">
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/gcode.png" alt="G-Code" width="140" height="140">
-              <h2>Rich G-Code Support</h2>
-              <p class="text-justify">G-Code is the instruction code that tells a 3D printer what to do. Marlin's G-Code is loosely based on the NIST standard introducing the required changes for operating a 3D printer.</p>
-              <p><a class="btn btn-default" href="/articles/gcode/overview.html" role="button">View details »</a></p>
-            </div>
-<!-- /.col-lg-4 -->
+            <div class="col-md-9">
+              
+                <div class="row">
+                    <div class="custom-post-preview">
+                      <a href="/news/2016/04/29/release-1.1.0-rc6/">
+                      <h3 class="custom-post-title">Marlin 1.1.0-RC6 released</h3></a>
+                      <p class="small">Posted by MarlinFirmware on Friday, April 29 2016</p>
+                      <p class="lead"></p>
+<p>The Marlin development team is proud to announce the <em>release candidate number 6</em> for version <em>1.1.0</em>, have a look at the detailed list of <a href="https://github.com/MarlinFirmware/Marlin/compare/1.1.0-RC5...1.1.0-RC6">commits since 1.1.0-RC5</a> and <a href="https://github.com/MarlinFirmware/Marlin/compare/1.0.2-1...1.1.0-RC6">all commits since 1.0.2-1</a>.</p>
 
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/boards.png" alt="Controller Board" width="140" height="140">
-              <h2>A sea of boards</h2>
-              <p class="text-justify">Marlin supports a wide variety of 3D printers, including all RAMPS variants, and is adaptable to virtually any Arduino-based electronics through pin-mapping.</p>
-              <p><a class="btn btn-default" href="/articles/hardware/boards.html" role="button">View details »</a></p>
-            </div>
-<!-- /.col-lg-4 -->
+<!--more-->
 
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/probe.png" alt="Inductive Probe" width="140" height="140">
-              <h2>Automatic Leveling</h2>
-              <p class="text-justify">You'll never have to fine tune the inclination of the table, Marlin will do all the hard work for you, just select one from the multiple available probing options and execute a <code>G29</code> before printing.</p>
-              <p><a class="btn btn-default" href="/articles/howto/bed-auto-leveling.html" role="button">View details »</a></p>
+<p>This release includes the following changes:</p>
+
+<ul>
+  <li>Cleanup and fixes for Info Screen on graphical displays</li>
+  <li>Simplified endstop configuration – just set which plugs are used</li>
+  <li>Improvements to the LCD menu manager:
+    <ul>
+      <li>Implement proper Forward / Back menu navigation</li>
+      <li>Allow menu screen handlers to wait for a condition</li>
+      <li>
+<code class="highlighter-rouge">REVERSE_MENU_DIRECTION</code> makes CLOCKWISE move UP in menus</li>
+    </ul>
+  </li>
+  <li>Improved Mesh / Manual Bed Leveling
+    <ul>
+      <li>Lift nozzle between probe points if using <code class="highlighter-rouge">MIN_Z_HEIGHT_FOR_HOMING</code>
+</li>
+      <li>Improved LCD interface with more feedback</li>
+    </ul>
+  </li>
+  <li>Fix Sainsmart 2-in-1 pins include</li>
+  <li>Fix graphical display when no PWM fan is present</li>
+  <li>Fix LCD command “Move Axis” &gt; “Y Axis”</li>
+  <li>Patch for endstops in Hephestos configuration</li>
+  <li>Set DEFAULT_NOMINAL_FILAMENT_DIA to 3.0 for some configs</li>
+  <li>Fix DEFAULT_SOURCE_URL issues (e.g., with RUMBA)</li>
+  <li>Fix LCD babystep menu items</li>
+  <li>Fix temperature 0 display with MAX31855 thermocouple</li>
+  <li>Updated Japanese translations</li>
+  <li>Completed CoreXY / CoreXZ implementation for all standard features</li>
+  <li>Improvements to Mesh and Manual Bed Leveling</li>
+  <li>More changes to be listed soon…</li>
+</ul>
+
+                    </div>
+                </div>
+              
+              
+                <div class="row">
+                    <div class="custom-post-preview">
+                      <a href="/news/2016/04/13/release-1.1.0-rc5/">
+                      <h3 class="custom-post-title">Marlin 1.1.0-RC5 released</h3></a>
+                      <p class="small">Posted by MarlinFirmware on Wednesday, April 13 2016</p>
+                      <p class="lead"><i class="fa fa-quote-left fa-2x fa-pull-left fa-border" aria-hidden="true"></i> </p>
+<p>The Marlin development team is proud to announce the <em>release candidate number 5</em> for version <em>1.1.0</em>, have a look at the detailed list of <a href="https://github.com/MarlinFirmware/Marlin/compare/1.1.0-RC4...1.1.0-RC5">commits since 1.1.0-RC4</a> and <a href="https://github.com/MarlinFirmware/Marlin/compare/1.0.2-1...1.1.0-RC5">all commits since 1.0.2-1</a>.</p>
+
+
+                    </div>
+                </div>
+              
+              
+                <div class="row">
+                    <div class="custom-post-preview">
+                      <a href="/news/2016/03/25/release-1.1.0-rc4/">
+                      <h3 class="custom-post-title">Marlin 1.1.0-RC4 released</h3></a>
+                      <p class="small">Posted by MarlinFirmware on Friday, March 25 2016</p>
+                      <p class="lead"><i class="fa fa-quote-left fa-2x fa-pull-left fa-border" aria-hidden="true"></i> </p>
+<p>The Marlin development team is proud to announce the <em>release candidate number 4</em> for version <em>1.1.0</em>, have a look at the detailed list of <a href="https://github.com/MarlinFirmware/Marlin/compare/1.1.0-RC3...1.1.0-RC4">commits since 1.1.0-RC3</a> and <a href="https://github.com/MarlinFirmware/Marlin/compare/1.0.2-1...1.1.0-RC3">all commits since 1.0.2-1</a>.</p>
+
+
+                    </div>
+                </div>
+              
+              
             </div>
-<!-- /.col-lg-4 -->
+            <div class="col-md-3 text-center">
+              <div class="alert alert-success">
+                <div class="panel-heading">
+                  <i class="fa fa-coffee fa-5x" aria-hidden="true"></i>
+                </div>
+<div class="panel-body">
+                  <p>Marlin is built exclusive out of love from developers from all over the world, show them your <i class="fa fa-heart text-danger" aria-hidden="true"></i> and how much you appreciate their endless hours of free work by buying a cup of coffee.</p>
+                  <a href="https://www.gofundme.com/zmh9h9vc" class="btn btn-success">Click here</a>
+                </div>
+              </div>
+            </div>
           </div>
-<!-- /.row -->
-
-          <!-- spacer -->
-          <div class="row"> </div>
-
-          <!-- Feature list row #2 -->
-          <div class="row">
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/thermal.png" alt="Thermistor" width="140" height="140">
-              <h2>Thermal Protection</h2>
-              <p class="text-justify">Thermal Runaway Protection protects your printer from damage and fire if a thermistor falls out or temperature sensors fail in any way.</p>
-              <p><a class="btn btn-default" href="#" role="button"><del>View details »</del></a></p>
-            </div>
-<!-- /.col-lg-4 -->
-
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/kinematics.png" alt="Delta Kinematics" width="140" height="140">
-              <h2>Multiple Kinematics</h2>
-              <p class="text-justify">Marlin supports Delta, SCARA, and Cartesian kinematics.</p>
-              <p><a class="btn btn-default" href="#" role="button"><del>View details »</del></a></p>
-            </div>
-<!-- /.col-lg-4 -->
-
-            <div class="col-lg-4 text-center">
-              <img class="img-circle" src="/assets/images/features/usb.png" alt="USB Symbol" width="140" height="140">
-              <h2>USB Printing</h2>
-              <p class="text-justify">You can connect Marlin to Octoprint, Slic3r, Cura, Simplify 3D or any other host software which supports USB serial printing.</p>
-              <p><a class="btn btn-default" href="#" role="button"><del>View details »</del></a></p>
-            </div>
-<!-- /.col-lg-4 -->
-          </div>
-<!-- /.row -->
         </div>
 <!-- /.container -->
 
