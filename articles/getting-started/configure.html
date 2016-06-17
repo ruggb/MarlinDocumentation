@@ -36,7 +36,7 @@
 <meta property="og:url" content=" http://marlinfw.org/articles/getting-started/configure.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-05-08T15:28:59+01:00">
+<meta property="article:published_time" content="2016-06-17T20:26:56+01:00">
 <link rel="next" href="http://marlinfw.org/articles/getting-started/" title="Getting Started Category">
 <link rel="prev" href="http://marlinfw.org/articles/gcode/overview.html" title="Supported G-Code">
 <script type="application/ld+json">
@@ -44,7 +44,7 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "headline": "How to configure",
-    "datePublished": "2016-05-08T15:28:59+01:00",
+    "datePublished": "2016-06-17T20:26:56+01:00",
     "description": "This howto will guide the user on how to configure Marlin for their needs",
     "logo": " http://marlinfw.org/assets/images/logo/marlin/small.png",
     "url": " http://marlinfw.org/articles/getting-started/configure.html"
@@ -230,9 +230,9 @@
             <div class="col-md-12">
               <h1 id="introduction">Introduction</h1>
 
-<p>Marlin is a huge C++ program, but when it comes to configuring a build of Marlin there are only two files you need to worry about. To configure Marlin for a specific machine, edit or replace <code class="highlighter-rouge">Configuration.h</code> and <code class="highlighter-rouge">Configuration_adv.h</code> prior to building the binary .hex image or flashing the board. If you have these files from an older version of Marlin, you can usually just drop them in place to build the new version. (Marlin will give warnings about any deprecated options.)</p>
+<p>Marlin is a huge C++ program, but when it comes to configuring a build of Marlin there are only two files you need to worry about. To configure Marlin for a specific machine, edit or replace <code class="highlighter-rouge">Configuration.h</code> and <code class="highlighter-rouge">Configuration_adv.h</code> prior to building the binary .hex image or flashing the board. If you have these files from an older version of Marlin, you can usually just drop them in place to build the new version. (Marlin will give warnings about any deprecated options.)  Sample configurations for a variety of machines can be found in the example_configurations sub-directory.</p>
 
-<p>Marlin uses “directives” for most of its configuration options. Directives aren’t pretty, but they allow Marlin to leave out blocks of code that aren’t needed, producing the smallest, fastest code possible for your configuration. Settings are enabled, disabled, and given values using C preprocessor syntax like so:</p>
+<p>Marlin uses compiler “directives” for most of its configuration options. Directives aren’t pretty, but they allow Marlin to leave out blocks of code that aren’t needed, producing the smallest, fastest code possible for your configuration. Settings are enabled, disabled, and given values using C preprocessor syntax like so:</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define THIS_IS_ENABLED // a comment about this switch
 </span><span class="c1">//#define THIS_IS_DISABLED // a comment about this disabled switch
@@ -285,22 +285,76 @@
 
 <h3 id="board-type">Board Type</h3>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MOTHERBOARD BOARD_RAMPS_14_EFB</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MOTHERBOARD BOARD_RAMPS_14_EFB  43  // comment</span></code></pre></figure>
 
-<p>This defines what board that you used for your 3D printer. This is to tell Marlin to use these specific pins and restrictions for these particular board. Below is the list of the board that can be used with Marlin, taken from boards.h.</p>
+<p>This defines which motherboard you used for your 3D printer. It tells Marlin to use the specific pins and restrictions that apply to this particular board. Below is the list of the boards that can be used with Marlin, taken from boards.h.</p>
 
-<p>Change the <code class="highlighter-rouge">BOARD_RAMPS_14_EFB</code> into one of the listed constant below that matches your current board.
-The list below are often used by 3D printer owner, if not listed, kindly check the “boards.h” file</p>
+<p>Replace the <code class="highlighter-rouge">#define BOARD_RAMPS_14_EFB 43</code> line in Configuration.h with the line below that matches your current board.
+Check the boards,h file for the most up-to-date listing of supported boards, if you do not see yours listed here.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">BOARD_RAMPS_14_EFB</span>      <span class="c1">// RAMPS 1.4 (Power outputs: Extruder, Fan, Bed)
-</span><span class="n">BOARD_RAMPS_14_EEB</span>      <span class="c1">// RAMPS 1.4 (Power outputs: Extruder0, Extruder1, Bed)
-</span><span class="n">BOARD_RAMPS_14_EFF</span>      <span class="c1">// RAMPS 1.4 (Power outputs: Extruder, Fan, Fan)
-</span><span class="n">BOARD_RAMPS_14_EEF</span>      <span class="c1">// RAMPS 1.4 (Power outputs: Extruder0, Extruder1, Fan)`
-</span><span class="n">BOARD_RAMPS_14_SF</span>       <span class="c1">// RAMPS 1.4 (Power outputs: Spindle, Controller Fan)`
-</span><span class="n">BOARD_SANGUINOLOLU_12</span>   <span class="c1">// Sanguinololu 1.2 and above
-</span><span class="n">BOARD_MELZI</span>             <span class="c1">// Melzi
-</span><span class="n">BOARD_RUMBA</span>             <span class="c1">// Rumba
-</span><span class="n">BOARD_RAMBO</span>             <span class="o">//</span> <span class="n">Rambo</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define BOARD_GEN7_CUSTOM       10   // Gen7 custom (Alfons3 Version) "https://github.com/Alfons3/Generation_7_Electronics"
+#define BOARD_GEN7_12           11   // Gen7 v1.1, v1.2
+#define BOARD_GEN7_13           12   // Gen7 v1.3
+#define BOARD_GEN7_14           13   // Gen7 v1.4
+#define BOARD_CHEAPTRONIC       2    // Cheaptronic v1.0
+#define BOARD_SETHI             20   // Sethi 3D_1
+#define BOARD_RAMPS_OLD         3    // MEGA/RAMPS up to 1.2
+#define BOARD_RAMPS_13_EFB      33   // RAMPS 1.3 (Power outputs: Hotend, Fan, Bed)
+#define BOARD_RAMPS_13_EEB      34   // RAMPS 1.3 (Power outputs: Hotend0, Hotend1, Bed)
+#define BOARD_RAMPS_13_EFF      35   // RAMPS 1.3 (Power outputs: Hotend, Fan0, Fan1)
+#define BOARD_RAMPS_13_EEF      36   // RAMPS 1.3 (Power outputs: Hotend0, Hotend1, Fan)
+#define BOARD_RAMPS_13_SF       38   // RAMPS 1.3 (Power outputs: Spindle, Controller Fan)
+#define BOARD_FELIX2            37   // Felix 2.0+ Electronics Board (RAMPS like)
+#define BOARD_RIGIDBOARD        42   // Invent-A-Part RigidBoard
+#define BOARD_RAMPS_14_EFB      43   // RAMPS 1.4 (Power outputs: Hotend, Fan, Bed)
+#define BOARD_RAMPS_14_EEB      44   // RAMPS 1.4 (Power outputs: Hotend0, Hotend1, Bed)
+#define BOARD_RAMPS_14_EFF      45   // RAMPS 1.4 (Power outputs: Hotend, Fan0, Fan1)
+#define BOARD_RAMPS_14_EEF      46   // RAMPS 1.4 (Power outputs: Hotend0, Hotend1, Fan)
+#define BOARD_RAMPS_14_SF       48   // RAMPS 1.4 (Power outputs: Spindle, Controller Fan)
+#define BOARD_GEN6              5    // Gen6
+#define BOARD_GEN6_DELUXE       51   // Gen6 deluxe
+#define BOARD_SANGUINOLOLU_11   6    // Sanguinololu &lt; 1.2
+#define BOARD_SANGUINOLOLU_12   62   // Sanguinololu 1.2 and above
+#define BOARD_MELZI             63   // Melzi
+#define BOARD_STB_11            64   // STB V1.1
+#define BOARD_AZTEEG_X1         65   // Azteeg X1
+#define BOARD_MELZI_MAKR3D      66   // Melzi with ATmega1284 (MaKr3d version)
+#define BOARD_AZTEEG_X3         67   // Azteeg X3
+#define BOARD_AZTEEG_X3_PRO     68   // Azteeg X3 Pro
+#define BOARD_ULTIMAKER         7    // Ultimaker
+#define BOARD_ULTIMAKER_OLD     71   // Ultimaker (Older electronics. Pre 1.5.4. This is rare)
+#define BOARD_ULTIMAIN_2        72   // Ultimainboard 2.x (Uses TEMP_SENSOR 20)
+#define BOARD_3DRAG             77   // 3Drag Controller
+#define BOARD_K8200             78   // Vellemann K8200 Controller (derived from 3Drag Controller)
+#define BOARD_TEENSYLU          8    // Teensylu
+#define BOARD_RUMBA             80   // Rumba
+#define BOARD_PRINTRBOARD       81   // Printrboard (AT90USB1286)
+#define BOARD_PRINTRBOARD_REVF  811  // Printrboard Revision F (AT90USB1286)
+#define BOARD_BRAINWAVE         82   // Brainwave (AT90USB646)
+#define BOARD_SAV_MKI           83   // SAV Mk-I (AT90USB1286)
+#define BOARD_TEENSY2           84   // Teensy++2.0 (AT90USB1286) - CLI compile: DEFINES=AT90USBxx_TEENSYPP_ASSIGNMENTS HARDWARE_MOTHERBOARD=84  make
+#define BOARD_BRAINWAVE_PRO     85   // Brainwave Pro (AT90USB1286)
+#define BOARD_GEN3_PLUS         9    // Gen3+
+#define BOARD_GEN3_MONOLITHIC   22   // Gen3 Monolithic Electronics
+#define BOARD_MEGATRONICS       70   // Megatronics
+#define BOARD_MEGATRONICS_2     701  // Megatronics v2.0
+#define BOARD_MINITRONICS       702  // Minitronics v1.0/1.1
+#define BOARD_MEGATRONICS_3     703  // Megatronics v3.0
+#define BOARD_OMCA_A            90   // Alpha OMCA board
+#define BOARD_OMCA              91   // Final OMCA board
+#define BOARD_RAMBO             301  // Rambo
+#define BOARD_MINIRAMBO         302  // Mini-Rambo
+#define BOARD_AJ4P              303  // AJ4P
+#define BOARD_MEGACONTROLLER    310  // Mega controller
+#define BOARD_ELEFU_3           21   // Elefu Ra Board (v3)
+#define BOARD_5DPRINT           88   // 5DPrint D8 Driver Board
+#define BOARD_LEAPFROG          999  // Leapfrog
+#define BOARD_MKS_BASE          40   // MKS BASE 1.0
+#define BOARD_MKS_13            47   // MKS v1.3 or 1.4 (maybe higher)
+#define BOARD_SAINSMART_2IN1    49   // Sainsmart 2-in-1 board
+#define BOARD_BAM_DICE          401  // 2PrintBeta BAM&amp;DICE with STK drivers
+#define BOARD_BAM_DICE_DUE      402  // 2PrintBeta BAM&amp;DICE Due with STK drivers
+#define BOARD_BQ_ZUM_MEGA_3D    503  // bq ZUM Mega 3D</span></code></pre></figure>
 
 <div class="alert alert-info"><ul class="fa-ul"><li>
 <i class="fa fa-info-circle fa-lg fa-li" aria-hidden="true"></i>
@@ -331,12 +385,12 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 
 <p>This defines how many extruders you have for your 3d printer model.</p>
 
-<p>If you have more than one extruder, uncomment codes below</p>
+<p>If you have more than one extruder, uncomment and edit the lines below  {x,y} are the x and y offsets of extruder 1 from extruder 2 in mm.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">//#define EXTRUDER_OFFSET_X {0.0, 20.00}
 </span><span class="o">//</span><span class="err">#</span><span class="n">define</span> <span class="n">EXTRUDER_OFFSET_Y</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.00</span><span class="p">}</span></code></pre></figure>
 
-<p>As for more than 2 extruder at once, I’m not sure hwo to set them up.</p>
+<p>As for more than 2 extruder at once, I’m not sure how to set them up.</p>
 
 <hr>
 
@@ -358,13 +412,13 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_BED 3 //Heated bed</span></code></pre></figure>
 
-<p>These are the profile of your thermistors. Generic profile are often “1” which is “100K Thermistor”. If you can get exact brand and thermistor type for your hotend/heated bed, use that particular number/value/profile. Because each thermistor has their own characteristics to report temperature.</p>
+<p>These are the profiles of your thermistors. A generic profile is “1” which is “100K Thermistor”. If you can get the exact brand and thermistor type for your hotend/heated bed, use that particular number/value/profile. The thermistor type points to a calibration table of thermistor electrical resistance versus temperature.</p>
 
 <div class="alert alert-warning"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-circle fa-lg fa-li" aria-hidden="true"></i>
-<p>This is crucial to ensure exact temperature measurement.</p>
+<p>This is crucial to obtain accurate temperature measurements.</p>
 
-<p>If you’re unsure, just use 100k thermistor for <code class="highlighter-rouge">temp_sensor</code> and <code class="highlighter-rouge">temp_sensor_bed</code></p>
+<p>As a last resort, just use 100k thermistor for <code class="highlighter-rouge">temp_sensor</code> and <code class="highlighter-rouge">temp_sensor_bed</code> but be highly sceptical of the temperature accuracy.</p>
 </li></ul></div>
 
 <hr>
@@ -377,9 +431,9 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 #define HEATER_3_MINTEMP 5
 #define BED_MINTEMP 5</span></code></pre></figure>
 
-<p>One of the safety feature that will prevent the printer from working. Room temperature typically has a range of about 10-40’c, if one of the sensor goes below the specified value above, Marlin would prevent the user from using it.</p>
+<p>One of the safety features that will prevent the printer from operating. Room temperature typically has a range of about 10-40’c. Should any sensor goes below its specified minimum above, Marlin will shut down the printer, with a MINTEMP ERROR.</p>
 
-<p><code class="highlighter-rouge">MINTEMP ERROR</code>: This error means your thermistor isn’t connected into the temperature pin</p>
+<p><code class="highlighter-rouge">MINTEMP ERROR</code>: This error either means your thermistor has either disconnected from the temperature pin or has gone open-circuit, or you have your printer in a very cold room.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define HEATER_0_MAXTEMP 285
 #define HEATER_1_MAXTEMP 275
@@ -387,21 +441,21 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 #define HEATER_3_MAXTEMP 275
 #define BED_MAXTEMP 130</span></code></pre></figure>
 
-<p>Maximum temperature for these heating element. If Marlin reads the temperature past these values, it will stop working instantly for safety purpose. For E3D V6, 285 is the maximum value to most people.</p>
+<p>Maximum temperature for each heating element. If Marlin reads a temperature above these values, it will immediately shut down for safety reasons. For the E3D V6 hotend, many use 285 as a maximum value.</p>
 
-<p><code class="highlighter-rouge">MAXTEMP ERROR</code>: This means the thermistor legs/wires are shorted each other.</p>
+<p><code class="highlighter-rouge">MAXTEMP ERROR</code>: This usually means the thermistor legs/wires are shorted each other.</p>
 
 <hr>
 
 <h3 id="pid">PID</h3>
 
-<p>This is a setting to ensure stable temperature on your hotend and heated bed. Marlin will try to hit the target temperature based on the PID values. This is very important for hotends so that it won’t overshoot when trying to reach the temperature and during printing</p>
+<p>These are settings to help Marlin attain and track a target temperature of your hotends and heated bed in a stable and accurate fashion. Marlin will try to hit the target temperature in a manner based on these PID values. This is potential safety issue for hotends to avoid excessive overshoots when trying to reach and maintain their target temperature.</p>
 
-<p>Kindly refer <a href="http://reprap.org/wiki/PID_Tuning">here</a> for having Marlin to do the auto tune the PID. These are usually done once when you’re changing thermistor, heating element, the board and power supply; 12v and 24v system.</p>
+<p>Kindly refer <a href="http://reprap.org/wiki/PID_Tuning">here</a> to have Marlin auto tune the PID settings. This is usually done once any time you change the hot end, thermistor, the heating element, the board or the power supply voltage (12v/24v) - basically anything that changes the thermal characteristics of your hot-end or heated bed.</p>
 
-<p>The target temperature during auto tune process is your highest target temperature (In my opinion).</p>
+<p>The target temperature used during auto tune process calibration should be the highest target temperature you intend to use. (In my opinion- because that is where overshoots would be more likely to be critical).</p>
 
-<p>More detailed info about what PID are <a href="https://en.wikipedia.org/wiki/PID_controller">here</a>.</p>
+<p>More detailed info about PID control is <a href="https://en.wikipedia.org/wiki/PID_controller">here</a>.</p>
 
 <div class="alert alert-info"><ul class="fa-ul"><li>
 <i class="fa fa-info-circle fa-lg fa-li" aria-hidden="true"></i>
@@ -409,7 +463,7 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 
 <p><code class="highlighter-rouge">M304</code> sets up bed PID.</p>
 
-<p>This function is accessible trough the LCD (Hotend only).</p>
+<p>This function also is accessible through the LCD (Hotend only).</p>
 </li></ul></div>
 
 <hr>
@@ -422,21 +476,21 @@ The list below are often used by 3D printer owner, if not listed, kindly check t
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define EXTRUDE_MINTEMP 170</span></code></pre></figure>
 
-<p>This will prevent the extruder motor from moving if the hotend temperature is less than 170’c.</p>
+<p>The above setting would prevent the extruder motor from moving if the hotend temperature is less than 170’c.  For testing purposes with no filament loaded, M302 overrides this setting and permits “cold extrudes”.</p>
 
 <hr>
 
 <h4 id="thermal-runaway-protection">Thermal Runaway Protection</h4>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
-</span><span class="o">//</span> <span class="err">#</span><span class="n">define</span> <span class="n">THERMAL_PROTECTION_BED</span>     <span class="o">//</span> <span class="n">Enable</span> <span class="n">thermal</span> <span class="n">protection</span> <span class="k">for</span> <span class="n">the</span> <span class="n">heated</span> <span class="n">bed</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
+#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed</span></code></pre></figure>
 
-<p>This one is a cool feature to have. This one actually measures the current temperature and then sets a timer to it. If the timeout has reached then Marlin will stop the printing process.</p>
+<p>This one is a cool safety feature to enable. If the current temperature drops below the one Marlin is maintaining, Marlin applies heat and sets a timer. If the time limit is exceeded before restoring the temperature, Marlin shuts down the printer.</p>
 
-<p>The idea here is to avoid any loose thermistor fixture to its designated slot:
-For example it suddenly came loose in the hotend during printing; target temperature at 230’c, but thermistor reading on Marlin shows 170’c, Marlin thinks the hotend temperature is low and need to be powered. Without this, the hotend will heat up indefinitely until it is bright red and eventually burn everything due to misreading of the temperature from the loose thermistor.</p>
+<p>The idea here is to detect if a thermister gets loose and no longer is in good thermal contact with the hotend or heat-bed.
+For example, if it suddenly came loose in the hotend during printing, with a target temperature of, say, 230’c, the thermistor reading on Marlin might drop to, say, 170’c. Marlin thinks the hotend temperature is low and need to be powered. Without this protection, if the thermistor reading failed to reach the target, the hotend would heat indefinitely, getting red-hot and possibly setting fire to things - all due to misreading of the temperature from the loose thermistor.</p>
 
-<p>How it works is; target temperature at 190’c, after reaching 190’c this protection will start its timeout. If the reading was below the target then Marlin will power the hotend with timeout running as well. If the timeout has been triggered when the heating element still fully powered, Marlin will stop the whole process. Same goes for the heated bed.</p>
+<p>How it works is: with target temperature at 190’c, after reaching the target 190’c, should the reading drop below the target Marlin will power the hotend and start the timer countdown. If the countdown ends with the heating element still fully powered, Marlin will shut down the print. The same goes for the heated bed.</p>
 
 <p>The config of these parameters can be found in “configuration_adv.h” file.</p>
 
@@ -447,7 +501,7 @@ For example it suddenly came loose in the hotend during printing; target tempera
 <div class="panel-body">
 <p>
 </p>
-<p>In case of false thermal runaways, increase the watch period:</p>
+<p>In case of false thermal runaways, increase the watch period: (This can happen, for instance, when a part fan starts blowing on the bed thermistor.)</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define WATCH_TEMP_PERIOD 20   // Seconds
 #define WATCH_TEMP_INCREASE 2  // Degrees Celsius</span></code></pre></figure>
@@ -468,7 +522,7 @@ For example it suddenly came loose in the hotend during printing; target tempera
 // Enable this option for Toshiba steppers
 </span><span class="o">//</span><span class="err">#</span><span class="n">define</span> <span class="n">CONFIG_STEPPERS_TOSHIBA</span></code></pre></figure>
 
-<p>These are for special type of machines and configurations because they uses different types of algorithms to move around. If you’re using prusa, mendel, airwolf, or basically a cartesian based printer, as well as nema based stepper motor, leave these commented</p>
+<p>These are for special types of machine configurations which require different algorithms to move around. If you’re using a Prusa, Mendel, Airwolf, or basically any cartesian printer (one where each stepper is assigned to drive a separate (x/y/z) axis, leave these commented. For standard NEMA steppers, likewise leave CONFIG_STEPPERS_TOSHIBA alone.</p>
 
 <hr>
 
@@ -482,7 +536,7 @@ For example it suddenly came loose in the hotend during printing; target tempera
 </span><span class="k">const</span> <span class="n">bool</span> <span class="n">Z_MAX_ENDSTOP_INVERTING</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// set to true to invert the logic of the endstop.
 </span><span class="k">const</span> <span class="n">bool</span> <span class="n">Z_MIN_PROBE_ENDSTOP_INVERTING</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> <span class="o">//</span> <span class="n">set</span> <span class="n">to</span> <span class="nb">true</span> <span class="n">to</span> <span class="n">invert</span> <span class="n">the</span> <span class="n">logic</span> <span class="n">of</span> <span class="n">the</span> <span class="n">endstop</span><span class="p">.</span></code></pre></figure>
 
-<p>Inverting between triggered and open state when issuing M119 command. Usually not touched but if you don’t want to fiddle the wiring again, you can invert these.</p>
+<p>Inverting between triggered and open state when issuing M119 command. Usually not touched, but if you don’t want to fiddle with the wiring, you can invert these.</p>
 
 <hr>
 
@@ -522,11 +576,11 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false</span></code></pre></figure>
 
-<p>These inverts the motor movement for each axis. Usually flipping the connector will be okay but if that’s such a hassle, just invert these without the need to fiddle with your electronic.</p>
+<p>These inverts the motor movement for each axis. Reversing the wiring of your stepper motor is probably the proper way to do this, but if you don’t want to fiddle with the electronics this will fix it.</p>
 
 <div class="alert alert-danger"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-triangle fa-lg fa-li" aria-hidden="true"></i>
-<p>If you’re not careful on this, your axis will crash to the wrong direction. Either flip the connector or invert the value above. Make sure you try to move your axis manually via pronterface/repetier-host or lcd menu. Make sure all of your axis are in the middle of their travel to avoid them crashing.</p>
+<p>If you’re not careful on this, your axis will crash to the wrong direction. Either change the wiring or invert the value above. Make sure when you try to move an axis manually via pronterface/repetier-host or lcd menu, in order to check this setting, that you start with the axis in the middle of its travel.</p>
 </li></ul></div>
 
 <hr>
@@ -535,13 +589,13 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">//</span><span class="err">#</span><span class="n">define</span> <span class="n">MIN_Z_HEIGHT_FOR_HOMING</span> <span class="mi">4</span></code></pre></figure>
 
-<p>This works like how a probe based 3d printer works when homing. Instead of increase z height after x and y has been homed, Z axis are raised first before homing procedure. This is also to avoid from the head crashing to the bed mounting such as screws, bulldog clip and some other stuffs. This works with auto bed leveling enabled and this will be triggered only when z axis are less than defined value, else the z axis will not move.</p>
+<p>This works like how a probe based 3d printer works when homing. This raises z a minimum height above the bed before homing in x or y. This can be used to prevent the head crashing into bed mountings such as screws, bulldog clips and the like that project above the printing bed surface. This also works with auto bed leveling enabled and will be triggered only when the z axis height is less than the defined value, otherwise the z axis will not move.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1</span></code></pre></figure>
 
-<p>This tells Marlin where the head is at when all the endstop has been triggered. typical setup are all at min position; bottom front left side of the bed. In some cases, some owner puts the home endstops at max position and these needs to be changed if max position are used.</p>
+<p>This tells Marlin where the head is located when all the endstop have been triggered. In a typical setup are all at min position; bottom front left side of the bed. In some cases, owners put the home endstops at the max position, in which case these need to be changed.</p>
 
 <div class="alert alert-danger"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-triangle fa-lg fa-li" aria-hidden="true"></i>
@@ -551,7 +605,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define min_software_endstops true
 #define max_software_endstops true</span></code></pre></figure>
 
-<p>These are one of the safety features that prevents manual movement exceeding the below specified value. The head can only move within the specified value below.</p>
+<p>These enable the safety feature that prevent manual movement outside range specified below.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define X_MIN_POS 0
 #define Y_MIN_POS 0
@@ -560,7 +614,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define Y_MAX_POS 200
 #define Z_MAX_POS 170</span></code></pre></figure>
 
-<p>Usually the <code class="highlighter-rouge">MIN_POS</code> are left at 0 value and <code class="highlighter-rouge">MAX_POS</code> depends on your maximum travel. Setting this too high would risk the printer’s carriage crashing to each ends. This needs to be set in conjunctin with home offset eeprom variable to work properly. If you don’t want to set using eeprom, you can fiddle with <code class="highlighter-rouge">MIN_POS</code> value above as a substitute to eeprom’s Home Offset.</p>
+<p>Usually the <code class="highlighter-rouge">MIN_POS</code> are left at 0 value, then <code class="highlighter-rouge">MAX_POS</code> depends on your maximum travel. Setting the maximum too high risks the printer’s carriage crashing into the corresponding end. This needs to be set in conjunction with the home offset eeprom variable to work properly. If you don’t want to set using eeprom, you can fiddle with <code class="highlighter-rouge">MIN_POS</code> value above as a substitute to eeprom’s Home Offset.</p>
 
 <div class="panel panel-info">
 <div class="panel-heading">
@@ -579,7 +633,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">//</span><span class="err">#</span><span class="n">define</span> <span class="n">FILAMENT_RUNOUT_SENSOR</span></code></pre></figure>
 
-<p>This one is optional yet cool feature to have. An extra endstop switch is required to detect if the filament is present or not and the switch usually in normally closed/open state when the filament is present. If filament ran out, M600 command will be issued immediately.</p>
+<p>This one is an optional but cool feature to have. An extra endstop switch is required to detect if the filament is present or not, with the switch in a normally closed/open state when the filament is present. If the filament runs out, an M600 command will be issued immediately.</p>
 
 <hr>
 
@@ -718,7 +772,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <div class="alert alert-warning"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-circle fa-lg fa-li" aria-hidden="true"></i>
-<p>It is advisable not to use high value to achieve better accuracies as well as avoid skipping steps on your stepper motor.</p>
+<p>Setting these values too high may reduce accuracy and/or skipped steps.</p>
 </li></ul></div>
 
 <hr>
@@ -800,11 +854,11 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define DEFAULT_MAX_FEEDRATE          {400, 400, 4, 45}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {5000,5000,50,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.</span></code></pre></figure>
 
-<p>These are the maximum allowed acceleration rate that you limit on Marlin to. No matter how high your specified acceleration on <code class="highlighter-rouge">G0</code> commands are, it will be limited to the above values.</p>
+<p>In any move, the velocities (in mm/sec) in the X,Y,Z and E directions will be limited to the corresponding DEFAULT_MAX_FEEDRATE.  When an axis’ velocity is changed its acceleration (in mm/sec^2) will be limited to the corresponding DEFAULT_MAX_ACCELERATION.  However, discontinuous changes of velocity are permitted up to the corresponding <em>jerk</em> setting (see below).</p>
 
 <div class="alert alert-danger"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-triangle fa-lg fa-li" aria-hidden="true"></i>
-<p>Avoid setting this too high to avoid skipping steps during movement especially on high speed movements.</p>
+<p>Setting these too high will cause the corresponding stepper motor to lose steps, especially on high speed movements.</p>
 </li></ul></div>
 
 <div class="panel panel-info">
@@ -822,15 +876,15 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 
 <h4 id="default-acceleration">Default Acceleration</h4>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration in mm/s^2 for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define DEFAULT_ACCELERATION          1000    // acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  2000    // acceleration in mm/s^2 for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   3000    // acceleration in mm/s^2 for travel (non printing) moves</span></code></pre></figure>
 
-<p>These are the default acceleration when movement such as <code class="highlighter-rouge">G0 x20</code> without <code class="highlighter-rouge">F</code> are issued (acceleration/speed).</p>
+<p>These are the default (requested) magnitudes of the acceleration for printing moves (in E and some combination of X, Y and Z), retraction moves (E only) and travel moves (X, Y and/or Z only), respectively. For travel and printing moves these accelerations represent accelerations along the path segment in 3D (XYZ). For retraction moves where only the E axis moves, DEFAULT_RETRACT_ACCELERATION refers to the acceleration of the <em>E</em>-axis. Marlin reduces these default accelerations if required to avoid exceeding the default maximum acceleration limits for any individual axis, as specified above.</p>
 
 <div class="alert alert-danger"><ul class="fa-ul"><li>
 <i class="fa fa-exclamation-triangle fa-lg fa-li" aria-hidden="true"></i>
-<p>Do not set these too high as there are mechanical constraints too that might make your stepper motor make a whining noise or skipping steps when it starts to move or between movements.</p>
+<p>Do not set these too high as there are mechanical constraints that might cause your printer to vibrate excessively or your stepper motor to whine or skip steps.</p>
 </li></ul></div>
 
 <div class="panel panel-info">
@@ -850,7 +904,7 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define DEFAULT_XYJERK                15.0    // (mm/sec)</span></code></pre></figure>
 
-<p>Jerk works in conjunction with acceleration above. Both of acceleration and jerk will affect your print quality too especially cube and round shape.</p>
+<p>Jerk works in conjunction with acceleration (see above). Jerk is the maximum change in velocity (in mm/sec) that can occur instantaneously. Both acceleration and jerk affect your print quality. Set too low, the extruder will linger too long at points of direction change, causing for instance, blobs at the corners of a cube. Set too high, direction changes apply too much torque to your printer’s mechanics and you may see ringing artifacts or dropped steps.</p>
 
 <div class="panel panel-info">
 <div class="panel-heading">
@@ -873,16 +927,22 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define EEPROM_SETTINGS</span></code></pre></figure>
 
-<p>This option are recommended to turn this on (enable). This option enables the EEPROM on your board and you can just change several settings without the need of re-uploading the firmware to your board again such as modifying the z-probe offset value (I often did this). Some of these settings are directly accissble from the lcd panel&gt;control section</p>
+<p>This option is recommended to be turned on (enabled). This option enables the EEPROM on your board and allows you to change many configuration settings without editing Configuration/Configuration_adv.h and re-uploading the firmware to your board. This is a time saver while tuning adjustable parameters to your machine, such as the z-probe offset value. Some of these settings are directly accessible from the lcd panel&gt;control section, others are altered by M-code.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Several</span> <span class="n">useful</span> <span class="n">command</span> <span class="n">on</span> <span class="n">reading</span> <span class="n">and</span> <span class="n">storing</span> <span class="n">commands</span> <span class="n">are</span>
 <span class="n">M500</span> <span class="o">-</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">applied</span> <span class="n">setting</span>
-<span class="n">M501</span> <span class="o">-</span> <span class="n">Load</span><span class="o">/</span><span class="n">read</span> <span class="n">the</span> <span class="n">saved</span> <span class="n">setting</span> <span class="p">(</span><span class="n">not</span> <span class="n">from</span> <span class="n">config</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>
-<span class="n">M502</span> <span class="o">-</span> <span class="n">Loads</span> <span class="n">the</span> <span class="n">setting</span> <span class="n">from</span> <span class="n">config</span><span class="p">.</span><span class="n">h</span> <span class="p">(</span><span class="k">this</span> <span class="n">are</span> <span class="n">not</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">the</span> <span class="n">eeeprom</span> <span class="n">by</span> <span class="k">default</span><span class="p">)</span></code></pre></figure>
+<span class="n">M501</span> <span class="o">-</span> <span class="n">Load</span><span class="o">/</span><span class="n">read</span> <span class="n">the</span> <span class="n">saved</span> <span class="n">setting</span> <span class="n">from</span> <span class="n">EEPROM</span> <span class="p">(</span><span class="n">not</span> <span class="n">from</span> <span class="n">config</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>
+<span class="n">M502</span> <span class="o">-</span> <span class="n">Loads</span> <span class="n">the</span> <span class="n">setting</span> <span class="n">from</span> <span class="n">config</span><span class="p">.</span><span class="n">h</span> <span class="p">(</span><span class="k">this</span> <span class="n">are</span> <span class="n">not</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">the</span> <span class="n">eeprom</span> <span class="n">by</span> <span class="k">default</span><span class="p">)</span>
+<span class="n">M503</span> <span class="o">-</span> <span class="n">Print</span> <span class="n">current</span> <span class="n">settings</span> <span class="n">in</span> <span class="k">volatile</span> <span class="n">memory</span></code></pre></figure>
 
 <div class="alert alert-info"><ul class="fa-ul"><li>
 <i class="fa fa-info-circle fa-lg fa-li" aria-hidden="true"></i>
-<p>By enabling this, you are able to access variables saved in non-volatile memory of your board and features that can be accessed are all marked with <i class="fa fa-sticky-note-o" aria-hidden="true"></i> while those options marked with <i class="fa fa-desktop" aria-hidden="true"></i> can be accessed from LCD directly</p>
+<p>By enabling this, you are able to access variables saved in non-volatile memory of your board and features that can be accessed are all marked with <i class="fa fa-sticky-note-o" aria-hidden="true"></i> while those options marked with <i class="fa fa-desktop" aria-hidden="true"></i> can be accessed from LCD directly.</p>
+</li></ul></div>
+
+<div class="alert alert-info"><ul class="fa-ul"><li>
+<i class="fa fa-info-circle fa-lg fa-li" aria-hidden="true"></i>
+<p>The EEPROM is a great convenience, but can cause confusion if you don’t fully understand the process.  M-codes and the LCD change parameters in volatile memory. Unless saved to EEPROM with M500, the changes will not survive reboots. Once in EEPROM the parameters over-ride those in the firmware configuration files, so changing them there will have no effect unless you load them into volatile memory with M502 and save them to EEPROM with M500. If you change firmware versions your EEPROM settings may not be preserved, so it is wise to sync your configuration files with any permanent changes you save to EEPROM.  This will make the process of moving your configuration to the new firmware version simpler.  At any point, you can check the values in use with M503.</p>
 </li></ul></div>
 
 <hr>
@@ -939,9 +999,9 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 
 <p>This one if you’re using a full graphic type typically has 128 x 64 pixels.</p>
 
-<p>Do enable the one that suits to your lcd panel, using incorrect option would not display anything</p>
+<p>Enable the one that matches your lcd panel, or it won’t work.</p>
 
-<p>The above LCD type are commonly used, the rest of the other LCD panel are listed in <code class="highlighter-rouge">configuration.h</code> file</p>
+<p>The above LCD types are common options, other supported LCD panels are listed in <code class="highlighter-rouge">configuration.h</code> file</p>
 
 <hr>
 
@@ -982,7 +1042,7 @@ You should go to <code class="highlighter-rouge">http://prusaprinters.org/calcul
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">//</span><span class="err">#</span><span class="n">define</span> <span class="n">FILAMENT_WIDTH_SENSOR</span></code></pre></figure>
 
-<p>This if you have filament width sensor <code class="highlighter-rouge">http://www.thingiverse.com/thing:454584</code>. This eliminates the need of doign flow rate calibration and Marlin will adjust the flow rate according to the sensed filament width</p>
+<p>Uncomment this if you have a filament width sensor e.g.  <code class="highlighter-rouge">http://www.thingiverse.com/thing:454584</code>. This eliminates the need for flow rate calibration. Marlin will adjust the flow rate according to the sensed filament width. Then adjust the settings below for your setuo.</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define DEFAULT_NOMINAL_FILAMENT_DIA 3.00</span></code></pre></figure>
 
