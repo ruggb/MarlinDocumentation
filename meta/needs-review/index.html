@@ -1,11 +1,605 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Marlin 3D Printer Firmware - Printing the planet, one layer at a time.</title><meta property="og:title" content="Marlin 3D Printer Firmware"><meta name="description" content="Printing the planet, one layer at a time."><meta property="og:description" content="Printing the planet, one layer at a time."><link rel="canonical" href="http://marlinfw.org/meta/needs-review/"><meta property="og:url" content="http://marlinfw.org/meta/needs-review/"><meta property="og:site_name" content="Marlin 3D Printer Firmware"><meta property="og:type" content="article"><meta property="article:published_time" content="2016-08-11T11:19:28+01:00"><link rel="next" href="http://marlinfw.org/meta/tools/" title=""><link rel="prev" href="http://marlinfw.org/meta/missing/" title="Document not found"> <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Marlin 3D Printer Firmware",
-    "datePublished": "2016-08-11T11:19:28+01:00",
-    "description": "Printing the planet, one layer at a time.",
-    "logo": "http://marlinfw.org/assets/images/logo/marlin/small.png",
-    "url": "http://marlinfw.org/meta/needs-review/"
-  }
-</script><link rel="icon" href="/assets/favicon.ico"><link rel="stylesheet" href="/assets/stylesheets/main.css"> <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]--><script src="/assets/javascript/head.min.js"></script><script>var domains=["www.marlinfw.org","marlinfw.org","localhost","127.0.0.1"],pathname=location.pathname.replace(/^\/MarlinDocumentation/,"");-1==domains.indexOf(window.location.hostname)&&(window.top.location.href="http://www.marlinfw.org"+pathname),head.load("/assets/stylesheets/font-awesome.min.css","/assets/javascript/jquery-2.2.1.min.js","/assets/javascript/jquery-ui.min.js","/assets/javascript/bootstrap.min.js","/assets/javascript/tocify.min.js","/assets/javascript/custom.js","/assets/javascript/sheetrock.min.js","/assets/javascript/cookieconsent.min.js"),head.ready(function(){window.cookieconsent_options={message:"We uses cookies to ensure you get the best experience on our website",dismiss:"Got it!",learnMore:"More info",link:"",theme:"dark-bottom"}})</script></head><body role="document"><nav class="navbar navbar-default navbar-fixed-top custom-no-margin"><div class="container"><div class="navbar-header"> <a href="/" class="navbar-brand"> <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25"> </a> <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button></div><div class="navbar-collapse collapse" id="navbar-main"><ul class="nav navbar-nav"><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-getting-started"> Getting Started <span class="caret"></span></a><ul class="dropdown-menu"><li> <a href="/docs/basics/introduction.html"> Introduction</a></li><li class="divider"></li><li class="disabled"> <a href="#"> How to get</a></li><li> <a href="/docs/development/configuration.html"> How to configure</a></li><li> <a href="/docs/basics/install.html"> How to flash your board</a></li><li class="divider"></li><li class="disabled"> <a href="#"> Reporting bugs</a></li></ul></li><li> <a href="/meta/download/"> Download</a></li><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-documentation"> Documentation <span class="caret"></span></a><ul class="dropdown-menu"><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Development</a><ul class="dropdown-menu"><li><a href="/meta/development/">All documents</a></li><li class="divider"></li><li><a href="/docs/development/fonts.html"> Adding new fonts </a></li><li><a href="/docs/development/configuration.html"> Configuration manual </a></li><li><a href="/docs/development/feature_request.html"> Feature requests </a></li><li><a href="/docs/development/boards.html"> Supported hardware list </a></li></ul></li><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">G-Code</a><ul class="dropdown-menu"><li><a href="/meta/gcode/">All documents</a></li><li class="divider"></li><li><a href="/docs/gcode/G0.html"> G0: Linear Move </a></li><li><a href="/docs/gcode/G10.html"> G10: Retract </a></li><li><a href="/docs/gcode/G11.html"> G11: Unretract </a></li><li><a href="/docs/gcode/G12.html"> G12: Clean the Nozzle </a></li><li><a href="/docs/gcode/G2.html"> G2: Controlled Arc Move </a></li><li><a href="/docs/gcode/G20.html"> G20: Inches </a></li><li><a href="/docs/gcode/G21.html"> G21: Millimeters </a></li><li><a href="/docs/gcode/G27.html"> G27: Park the nozzle </a></li><li><a href="/docs/gcode/G28.html"> G28: Move to Origin </a></li><li><a href="/docs/gcode/G29-mbl.html"> G29: Mesh-based Z-Probe </a></li><li><a href="/docs/gcode/G29.html"> G29: Detailed Z-Probe </a></li><li><a href="/docs/gcode/G30.html"> G30: Single Z-Probe </a></li><li><a href="/docs/gcode/G31.html"> G31: Dock sled </a></li><li><a href="/docs/gcode/G32.html"> G32: Undock sled </a></li><li><a href="/docs/gcode/G4.html"> G4: Dwell </a></li><li><a href="/docs/gcode/G5.html"> G5: Bézier cubic spline </a></li><li><a href="/docs/gcode/G90.html"> G90: Set to Absolute Positioning </a></li><li><a href="/docs/gcode/G91.html"> G91: Set to Relative Positioning </a></li><li><a href="/docs/gcode/G92.html"> G92: Set Position </a></li><li><a href="/docs/gcode/M600.html"> M600: Filament Change </a></li></ul></li><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marlin features</a><ul class="dropdown-menu"><li><a href="/meta/features/">All documents</a></li><li class="divider"></li><li><a href="/docs/features/lin_advance.html"> Linear Advance extrusion algorithm </a></li></ul></li><li class="divider"></li><li> <a href="/meta/needs-review/"> Documentation needing review</a></li></ul></li><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-tools"> Tools <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="/tools/u8glib/converter.html"> C/C++ bitmap converter</a></li><li class="divider"></li><li><a href="https://github.com/MarlinFirmware/Marlin/issues"> Bugtracker</a></li><li><a href="/docs/basics/reporting-bugs.html"> Reporting bugs</a></li><li class="divider"></li><li><a href="https://github.com/MarlinFirmware/Marlin/"> Source code repository</a></li></ul></li></ul><ul class="nav navbar-nav navbar-right visible-lg-block"><li> <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_meta/needs-review.html" data-proofer-ignore> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="">Improve this page</span></a></li></ul></div></div> </nav><div class="container" role="main"><div class="row"><div class="col-lg-12"><h1>Needs review</h1></div></div><div class="row"><div class="col-lg-12"><div class="list-group"> <a href="/docs/development/configuration.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Configuration manual</h4><p class="list-group-item-text">Technical deep dive on all the configuration options</p> </a> <a href="/docs/gcode/G29.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Detailed Z-Probe</h4><p class="list-group-item-text">Probes the bed at 3 or more points</p> </a> <a href="/docs/gcode/G31.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Dock sled</h4><p class="list-group-item-text">Dock Z_PROBE_SLED sled only</p> </a> <a href="/docs/gcode/G29-mbl.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Mesh-based Z-Probe</h4><p class="list-group-item-text">Probes a grid and produces a mesh</p> </a> <a href="/docs/basics/reporting-bugs.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Reporting Bugs</h4><p class="list-group-item-text">Detailed guide about bugs and how to report them</p> </a> <a href="/docs/gcode/G32.html" class="list-group-item"><h4 class="list-group-item-heading"> <i class="fa fa-book" aria-hidden="true"></i> Undock sled</h4><p class="list-group-item-text">Undock Z_PROBE_SLED sled only</p> </a></div></div></div></div> <footer><div class="container"><div class="row"><div class="col-lg-12"><hr></div></div><div class="row"><div class="col-lg-8"><p>Brought to you with <i class="fa fa-heart text-danger" aria-hidden="true"></i> lack of <i class="fa fa-bed" aria-hidden="true"></i> and lots of <i class="fa fa-coffee" aria-hidden="true"></i>. <br> The contents of this website are © 2016 under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> License.</p></div><div class="col-lg-4"><div class="pull-right"> <a href="#top" data-proofer-ignore> Back to top <i class="fa fa-level-up" aria-hidden="true"></i></a></div></div></div></div> </footer> <script>!function(e,a,t,n,s,i,o){e.GoogleAnalyticsObject=s,e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)},e[s].l=1*new Date,i=a.createElement(t),o=a.getElementsByTagName(t)[0],i.async=1,i.src=n,o.parentNode.insertBefore(i,o)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-76230130-1",{cookieDomain:"marlinfw.org",siteSpeedSampleRate:80}),ga("require","displayfeatures"),ga("send","pageview")</script></body></html>
+<!DOCTYPE html>
+<!--
+  Marlin Firmware Documentation
+  Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+  Generated by Jekyll v3.3.1
+  Website version: 0.0.8-beta
+--><html lang="en">
+  <head>
+    <!-- head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Needs Review - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Needs Review">
+<meta name="description" content="Printing the planet, one layer at a time.">
+<meta property="og:description" content="Printing the planet, one layer at a time.">
+<link rel="canonical" href="http://marlinfw.org/meta/needs-review/">
+<meta property="og:url" content="http://marlinfw.org/meta/needs-review/">
+<meta property="og:site_name" content="Marlin 3D Printer Firmware">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-11-22T22:45:55+00:00">
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Needs Review",
+"datePublished": "2016-11-22T22:45:55+00:00",
+"description": "Printing the planet, one layer at a time.",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
+"url": "http://marlinfw.org/meta/needs-review/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/assets/javascript/head.min.js"></script>
+    <script type="text/javascript">
+      /**
+       * As Github pages do not support https for custom domains
+       * this is the current best workaround for #18.
+       */
+      var domains  = ['marlinfw.org', 'localhost', '127.0.0.1' ];
+      var pathname = location.pathname.replace(/^\/MarlinDocumentation/, '')
+      if (domains.indexOf(window.location.hostname) == -1)
+          window.top.location.href = 'http://marlinfw.org' + pathname;
+
+      /**
+       * Improves overall speed by loading javascript and css resources in parallel
+       * with the main page.
+       */
+      head.load(
+          "/assets/stylesheets/font-awesome.min.css",
+
+          "/assets/javascript/jquery-2.2.1.min.js",
+          "/assets/javascript/jquery-ui.min.js",
+          "/assets/javascript/bootstrap.min.js",
+          "/assets/javascript/tocify.min.js",
+          "/assets/javascript/custom.js",
+
+          "/assets/javascript/sheetrock.min.js",
+          "/assets/javascript/cookieconsent.min.js"
+      );
+
+      head.ready(function() {
+        window.cookieconsent_options = {
+          "message":"We uses cookies to ensure you get the best experience on our website",
+          "dismiss": "Got it!", "learnMore": "More info", "link":"", "theme": "dark-bottom"
+        };
+      });
+    </script>
+    <!-- /head -->
+  </head>
+  <body role="document">
+<!-- navbar -->
+<nav class="navbar navbar-default navbar-fixed-top custom-no-margin">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">
+        <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25">
+      </a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-getting-started">
+          Getting Started <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/docs/basics/introduction.html">
+              Introduction</a>
+</li>
+
+            <li class="divider">
+
+            </li>
+<li class="disabled">
+              <a href="#">
+              How to get</a>
+</li>
+
+            <li>
+              <a href="/docs/development/configuration.html">
+              How to configure</a>
+</li>
+
+            <li>
+              <a href="/docs/basics/install.html">
+              How to flash your board</a>
+</li>
+
+            <li class="divider">
+
+            </li>
+<li class="disabled">
+            <a href="#">
+            Reporting bugs</a>
+</li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="/meta/download/">
+          Download</a>
+</li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-documentation">
+          Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            
+
+            
+              
+              
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Development</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/development/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/development/fonts.html">
+                              
+                                Adding new fonts
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/configuration.html">
+                              
+                                Configuration manual
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/feature_request.html">
+                              
+                                Feature requests
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/getting_started_pull_requests_Windows.html">
+                              
+                                Getting Started - Code Changes &amp; Pull Requests (Windows)
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/boards.html">
+                              
+                                Supported hardware list
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">G-Code</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/gcode/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/gcode/G00.html">
+                              
+                                G0: Linear Move
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G02.html">
+                              
+                                G2: Controlled Arc Move
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G04.html">
+                              
+                                G4: Dwell
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G05.html">
+                              
+                                G5: Bézier cubic spline
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G10.html">
+                              
+                                G10: Retract
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G11.html">
+                              
+                                G11: Unretract
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G12.html">
+                              
+                                G12: Clean the Nozzle
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G20.html">
+                              
+                                G20: Inches
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G21.html">
+                              
+                                G21: Millimeters
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G27.html">
+                              
+                                G27: Park the nozzle
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G28.html">
+                              
+                                G28: Move to Origin
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G29-mbl.html">
+                              
+                                G29: Mesh-based Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G29.html">
+                              
+                                G29: Detailed Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G30.html">
+                              
+                                G30: Single Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G31.html">
+                              
+                                G31: Dock sled
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G32.html">
+                              
+                                G32: Undock sled
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G90.html">
+                              
+                                G90: Set to Absolute Positioning
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G91.html">
+                              
+                                G91: Set to Relative Positioning
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G92.html">
+                              
+                                G92: Set Position
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/M000.html">
+                              
+                                M0: Unconditional stop
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/M600.html">
+                              
+                                M600: Filament Change
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marlin features</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/features/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/features/auto_bed_leveling.html">
+                              
+                                Automatic Bed Leveling
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/features/lin_advance.html">
+                              
+                                Linear Advance extrusion algorithm
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+              
+
+            <li class="divider">
+
+            </li>
+<li>
+              <a href="/meta/needs-review/">
+              Documentation needing review</a>
+</li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-tools">
+          Tools <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="/tools/u8glib/converter.html">
+            C/C++ bitmap converter</a></li>
+
+            <li class="divider">
+
+            </li>
+<li><a href="https://github.com/MarlinFirmware/Marlin/issues">
+            Bugtracker</a></li>
+
+            <li><a href="/docs/basics/reporting-bugs.html">
+            Reporting bugs</a></li>
+
+            <li class="divider">
+
+            </li>
+<li><a href="https://github.com/MarlinFirmware/Marlin/">
+            Source code repository</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right visible-lg-block">
+        <li>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_meta/needs-review.html" data-proofer-ignore>
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <span class="">Improve this page</span></a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<!-- /navbar -->
+
+
+
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Needs review</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="list-group">
+          
+          
+
+          
+            
+            
+              <a href="/docs/development/configuration.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Configuration manual</h4>
+                
+                  <p class="list-group-item-text">Technical deep dive on all the configuration options</p>
+                
+              </a>
+            
+              <a href="/docs/gcode/G29.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Detailed Z-Probe</h4>
+                
+                  <p class="list-group-item-text">Probes the bed at 3 or more points</p>
+                
+              </a>
+            
+              <a href="/docs/gcode/G31.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Dock sled</h4>
+                
+                  <p class="list-group-item-text">Dock Z_PROBE_SLED sled only</p>
+                
+              </a>
+            
+              <a href="/docs/gcode/G29-mbl.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Mesh-based Z-Probe</h4>
+                
+                  <p class="list-group-item-text">Probes a grid and produces a mesh</p>
+                
+              </a>
+            
+              <a href="/docs/basics/reporting-bugs.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Reporting Bugs</h4>
+                
+                  <p class="list-group-item-text">Detailed guide about bugs and how to report them</p>
+                
+              </a>
+            
+              <a href="/docs/gcode/G32.html" class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <i class="fa fa-book" aria-hidden="true"></i> Undock sled</h4>
+                
+                  <p class="list-group-item-text">Undock Z_PROBE_SLED sled only</p>
+                
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <!-- footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <p>Brought to you with <i class="fa fa-heart text-danger" aria-hidden="true"></i> lack of
+              <i class="fa fa-bed" aria-hidden="true"></i> and lots of
+              <i class="fa fa-coffee" aria-hidden="true"></i>. <br>
+              The contents of this website are © 2016 under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> License.</p>
+          </div>
+          <div class="col-lg-4">
+            <div class="pull-right">
+              <a href="#top" data-proofer-ignore>
+              Back to top <i class="fa fa-level-up" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /footer -->
+
+
+    <!-- analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76230130-1', {
+          'cookieDomain': 'marlinfw.org',
+          'siteSpeedSampleRate': 80
+      });
+
+      ga('require', 'displayfeatures');
+      ga('send', 'pageview');
+    </script>
+    <!-- /analytics -->
+
+  </body>
+</html>

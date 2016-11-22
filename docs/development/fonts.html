@@ -1,21 +1,648 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Adding new fonts - Marlin 3D Printer Firmware</title><meta property="og:title" content="Adding new fonts"><meta name="description" content="How to add new font files to Marlin"><meta property="og:description" content="How to add new font files to Marlin"><link rel="canonical" href="http://marlinfw.org/docs/development/fonts.html"><meta property="og:url" content="http://marlinfw.org/docs/development/fonts.html"><meta property="og:site_name" content="Marlin 3D Printer Firmware"><meta property="og:type" content="article"><meta property="article:published_time" content="2016-08-11T11:19:28+01:00"><link rel="prev" href="http://marlinfw.org/docs/development/feature_request.html" title="Feature requests"> <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Adding new fonts",
-    "datePublished": "2016-08-11T11:19:28+01:00",
-    "description": "How to add new font files to Marlin",
-    "logo": "http://marlinfw.org/assets/images/logo/marlin/small.png",
-    "url": "http://marlinfw.org/docs/development/fonts.html"
-  }
-</script><link rel="icon" href="/assets/favicon.ico"><link rel="stylesheet" href="/assets/stylesheets/main.css"> <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]--><script src="/assets/javascript/head.min.js"></script><script>var domains=["www.marlinfw.org","marlinfw.org","localhost","127.0.0.1"],pathname=location.pathname.replace(/^\/MarlinDocumentation/,"");-1==domains.indexOf(window.location.hostname)&&(window.top.location.href="http://www.marlinfw.org"+pathname),head.load("/assets/stylesheets/font-awesome.min.css","/assets/javascript/jquery-2.2.1.min.js","/assets/javascript/jquery-ui.min.js","/assets/javascript/bootstrap.min.js","/assets/javascript/tocify.min.js","/assets/javascript/custom.js","/assets/javascript/sheetrock.min.js","/assets/javascript/cookieconsent.min.js"),head.ready(function(){window.cookieconsent_options={message:"We uses cookies to ensure you get the best experience on our website",dismiss:"Got it!",learnMore:"More info",link:"",theme:"dark-bottom"}})</script></head><body role="document"><nav class="navbar navbar-default navbar-fixed-top custom-no-margin"><div class="container"><div class="navbar-header"> <a href="/" class="navbar-brand"> <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25"> </a> <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button></div><div class="navbar-collapse collapse" id="navbar-main"><ul class="nav navbar-nav"><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-getting-started"> Getting Started <span class="caret"></span></a><ul class="dropdown-menu"><li> <a href="/docs/basics/introduction.html"> Introduction</a></li><li class="divider"></li><li class="disabled"> <a href="#"> How to get</a></li><li> <a href="/docs/development/configuration.html"> How to configure</a></li><li> <a href="/docs/basics/install.html"> How to flash your board</a></li><li class="divider"></li><li class="disabled"> <a href="#"> Reporting bugs</a></li></ul></li><li> <a href="/meta/download/"> Download</a></li><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-documentation"> Documentation <span class="caret"></span></a><ul class="dropdown-menu"><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Development</a><ul class="dropdown-menu"><li><a href="/meta/development/">All documents</a></li><li class="divider"></li><li><a href="/docs/development/fonts.html"> Adding new fonts </a></li><li><a href="/docs/development/configuration.html"> Configuration manual </a></li><li><a href="/docs/development/feature_request.html"> Feature requests </a></li><li><a href="/docs/development/boards.html"> Supported hardware list </a></li></ul></li><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">G-Code</a><ul class="dropdown-menu"><li><a href="/meta/gcode/">All documents</a></li><li class="divider"></li><li><a href="/docs/gcode/G0.html"> G0: Linear Move </a></li><li><a href="/docs/gcode/G10.html"> G10: Retract </a></li><li><a href="/docs/gcode/G11.html"> G11: Unretract </a></li><li><a href="/docs/gcode/G12.html"> G12: Clean the Nozzle </a></li><li><a href="/docs/gcode/G2.html"> G2: Controlled Arc Move </a></li><li><a href="/docs/gcode/G20.html"> G20: Inches </a></li><li><a href="/docs/gcode/G21.html"> G21: Millimeters </a></li><li><a href="/docs/gcode/G27.html"> G27: Park the nozzle </a></li><li><a href="/docs/gcode/G28.html"> G28: Move to Origin </a></li><li><a href="/docs/gcode/G29-mbl.html"> G29: Mesh-based Z-Probe </a></li><li><a href="/docs/gcode/G29.html"> G29: Detailed Z-Probe </a></li><li><a href="/docs/gcode/G30.html"> G30: Single Z-Probe </a></li><li><a href="/docs/gcode/G31.html"> G31: Dock sled </a></li><li><a href="/docs/gcode/G32.html"> G32: Undock sled </a></li><li><a href="/docs/gcode/G4.html"> G4: Dwell </a></li><li><a href="/docs/gcode/G5.html"> G5: Bézier cubic spline </a></li><li><a href="/docs/gcode/G90.html"> G90: Set to Absolute Positioning </a></li><li><a href="/docs/gcode/G91.html"> G91: Set to Relative Positioning </a></li><li><a href="/docs/gcode/G92.html"> G92: Set Position </a></li><li><a href="/docs/gcode/M600.html"> M600: Filament Change </a></li></ul></li><li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marlin features</a><ul class="dropdown-menu"><li><a href="/meta/features/">All documents</a></li><li class="divider"></li><li><a href="/docs/features/lin_advance.html"> Linear Advance extrusion algorithm </a></li></ul></li><li class="divider"></li><li> <a href="/meta/needs-review/"> Documentation needing review</a></li></ul></li><li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-tools"> Tools <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="/tools/u8glib/converter.html"> C/C++ bitmap converter</a></li><li class="divider"></li><li><a href="https://github.com/MarlinFirmware/Marlin/issues"> Bugtracker</a></li><li><a href="/docs/basics/reporting-bugs.html"> Reporting bugs</a></li><li class="divider"></li><li><a href="https://github.com/MarlinFirmware/Marlin/"> Source code repository</a></li></ul></li></ul><ul class="nav navbar-nav navbar-right visible-lg-block"><li> <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_development/fonts.md" data-proofer-ignore> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="">Improve this page</span></a></li></ul></div></div> </nav><div class="container" role="main"><div class="row"><div class="col-lg-3 col-md-4 visible-lg-block visible-md-block custom-no-padding"><div class="custom-fixed-sidebar"><div id="toc"></div></div></div><div class="col-lg-9 col-md-8 custom-bg-white"><div class="row"><div class="col-md-12 custom-article"><p class="text-right pull-right visible-lg-block hidden-print small custom-pt25"> <a href="https://github.com/jbrazio" data-toggle="tooltip" data-placement="bottom" title="Visit jbrazio's profile on Github"><img class="avatar avatar-small" src="https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=30" alt="jbrazio" srcset="https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=30 1x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=60 2x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=90 3x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a> <a href="https://github.com/thinkyhead" data-toggle="tooltip" data-placement="bottom" title="Visit thinkyhead's profile on Github"><img class="avatar avatar-small" src="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30" alt="thinkyhead" srcset="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30 1x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=60 2x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=90 3x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a> <a href="https://github.com/AnHardt" data-toggle="tooltip" data-placement="bottom" title="Visit AnHardt's profile on Github"><img class="avatar avatar-small" src="https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=30" alt="AnHardt" srcset="https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=30 1x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=60 2x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=90 3x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a></p><h1 class="custom-article-header">Adding new fonts</h1><hr><h2 id="editing">Editing</h2><p>All the fonts were created using <a href="http://hukka.ncn.fi/?fony">Fony</a> but any other font editor such as <a href="https://fontforge.github.io/en-US/">Fontforge</a> should be able to edit them.</p><h2 id="exporting">Exporting</h2><p>Marlin can’t use directly the <strong>fon</strong> font format, it must be exported to a C/C++ byte array. The workflow is very simple, just open a font file using <a href="http://hukka.ncn.fi/?fony">Fony</a> and export it to the <strong>bdf</strong> format. Next we must use the <a href="https://github.com/olikraus/u8glib/tree/master/tools/font/bdf2u8g">bdf2u8g.exe</a> converter in order to obtain a C/C++ header file.</p><p>On the <a href="http://hukka.ncn.fi/?fony">Fony</a> window select the first “symbol” from your font file (<strong>1</strong>) and see it’s index (<strong>3</strong>), in the following example the index of our first symbol is 32. Next you must repeat the operation for the last symbol (<strong>2</strong>), in our example the value is 255.</p><p style="text-align:center"><img src="/assets/images/docs/development/fonts/figure-001.jpg" alt="Figure #001"></p><p>Open a terminal window and execute, on the same folder where the <strong>bdf</strong> file is located, the following command:</p><div class="highlighter-rouge"> <pre class="highlight"><code>.\bdf2u8g.exe -b &lt;start&gt; -e &lt;end&gt; &lt;font_name&gt;.bdf &lt;font_name&gt; dogm_font_data_&lt;font_name&gt;.h
-</code></pre></div><p>You must replace <code class="highlighter-rouge">&lt;start&gt;</code>/<code class="highlighter-rouge">&lt;end&gt;</code> by your indexes and <code class="highlighter-rouge">&lt;font_name&gt;</code> by your font’s file name.</p><p>Edit the generated <code class="highlighter-rouge">dogm_font_data_&lt;font_name&gt;.h</code> and do the following changes to it:</p><ul><li>Replace <code class="highlighter-rouge">#include "u8g.h"</code> with <code class="highlighter-rouge">#include &lt;U8glib.h&gt;</code></li><li>Replace <code class="highlighter-rouge">U8G_FONT_SECTION</code> with <code class="highlighter-rouge">U8G_SECTION</code></li><li>Insert <code class="highlighter-rouge">.progmem.</code> right after the first quote <code class="highlighter-rouge">"</code> on <code class="highlighter-rouge">U8G_SECTION</code></li></ul><p>Original:</p><div class="highlighter-rouge"> <pre class="highlight"><code><span class="cp">#include "u8g.h"
+<!DOCTYPE html>
+<!--
+  Marlin Firmware Documentation
+  Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+  Generated by Jekyll v3.3.1
+  Website version: 0.0.8-beta
+--><html lang="en">
+  <head>
+    <!-- head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Adding new fonts - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Adding new fonts">
+<meta name="description" content="How to add new font files to Marlin">
+<meta property="og:description" content="How to add new font files to Marlin">
+<link rel="canonical" href="http://marlinfw.org/docs/development/fonts.html">
+<meta property="og:url" content="http://marlinfw.org/docs/development/fonts.html">
+<meta property="og:site_name" content="Marlin 3D Printer Firmware">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-11-22T22:45:55+00:00">
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Adding new fonts",
+"datePublished": "2016-11-22T22:45:55+00:00",
+"description": "How to add new font files to Marlin",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
+"url": "http://marlinfw.org/docs/development/fonts.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/assets/javascript/head.min.js"></script>
+    <script type="text/javascript">
+      /**
+       * As Github pages do not support https for custom domains
+       * this is the current best workaround for #18.
+       */
+      var domains  = ['marlinfw.org', 'localhost', '127.0.0.1' ];
+      var pathname = location.pathname.replace(/^\/MarlinDocumentation/, '')
+      if (domains.indexOf(window.location.hostname) == -1)
+          window.top.location.href = 'http://marlinfw.org' + pathname;
+
+      /**
+       * Improves overall speed by loading javascript and css resources in parallel
+       * with the main page.
+       */
+      head.load(
+          "/assets/stylesheets/font-awesome.min.css",
+
+          "/assets/javascript/jquery-2.2.1.min.js",
+          "/assets/javascript/jquery-ui.min.js",
+          "/assets/javascript/bootstrap.min.js",
+          "/assets/javascript/tocify.min.js",
+          "/assets/javascript/custom.js",
+
+          "/assets/javascript/sheetrock.min.js",
+          "/assets/javascript/cookieconsent.min.js"
+      );
+
+      head.ready(function() {
+        window.cookieconsent_options = {
+          "message":"We uses cookies to ensure you get the best experience on our website",
+          "dismiss": "Got it!", "learnMore": "More info", "link":"", "theme": "dark-bottom"
+        };
+      });
+    </script>
+    <!-- /head -->
+  </head>
+  <body role="document">
+<!-- navbar -->
+<nav class="navbar navbar-default navbar-fixed-top custom-no-margin">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">
+        <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25">
+      </a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-getting-started">
+          Getting Started <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/docs/basics/introduction.html">
+              Introduction</a>
+</li>
+
+            <li class="divider">
+
+            </li>
+<li class="disabled">
+              <a href="#">
+              How to get</a>
+</li>
+
+            <li>
+              <a href="/docs/development/configuration.html">
+              How to configure</a>
+</li>
+
+            <li>
+              <a href="/docs/basics/install.html">
+              How to flash your board</a>
+</li>
+
+            <li class="divider">
+
+            </li>
+<li class="disabled">
+            <a href="#">
+            Reporting bugs</a>
+</li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="/meta/download/">
+          Download</a>
+</li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-documentation">
+          Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            
+
+            
+              
+              
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Development</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/development/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/development/fonts.html">
+                              
+                                Adding new fonts
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/configuration.html">
+                              
+                                Configuration manual
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/feature_request.html">
+                              
+                                Feature requests
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/getting_started_pull_requests_Windows.html">
+                              
+                                Getting Started - Code Changes &amp; Pull Requests (Windows)
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/boards.html">
+                              
+                                Supported hardware list
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">G-Code</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/gcode/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/gcode/G00.html">
+                              
+                                G0: Linear Move
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G02.html">
+                              
+                                G2: Controlled Arc Move
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G04.html">
+                              
+                                G4: Dwell
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G05.html">
+                              
+                                G5: Bézier cubic spline
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G10.html">
+                              
+                                G10: Retract
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G11.html">
+                              
+                                G11: Unretract
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G12.html">
+                              
+                                G12: Clean the Nozzle
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G20.html">
+                              
+                                G20: Inches
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G21.html">
+                              
+                                G21: Millimeters
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G27.html">
+                              
+                                G27: Park the nozzle
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G28.html">
+                              
+                                G28: Move to Origin
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G29-mbl.html">
+                              
+                                G29: Mesh-based Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G29.html">
+                              
+                                G29: Detailed Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G30.html">
+                              
+                                G30: Single Z-Probe
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G31.html">
+                              
+                                G31: Dock sled
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G32.html">
+                              
+                                G32: Undock sled
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G90.html">
+                              
+                                G90: Set to Absolute Positioning
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G91.html">
+                              
+                                G91: Set to Relative Positioning
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/G92.html">
+                              
+                                G92: Set Position
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/M000.html">
+                              
+                                M0: Unconditional stop
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/gcode/M600.html">
+                              
+                                M600: Filament Change
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+                
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marlin features</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/meta/features/">All documents</a></li>
+                        <li class="divider">
+                        
+                        
+                          
+                            </li>
+<li><a href="/docs/features/auto_bed_leveling.html">
+                              
+                                Automatic Bed Leveling
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/features/lin_advance.html">
+                              
+                                Linear Advance extrusion algorithm
+                              
+                            </a></li>
+                          
+                        
+                      </ul>
+                    </li>
+                  
+                
+              
+
+            <li class="divider">
+
+            </li>
+<li>
+              <a href="/meta/needs-review/">
+              Documentation needing review</a>
+</li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-tools">
+          Tools <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="/tools/u8glib/converter.html">
+            C/C++ bitmap converter</a></li>
+
+            <li class="divider">
+
+            </li>
+<li><a href="https://github.com/MarlinFirmware/Marlin/issues">
+            Bugtracker</a></li>
+
+            <li><a href="/docs/basics/reporting-bugs.html">
+            Reporting bugs</a></li>
+
+            <li class="divider">
+
+            </li>
+<li><a href="https://github.com/MarlinFirmware/Marlin/">
+            Source code repository</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right visible-lg-block">
+        <li>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_development/fonts.md" data-proofer-ignore>
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <span class="">Improve this page</span></a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<!-- /navbar -->
+
+
+
+
+    
+
+    <!-- content -->
+    <div class="container" role="main">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 visible-lg-block visible-md-block custom-no-padding">
+          <div class="custom-fixed-sidebar">
+            <div id="toc"></div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-8 custom-bg-white">
+          <div class="row">
+            <div class="col-md-12 custom-article">
+              <p class="text-right pull-right visible-lg-block hidden-print small custom-pt25">
+
+
+  
+                <a href="https://github.com/jbrazio" data-toggle="tooltip" data-placement="bottom" title="Visit jbrazio's profile on Github"><img class="avatar avatar-small" src="https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=30" alt="jbrazio" srcset="https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=30 1x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=60 2x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=90 3x, https://avatars2.githubusercontent.com/jbrazio?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
+  
+                <a href="https://github.com/thinkyhead" data-toggle="tooltip" data-placement="bottom" title="Visit thinkyhead's profile on Github"><img class="avatar avatar-small" src="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30" alt="thinkyhead" srcset="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30 1x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=60 2x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=90 3x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
+  
+                <a href="https://github.com/AnHardt" data-toggle="tooltip" data-placement="bottom" title="Visit AnHardt's profile on Github"><img class="avatar avatar-small" src="https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=30" alt="AnHardt" srcset="https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=30 1x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=60 2x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=90 3x, https://avatars3.githubusercontent.com/AnHardt?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
+  
+
+              </p>
+              <h1 class="custom-article-header">Adding new fonts</h1>
+<hr>
+
+
+  
+
+
+              <h2 id="editing">Editing</h2>
+<p>All the fonts were created using <a href="http://hukka.ncn.fi/?fony">Fony</a> but any other font editor such as <a href="https://fontforge.github.io/en-US/">Fontforge</a> should be able to edit them.</p>
+
+<h2 id="exporting">Exporting</h2>
+<p>Marlin can’t use directly the <strong>fon</strong> font format, it must be exported to a C/C++ byte array. The workflow is very simple, just open a font file using <a href="http://hukka.ncn.fi/?fony">Fony</a> and export it to the <strong>bdf</strong> format. Next we must use the <a href="https://github.com/olikraus/u8glib/tree/master/tools/font/bdf2u8g">bdf2u8g.exe</a> converter in order to obtain a C/C++ header file.</p>
+
+<p>On the <a href="http://hukka.ncn.fi/?fony">Fony</a> window select the first “symbol” from your font file (<strong>1</strong>) and see it’s index (<strong>3</strong>), in the following example the index of our first symbol is 32. Next you must repeat the operation for the last symbol (<strong>2</strong>), in our example the value is 255.</p>
+
+<p style="text-align: center;"><img src="/assets/images/docs/development/fonts/figure-001.jpg" alt="Figure #001"></p>
+
+<p>Open a terminal window and execute, on the same folder where the <strong>bdf</strong> file is located, the following command:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>.\bdf2u8g.exe -b &lt;start&gt; -e &lt;end&gt; &lt;font_name&gt;.bdf &lt;font_name&gt; dogm_font_data_&lt;font_name&gt;.h
+</code></pre>
+</div>
+
+<p>You must replace <code class="highlighter-rouge">&lt;start&gt;</code>/<code class="highlighter-rouge">&lt;end&gt;</code> by your indexes and <code class="highlighter-rouge">&lt;font_name&gt;</code> by your font’s file name.</p>
+
+<p>Edit the generated <code class="highlighter-rouge">dogm_font_data_&lt;font_name&gt;.h</code> and do the following changes to it:</p>
+
+<ul>
+  <li>Replace <code class="highlighter-rouge">#include "u8g.h"</code> with <code class="highlighter-rouge">#include &lt;U8glib.h&gt;</code>
+</li>
+  <li>Replace <code class="highlighter-rouge">U8G_FONT_SECTION</code> with <code class="highlighter-rouge">U8G_SECTION</code>
+</li>
+  <li>Insert <code class="highlighter-rouge">.progmem.</code> right after the first quote <code class="highlighter-rouge">"</code> on <code class="highlighter-rouge">U8G_SECTION</code>
+</li>
+</ul>
+
+<p>Original:</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#include "u8g.h"
 </span><span class="k">const</span> <span class="n">u8g_fntpgm_uint8_t</span> <span class="n">Marlin_symbols</span><span class="p">[</span><span class="mi">140</span><span class="p">]</span> <span class="n">U8G_FONT_SECTION</span><span class="p">(</span><span class="s">"Marlin_symbols"</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
-</code></pre></div><p>Edited:</p><div class="highlighter-rouge"> <pre class="highlight"><code><span class="cp">#include &lt;U8glib.h&gt;
+</code></pre>
+</div>
+
+<p>Edited:</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#include &lt;U8glib.h&gt;
 </span><span class="k">const</span> <span class="n">u8g_fntpgm_uint8_t</span> <span class="n">Marlin_symbols</span><span class="p">[</span><span class="mi">140</span><span class="p">]</span> <span class="n">U8G_SECTION</span><span class="p">(</span><span class="s">".progmem.Marlin_symbols"</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
-</code></pre></div><p>You must now copy the edited C/C++ header file to the Marlin source folder and make Marlin aware of the new font file by editing the <code class="highlighter-rouge">ultralcd_impl_DOGM.h</code> before the <code class="highlighter-rouge">#else // fall-back</code> line:</p><div class="highlighter-rouge"> <pre class="highlight"><code><span class="cp">#elif ENABLED(DISPLAY_CHARSET_NEWNAME)
+</code></pre>
+</div>
+
+<p>You must now copy the edited C/C++ header file to the Marlin source folder and make Marlin aware of the new font file by editing the <code class="highlighter-rouge">ultralcd_impl_DOGM.h</code> before the <code class="highlighter-rouge">#else // fall-back</code> line:</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#elif ENABLED(DISPLAY_CHARSET_NEWNAME)
 </span>  <span class="cp">#include "dogm_font_data_yourfont.h"
 </span>  <span class="cp">#define FONT_MENU_NAME YOURFONTNAME
 #else // fall-back
-</span></code></pre></div><p>The last step is to add your font to the list of permitted fonts in <code class="highlighter-rouge">language_en.h</code> like so:</p><div class="highlighter-rouge"> <pre class="highlight"><code><span class="p">...</span> <span class="o">||</span> <span class="n">ENABLED</span><span class="p">(</span><span class="n">DISPLAY_CHARSET_YOUR_NEW_FONT</span><span class="p">)</span> <span class="p">...</span> <span class="p">)</span>
-</code></pre></div><div class="container-fluid"><div class="row alert alert-info custom-alert"><div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon"> <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i></div><div class="col-lg-11 col-md-10 custom-alert-text"><p>We distribute with Marlin the <code class="highlighter-rouge">make_fonts.bat</code> which is a helper script which automates <em>most</em> of the previous steps for our core font files, manual editing of the header files is still necessary.</p></div></div></div><h2 id="implementation-and-limits">Implementation and limits</h2><p>The current limit symbol limit per font is 256.</p><p>Marlin uses a menu system with 5 lines, on a display with 64 pixel height. That means each line can have at maximum 12 pixels height. but as a small gap between the lines is a requirement, the final symbol height can’t be no more than 10 pixel height. In some cases it may be desirable to make the gap between lines smaller so more information can fit the screen [even if it causes a small loss of readability], if <code class="highlighter-rouge">TALL_FONT_CORRECTION </code> is set to <code class="highlighter-rouge">1</code> when loading the font then each symbol may have up to 11 pixels height.</p><p>To fit 22 symbols on the a 128 pixel width screen, the symbols can’t be wider than 5 pixel <strong>for the first</strong> 128 symbols, <strong>for the last</strong> 128 symbols Marlin supports up to 11 pixel width bitmaps.</p></div></div></div></div></div> <footer><div class="container"><div class="row"><div class="col-lg-12"><hr></div></div><div class="row"><div class="col-lg-8"><p>Brought to you with <i class="fa fa-heart text-danger" aria-hidden="true"></i> lack of <i class="fa fa-bed" aria-hidden="true"></i> and lots of <i class="fa fa-coffee" aria-hidden="true"></i>. <br> The contents of this website are © 2016 under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> License.</p></div><div class="col-lg-4"><div class="pull-right"> <a href="#top" data-proofer-ignore> Back to top <i class="fa fa-level-up" aria-hidden="true"></i></a></div></div></div></div> </footer> <script>!function(e,a,t,n,s,i,o){e.GoogleAnalyticsObject=s,e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)},e[s].l=1*new Date,i=a.createElement(t),o=a.getElementsByTagName(t)[0],i.async=1,i.src=n,o.parentNode.insertBefore(i,o)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-76230130-1",{cookieDomain:"marlinfw.org",siteSpeedSampleRate:80}),ga("require","displayfeatures"),ga("send","pageview")</script></body></html>
+</span></code></pre>
+</div>
+
+<p>The last step is to add your font to the list of permitted fonts in <code class="highlighter-rouge">language_en.h</code> like so:</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="p">...</span> <span class="o">||</span> <span class="n">ENABLED</span><span class="p">(</span><span class="n">DISPLAY_CHARSET_YOUR_NEW_FONT</span><span class="p">)</span> <span class="p">...</span> <span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
+<p>We distribute with Marlin the <code class="highlighter-rouge">make_fonts.bat</code> which is a helper script which automates <em>most</em> of the previous steps for our core font files, manual editing of the header files is still necessary.</p>
+    </div>  </div>
+</div>
+
+<h2 id="implementation-and-limits">Implementation and limits</h2>
+<p>The current limit symbol limit per font is 256.</p>
+
+<p>Marlin uses a menu system with 5 lines, on a display with 64 pixel height. That means each line can have at maximum 12 pixels height. but as a small gap between the lines is a requirement, the final symbol height can’t be no more than 10 pixel height. In some cases it may be desirable to make the gap between lines smaller so more information can fit the screen [even if it causes a small loss of readability], if <code class="highlighter-rouge">TALL_FONT_CORRECTION </code> is set to <code class="highlighter-rouge">1</code> when loading the font then each symbol may have up to 11 pixels height.</p>
+
+<p>To fit 22 symbols on the a 128 pixel width screen, the symbols can’t be wider than 5 pixel <strong>for the first</strong> 128 symbols, <strong>for the last</strong> 128 symbols Marlin supports up to 11 pixel width bitmaps.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /content -->
+
+
+
+    <!-- footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <p>Brought to you with <i class="fa fa-heart text-danger" aria-hidden="true"></i> lack of
+              <i class="fa fa-bed" aria-hidden="true"></i> and lots of
+              <i class="fa fa-coffee" aria-hidden="true"></i>. <br>
+              The contents of this website are © 2016 under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> License.</p>
+          </div>
+          <div class="col-lg-4">
+            <div class="pull-right">
+              <a href="#top" data-proofer-ignore>
+              Back to top <i class="fa fa-level-up" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /footer -->
+
+
+    <!-- analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76230130-1', {
+          'cookieDomain': 'marlinfw.org',
+          'siteSpeedSampleRate': 80
+      });
+
+      ga('require', 'displayfeatures');
+      ga('send', 'pageview');
+    </script>
+    <!-- /analytics -->
+
+  </body>
+</html>
