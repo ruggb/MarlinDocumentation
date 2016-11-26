@@ -70,6 +70,12 @@
           window.top.location.href = 'http://marlinfw.org' + pathname;
 
       /**
+       * Another ugly workaround trying to improve UX reported by #35
+       */
+       if (location.protocol != 'http:')
+           location.href = 'http:' + window.location.href.substring(window.location.protocol.length); 
+
+      /**
        * Improves overall speed by loading javascript and css resources in parallel
        * with the main page.
        */
@@ -191,17 +197,17 @@
                           
                         
                           
-                            <li><a href="/docs/development/feature_request.html">
+                            <li><a href="/docs/development/getting_started_pull_requests.html">
                               
-                                Feature requests
+                                Contributing code with pull requests
                               
                             </a></li>
                           
                         
                           
-                            <li><a href="/docs/development/getting_started_pull_requests_Windows.html">
+                            <li><a href="/docs/development/feature_request.html">
                               
-                                Getting Started - Code Changes &amp; Pull Requests (Windows)
+                                Feature requests
                               
                             </a></li>
                           

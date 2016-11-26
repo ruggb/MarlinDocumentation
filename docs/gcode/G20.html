@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/gcode/G20.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-11-22T22:45:55+00:00">
+<meta property="article:published_time" content="2016-11-26T02:13:09+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Inches",
-"datePublished": "2016-11-22T22:45:55+00:00",
+"datePublished": "2016-11-26T02:13:09+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -70,6 +70,12 @@
       var pathname = location.pathname.replace(/^\/MarlinDocumentation/, '')
       if (domains.indexOf(window.location.hostname) == -1)
           window.top.location.href = 'http://marlinfw.org' + pathname;
+
+      /**
+       * Another ugly workaround trying to improve UX reported by #35
+       */
+       if (location.protocol != 'http:')
+           location.href = 'http:' + window.location.href.substring(window.location.protocol.length); 
 
       /**
        * Improves overall speed by loading javascript and css resources in parallel
@@ -193,17 +199,17 @@
                           
                         
                           
-                            <li><a href="/docs/development/feature_request.html">
+                            <li><a href="/docs/development/getting_started_pull_requests.html">
                               
-                                Feature requests
+                                Contributing code with pull requests
                               
                             </a></li>
                           
                         
                           
-                            <li><a href="/docs/development/getting_started_pull_requests_Windows.html">
+                            <li><a href="/docs/development/feature_request.html">
                               
-                                Getting Started - Code Changes &amp; Pull Requests (Windows)
+                                Feature requests
                               
                             </a></li>
                           

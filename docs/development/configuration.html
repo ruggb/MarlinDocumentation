@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/development/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-11-22T22:45:55+00:00">
+<meta property="article:published_time" content="2016-11-26T02:13:09+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuration manual",
-"datePublished": "2016-11-22T22:45:55+00:00",
+"datePublished": "2016-11-26T02:13:09+00:00",
 "description": "Technical deep dive on all the configuration options",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -70,6 +70,12 @@
       var pathname = location.pathname.replace(/^\/MarlinDocumentation/, '')
       if (domains.indexOf(window.location.hostname) == -1)
           window.top.location.href = 'http://marlinfw.org' + pathname;
+
+      /**
+       * Another ugly workaround trying to improve UX reported by #35
+       */
+       if (location.protocol != 'http:')
+           location.href = 'http:' + window.location.href.substring(window.location.protocol.length); 
 
       /**
        * Improves overall speed by loading javascript and css resources in parallel
@@ -193,17 +199,17 @@
                           
                         
                           
-                            <li><a href="/docs/development/feature_request.html">
+                            <li><a href="/docs/development/getting_started_pull_requests.html">
                               
-                                Feature requests
+                                Contributing code with pull requests
                               
                             </a></li>
                           
                         
                           
-                            <li><a href="/docs/development/getting_started_pull_requests_Windows.html">
+                            <li><a href="/docs/development/feature_request.html">
                               
-                                Getting Started - Code Changes &amp; Pull Requests (Windows)
+                                Feature requests
                               
                             </a></li>
                           
@@ -526,8 +532,7 @@
   
 
 
-              <p>This documentation is based on: 1.1.0 RC7
-# Introduction</p>
+              <h1 id="introduction">Introduction</h1>
 
 <p>Marlin is a huge program written in C++, but when it comes to configuring a build of Marlin there are only two files you need to worry about. To configure Marlin for a specific machine, edit or replace <code class="highlighter-rouge">Configuration.h</code> and <code class="highlighter-rouge">Configuration_adv.h</code> prior to building the binary .hex image or flashing the board. If you have these files from an older version of Marlin, you can usually just drop them in place to build the new version. (Marlin will give warnings about any deprecated options.) A variety of pre-built configurations are included in the example_configurations folder.</p>
 
@@ -536,6 +541,11 @@
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define THIS_IS_ENABLED // a comment about this switch
 </span><span class="c1">//#define THIS_IS_DISABLED // a comment about this disabled switch
 </span><span class="cp">#define OPTION_VALUE 22 // a comment about this parameter</span></code></pre></figure>
+
+<div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
+<p>This document is based on Marlin 1.1.0 RC7.</p>
+    </div>  </div>
+</div>
 
 <h1 id="sources-of-documentation">Sources of Documentation</h1>
 

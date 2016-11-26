@@ -28,25 +28,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Linear Advance extrusion algorithm - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Linear Advance extrusion algorithm">
-<meta name="description" content="A nozzle pressure control feature for improved print quality">
-<meta property="og:description" content="A nozzle pressure control feature for improved print quality">
-<link rel="canonical" href="http://marlinfw.org/docs/features/lin_advance.html">
-<meta property="og:url" content="http://marlinfw.org/docs/features/lin_advance.html">
+<title>Contributing code with pull requests - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Contributing code with pull requests">
+<meta name="description" content="How to get Marlin code, modify it, upload it &amp; do a pull request">
+<meta property="og:description" content="How to get Marlin code, modify it, upload it &amp; do a pull request">
+<link rel="canonical" href="http://marlinfw.org/docs/development/getting_started_pull_requests.html">
+<meta property="og:url" content="http://marlinfw.org/docs/development/getting_started_pull_requests.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-11-26T02:13:09+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Linear Advance extrusion algorithm",
+"headline": "Contributing code with pull requests",
 "datePublished": "2016-11-26T02:13:09+00:00",
-"description": "A nozzle pressure control feature for improved print quality",
+"description": "How to get Marlin code, modify it, upload it &amp; do a pull request",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
-"url": "http://marlinfw.org/docs/features/lin_advance.html"}</script>
+"url": "http://marlinfw.org/docs/development/getting_started_pull_requests.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -476,7 +476,7 @@
 
       <ul class="nav navbar-nav navbar-right visible-lg-block">
         <li>
-          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_features/lin_advance.md" data-proofer-ignore>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_development/getting_started_pull_requests.md" data-proofer-ignore>
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span class="">Improve this page</span></a>
         </li>
@@ -507,74 +507,217 @@
 
 
   
-                <a href="https://github.com/Sebastianv650" data-toggle="tooltip" data-placement="bottom" title="Visit Sebastianv650's profile on Github"><img class="avatar avatar-small" src="https://avatars1.githubusercontent.com/Sebastianv650?v=3&amp;s=30" alt="Sebastianv650" srcset="https://avatars1.githubusercontent.com/Sebastianv650?v=3&amp;s=30 1x, https://avatars1.githubusercontent.com/Sebastianv650?v=3&amp;s=60 2x, https://avatars1.githubusercontent.com/Sebastianv650?v=3&amp;s=90 3x, https://avatars1.githubusercontent.com/Sebastianv650?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
+                <a href="https://github.com/Bob-the-Kuhn" data-toggle="tooltip" data-placement="bottom" title="Visit Bob-the-Kuhn's profile on Github"><img class="avatar avatar-small" src="https://avatars0.githubusercontent.com/Bob-the-Kuhn?v=3&amp;s=30" alt="Bob-the-Kuhn" srcset="https://avatars0.githubusercontent.com/Bob-the-Kuhn?v=3&amp;s=30 1x, https://avatars0.githubusercontent.com/Bob-the-Kuhn?v=3&amp;s=60 2x, https://avatars0.githubusercontent.com/Bob-the-Kuhn?v=3&amp;s=90 3x, https://avatars0.githubusercontent.com/Bob-the-Kuhn?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
   
 
               </p>
-              <h1 class="custom-article-header">Linear Advance extrusion algorithm</h1>
+              <h1 class="custom-article-header">Contributing code with pull requests</h1>
 <hr>
 
 
   
 
-  
 
+              <div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
+<p>The current version of this document is targeted at Windows users.</p>
+    </div>  </div>
+</div>
 
-              <h2 id="purpose">Purpose</h2>
-<p>Let’s take the common test cube as an example: You may have noticed that the corners are not sharp, they are bleeding out. Also the top solid infill has some roughness where it comes to print direction changes on the perimeters. These problems are minor at very low print speeds and become much more noticeable when you try to print fast.</p>
+<h2 id="intro">Intro</h2>
 
-<p>The root cause of this print quality issues is an improper pressure inside the nozzle. In a nutshell, <strong>LIN_ADVANCE</strong> enables a pressure control feature which sets the pressure inside the nozzle to the needed one according to the print speed. This way, bleeding edges and rough solid infill can be nearly eliminated.</p>
+<p>Hopefully this will save someone the aggravation I went through trying to get my Marlin code to the right place in GitHub for it to be considered by the Marlin team.  It took me a LONG time, a lot of reading and a whole bunch of failed attempts before I was able to do it.</p>
 
-<h2 id="advantages">Advantages</h2>
+<p>The key is generating a pull request that compares the Marlin main repository against your repository.  To do this you need to fork the main repository to your work area.</p>
+
+<p>I thought I’d create more repositories in my work area by doing forks within my work area.  I wasn’t able to create a proper pull request with these "fork of fork" repositories.</p>
+
+<p>The Marlin team has guidelines for the code changes and for GitHub documentation &amp; process.  Please review the <a href="https://github.com/MarlinFirmware/Marlin/wiki">Wiki</a> and in particular <a href="https://github.com/MarlinFirmware/Marlin/wiki/DNE-Contributing">Contributing to Marlin</a> and <a href="https://github.com/MarlinFirmware/Marlin/wiki/DNE-Coding-Standards">Coding Standards</a></p>
+
+<p>Some of the Wiki stuff won’t make sense until you’ve been through the process.  I had to go over them multiple times plus read/watch a bunch of online tutorials.</p>
+
+<p>The tutorials were good for an overall picture but lacked enough detail to actually accomplish the task.  Hopefully this document supplies the details.</p>
+
+<hr>
+
+<h2 id="getting-the-code-into-your-pc--setting-up-github">Getting the code into your PC &amp; setting up GitHub</h2>
+
+<p>You’ll need a GitHub account and the desktop application.</p>
+
+<p>Go to the main Marlin repository at:   <a href="https://github.com/MarlinFirmware/Marlin">https://github.com/MarlinFirmware/Marlin</a></p>
+
+<p>Fork Marlin to your area by clicking the <code class="highlighter-rouge">fork</code> icon in the upper right</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_1.jpg" alt="image1"></p>
+
+<p>You’ll see a popup saying it’s copying files and then your GitHub work area pops up showing the new (forked) repository.  That should happen within 10-20 seconds of clicking the Fork icon.</p>
+
+<p>You’ll have to wait before doing anything further until the <code class="highlighter-rouge">Fetching Latest Commit</code> goes away.  If it’s still there after few minutes then GitHub is hung (not unusual).   Either way click on the <code class="highlighter-rouge">Settings</code> icon</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_2.jpg" alt="image2"></p>
+
+<p>Change the repository name by clicking in the <code class="highlighter-rouge">Repository name</code> box, typing the new name and then clicking on the <code class="highlighter-rouge">Rename</code> button.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_3.jpg" alt="image3"></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_4.jpg" alt="image4"></p>
+
+<p>That takes you back where the new name is displayed.</p>
+
+<p>Edit the title by clicking <code class="highlighter-rouge">Edit</code>.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_5.jpg" alt="image5"></p>
+
+<p>Type in the new title and click <code class="highlighter-rouge">Save</code>.</p>
+
+<p>Do not change the website.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_6.jpg" alt="image6"></p>
+
+<p>Open Desktop on your computer.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_7.jpg" alt="image7"></p>
+
+<p>Select the branch you want to download to your computer by clicking <code class="highlighter-rouge">branches</code>.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_8.jpg" alt="image8"></p>
+
+<p>Then click on <code class="highlighter-rouge">Change default branch</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_9.jpg" alt="image9"></p>
+
+<p>Click on <code class="highlighter-rouge">RC</code> and a drop down appears.  Click on <code class="highlighter-rouge">RCBugFix</code> and then on the <code class="highlighter-rouge">Update</code> button.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_10.jpg" alt="image10"></p>
+
+<p>A warning pops up.  Just click the <code class="highlighter-rouge">button</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_11.jpg" alt="image11"></p>
+
+<p>Now click on <code class="highlighter-rouge">&lt;&gt; Code</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_12.jpg" alt="image12"></p>
+
+<p>Click the <code class="highlighter-rouge">Clone or download</code> button</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_13.jpg" alt="image13"></p>
+
+<p>Select <code class="highlighter-rouge">Open in Desktop</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_14.jpg" alt="image14"></p>
+
+<p>A security popup may appear.  Just click the <code class="highlighter-rouge">Allow</code> button</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_15.jpg" alt="image15"></p>
+
+<p>Click <code class="highlighter-rouge">OK</code> to save it in the default location.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_16.jpg" alt="image16"></p>
+
+<p>A progress bar appears</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_17.jpg" alt="image17"></p>
+
+<p>The repository is now in your desktop.</p>
+
+<p>Only the selected branch was downloaded to Desktop.</p>
+
+<p>Check that the desired branch was downloaded.  Click <code class="highlighter-rouge">Changes</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_18.jpg" alt="image18"></p>
+
+<p>Click <code class="highlighter-rouge">open this repository</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_19.jpg" alt="image19"></p>
+
+<p>A Windows Explorer window pops up.  Open the Marlin directory and then open the version.h file</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_20.jpg" alt="image20"></p>
+
+<p>Scroll down until the "#define SHORT_BUILD_VERSION" is visible.  The text should say RCBugFix in it.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_21.jpg" alt="image21"></p>
+
+<p>If not you’ll need to repeat the steps starting with "Select the branch you want to download to your computer by clicking branches.".  Try the exact same steps a couple of times.  If still not downloaded try selecting the branch via one of these two ways.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_22.jpg" alt="image22"></p>
+
+<p>Once you have the desired branch then make at least two local copies of the directory</p>
+
 <ul>
-  <li>Higher dimensional precision due to reduced bleeding edges.</li>
-  <li>Higher print speeds are possible without loosing print quality.</li>
-  <li>With same print speed, visual and feelable print quality will be increased.</li>
-  <li>High acceleration and jerk values are not longer needed to get sharp edges.</li>
+  <li>–One to do your work &amp; testing in</li>
+  <li>–One so you have the original files in case you need to revert</li>
 </ul>
 
-<h2 id="important-notes-before-using">Important notes before using</h2>
-<p>Please consider the following points before you enable pressure control or you may end up with strange and hard to trace back issues:</p>
+<p>Now make a new branch via Desktop by clicking this <code class="highlighter-rouge">icon</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_23.jpg" alt="image23"></p>
+
+<p>Type in the <code class="highlighter-rouge">name</code> and click <code class="highlighter-rouge">Create new branch</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_24.jpg" alt="image24"></p>
+
+<p>The new branch is automatically selected.  Click the <code class="highlighter-rouge">Publish</code> button to make GitHub aware of the new branch.  The button changes to Sync after the publish completes</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_25.jpg" alt="image25"></p>
+
+<p>Creating the new branch just changed/created some pointers/flags - the directory names &amp; file contents didn’t change.</p>
+
+<h2 id="now-go-do-your-code-changes-amp-testing">Now go do your code changes &amp; testing.</h2>
+
+<h2 id="making-your-code-available-to-the-marlin-team">Making your code available to the Marlin team</h2>
+
+<p>When you want the outside world to see your changes (because you’re finished or you want a review/advice or ???) just go back to Desktop, select the desired branch, select changes and then copy/write the changed files into to the GitHub directory (the one where you checked the version.h file).  As the files are updated/replaced the change window in Desktop will update.  Clicking on the name of the file will bring up the changes in the right side window.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_26.jpg" alt="image26"></p>
+
+<p>Filling in the <code class="highlighter-rouge">Summary</code> and <code class="highlighter-rouge">Description</code> &amp; then clicking <code class="highlighter-rouge">Commit</code> takes a snapshot of the directory.  Make sure the check boxes are clicked on the files that you want to be made visible to the outside world.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_27.jpg" alt="image27"></p>
+
+<p>Before doing the commit</p>
 
 <ul>
-  <li>Your printer has to produce good prints before. For example, your extruder steps/mm value has to be calibrated precisely - do this at a low print speed like 20 mm/s to keep nozzle pressure effects low in this step! Don’t enable a new feature if you have unresolved issues!</li>
-  <li>Check the play in your extruder drive gears (if you have any). Excessive play will lead to strange noises during the extra extruder movements!</li>
-  <li>Some slicers have options to control the nozzle pressure in some ways. Common names are: <strong>Pressure advance</strong>, <strong>Coast at end</strong>, <strong>extra restart length after retract</strong>. Disable them all! The firmware will do a much better job than the best slicer can do, and they would influence themselves in a bad way. I also strongly recommend to disable further features like wipe while retract. You can try to enable it again after you have calibrated your <code class="highlighter-rouge">K</code> factor (see next step), but I guess you don’t need it anymore.</li>
-  <li>After you have a calibrated, working pressure advance feature, you may want to recheck your retraction distance. You will find out that you can cut it down to nearly 0. This is caused by the pressure control, it reduces the nozzle pressure at the and of a line to about zero. For example, I was using 1 mm retract length for PLA, with enabled <strong>LIN_ADVANCE</strong> I’m now using 0.5 mm.</li>
-  <li>Keep in mind that enabling this feature will add extra load to the processor and also your extruder hardware. I recommend to stay at 115200 baud communication speed, specially if you get error messages in your print host software or you get wired movements of your print head. Ensure your print host software is using line numbers and checksums, this is disabled by default in Simplify3D.</li>
-  <li>On the extruder side, the needed extra movements may lead to an increased wear on the printed gears of a gregs wade extruder.</li>
-  <li>Most testing of this new feature was done on direct drive extruder printers. If you have problems with <a href="http://reprap.org/wiki/Erik%27s_Bowden_Extruder">bowden</a> printers due to the needed high <code class="highlighter-rouge">K</code> values, please report them on Marlin GitHub and/or try to reduce your acceleration value.</li>
-  <li>Using this feature with very flexible filaments like Ninjaflex is untested and will most likely not work due to the extremely high needed <code class="highlighter-rouge">K</code> values.</li>
+  <li>Please review the Marlin team’s guidelines</li>
+  <li>Make sure you’ve compiled and done some sanity tests on the code you’ve written/copied into the branch directory</li>
 </ul>
 
-<h2 id="calibrating">Calibrating</h2>
-<p>For a gregs wade extruder you can use <code class="highlighter-rouge">K = 75</code> as a start point for PLA and <code class="highlighter-rouge">K = 150</code> for nGen. <code class="highlighter-rouge">K</code> is a unique value for an extruder with one filament material. If you are using different filament materials like PLA and ABS, you will have one <code class="highlighter-rouge">K</code> value per material. The value will be higher for more flexible filaments.</p>
+<p>Actually moving the committed changes up to GitHub is done by clicking the <code class="highlighter-rouge">Sync</code> icon</p>
 
-<p>Use a test cube with the dimensions 25x25x2mm for testing. Set the acceleration of your printer to a low value like 500mm/s² to eliminate other effects like overshooting fluid filament on direction changes. Set all print speeds for the cube to the same high value, 70mm/s for 0.2mm layer height for example - but be sure to not exceed the flow rate your hotend can handle! Ensure your slicers cooling settings will not slow down the print speed. If it would do this, disable the cooling feature or increase the length and width of the test cube.</p>
+<p><img src="/assets/images/docs/development/pull_images/pull_28.jpg" alt="image28"></p>
 
-<p>Print some test cubes, each with another <code class="highlighter-rouge">K</code> value. You can set the value with “M905 <code class="highlighter-rouge">K</code>..” before you start the print, where .. is the value you want it to be. Start with K0 to disable the pressure control, which will give you a reference print how your cube would look like without the feature enabled.
-Then increase <code class="highlighter-rouge">K</code> maybe in 25 units steps. On every print note down the used <code class="highlighter-rouge">K</code> value.</p>
+<p>Now go back to the main Marlin page on GitHub and click the <code class="highlighter-rouge">New pull request</code> button.</p>
 
-<p>The best value is the one where you have no bleeding edges (bleeding edges = <code class="highlighter-rouge">K</code> too low) and no inward rounded edges (<code class="highlighter-rouge">K</code> too high). Check by holding a metal ruler on each of the 4 sides of the test prints. You will also see and even more feel the difference in the quality of the top infill, where it changes print direction at the perimeters. But top infill alone is no sufficient calibration criterion as it is also influenced by the infill overlap % that’s between 15-20% in most slicers.</p>
+<p><img src="/assets/images/docs/development/pull_images/pull_29.jpg" alt="image29"></p>
 
-<p>When you have found a good value, there are two ways to make them permanent in your firmware. If you are using only one filament material, the best way is to set the <code class="highlighter-rouge">K</code> value inside Configuration_adv.h and reflash the firmware. If you are using different materials, you might want to insert a “M905 <code class="highlighter-rouge">K</code>..” line into the start code inside your slicer profile used for the corresponding material.</p>
+<p>Click <code class="highlighter-rouge">compare across forks</code></p>
 
-<h1 id="developer-information">Developer information</h1>
+<p><img src="/assets/images/docs/development/pull_images/pull_30.jpg" alt="image30"></p>
 
-<p>The force needed to move the filament through the nozzle depends on the speed you are trying to push it through. If you push it fast (=printing fast), the filament will be compressed in a first step before the pressure inside the nozzle is high enough to extruder the required amount of material.
-If you take a single, fast printed line, this results in under extrusion at the line start point (the filament gets compressed, but needed pressure isn’t reached) and over extrusion with a blob at the lines end (the filament is still compressed when the nozzle comes to the stop which results in oozing).
-For a complete print, this leads to bleeding edges at corners (corners are stop/end points of lines) and in extreme cases even gaps between perimeters due to under extrusion at their start points.</p>
+<p>Select the RCBugFix branch in the main Marlin repository by clicking the <code class="highlighter-rouge">base</code> button and then clicking on <code class="highlighter-rouge">RCBugFix</code></p>
 
-<p>The <strong>LIN_ADVANCE</strong> pressure control handles this free filament length as a spring, where <code class="highlighter-rouge">K</code> is a spring constant. When the nozzle starts to print a line, it takes the extrusion speed as a reference. Additional to the needed extrusion length for a line segment, which is defined by the slicer, it calculates the needed extra compression of the filament to reach the needed nozzle pressure so that the extrusion length defined by the slicer is really extruded. This is done in every loop of the stepper ISR.
-During deceleration, the filament compression is released again by the same formula: advance_steps = delta_extrusion_speed * <code class="highlighter-rouge">K</code>. During deceleration, delta_extrusion_speed is negative therefore the advance_steps values is negative which leads to a retract movement relaxing the filament again.</p>
+<p><img src="/assets/images/docs/development/pull_images/pull_31.jpg" alt="image31"></p>
 
-<p>The basic formula (<code class="highlighter-rouge">advance_steps = delta_extrusion_speed * K</code>) is the same as in the famous JKN pressure control, but with one important difference: JKN is calculating the sum of all needed advance extruder steps inside the planner loop and distributes them equally over every acceleration and deceleration stepper ISR loop. This leads to a wrong distribution of the advance steps, resulting in a not perfect print result. <strong>LIN_ADVANCE</strong> is calculating the needed extra steps on the fly in every stepper ISR loop, therefore executing the needed steps precisely where needed.
-For further details and graphs have a look into <a href="https://drive.google.com/file/d/0B5UvosQgK3adaHVtdUI5OFR3VUU/view">this presentation, slides 7-9</a>.</p>
+<p>Click <code class="highlighter-rouge">compare across forks</code> (again)</p>
 
-<p>Inside the Marlin code, stepper and planner files are the ones where the work is done. Inside the planner loop, <strong>LIN_ADVANCE</strong> checks if a move needs pressure control. This is true for a print move, but false for travel moves and extruder only moves like retract and prime events.
-Inside the stepper file, <strong>LIN_ADVANCE</strong> calculates the amount of needed extra steps to reach the needed nozzle pressure inside the stepper ISR. To avoid missing steps, it’s not executing the steps at once. Instead, I reused and modified the extruder stepper ISR implemented with the old Marlin ADVANCE feature. The normal extruder steps are executed together with the extra steps due to <strong>LIN_ADVANCE</strong> in the given time frame before the next stepper ISR loop will fire.</p>
+<p><img src="/assets/images/docs/development/pull_images/pull_32.jpg" alt="image32"></p>
 
-<p>At the moment, there is no check if the extruder acceleration, speed or jerk will exceed the limits set inside Configuration.h. To achieve such checks, the planner needs to be completely rewritten because a variable acceleration rate is needed to compensate too fast pressure advance movements. I’m quite sure the power of the used ATMega isn’t sufficient to do this.. But up to now, I don’t know about problems according to this in real world printing.</p>
+<p>Click on the <code class="highlighter-rouge">head fork:</code> button and then click on <code class="highlighter-rouge">your repository</code></p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_33.jpg" alt="image33"></p>
+
+<p>Click on the <code class="highlighter-rouge">compare</code> button and then click the <code class="highlighter-rouge">name of the branch</code> you created with Desktop</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_34.jpg" alt="image34"></p>
+
+<p>The text from your commit is copied into the pull request.  Modify as desired.  When happy click the <code class="highlighter-rouge">Create pull request</code> button.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_35.jpg" alt="image35"></p>
+
+<p>Here’s the pull request that was just created.</p>
+
+<p><img src="/assets/images/docs/development/pull_images/pull_36.jpg" alt="image36"></p>
+
+<p>You probably have an open issue associated with your code changes.  Copy the pull request’s URL into the issue.</p>
 
             </div>
           </div>
