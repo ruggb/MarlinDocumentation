@@ -28,20 +28,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Detailed Z-Probe - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Detailed Z-Probe">
+<title>Automatic Bed Leveling - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Automatic Bed Leveling">
 <meta name="description" content="">
 <meta property="og:description" content="">
 <link rel="canonical" href="http://marlinfw.org/docs/gcode/G29.html">
 <meta property="og:url" content="http://marlinfw.org/docs/gcode/G29.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-15T21:52:25+00:00">
+<meta property="article:published_time" content="2016-12-15T23:34:19+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Detailed Z-Probe",
-"datePublished": "2016-12-15T21:52:25+00:00",
+"headline": "Automatic Bed Leveling",
+"datePublished": "2016-12-15T23:34:19+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -326,7 +326,7 @@
                           
                             <li><a href="/docs/gcode/G29-mbl.html">
                               
-                                G29: Mesh-based Z-Probe
+                                G29: Manual Bed Leveling
                               
                             </a></li>
                           
@@ -334,7 +334,7 @@
                           
                             <li><a href="/docs/gcode/G29.html">
                               
-                                G29: Detailed Z-Probe
+                                G29: Automatic Bed Leveling
                               
                             </a></li>
                           
@@ -548,11 +548,11 @@
 </li>
               
                   <li class="tocify-item" style="cursor: pointer;">
-                    <a href="/docs/gcode/G29-mbl.html">G29: Mesh-based Z-Probe</a>
+                    <a href="/docs/gcode/G29-mbl.html">G29: Manual Bed Leveling</a>
 </li>
               
                   <li class="tocify-item active" style="cursor: pointer;">
-                    <a href="/docs/gcode/G29.html">G29: Detailed Z-Probe</a>
+                    <a href="/docs/gcode/G29.html">G29: Automatic Bed Leveling</a>
 </li>
               
                   <li class="tocify-item" style="cursor: pointer;">
@@ -611,7 +611,7 @@
     <h1 class="custom-no-margin-bottom">
       
         G29
-       - Detailed Z-Probe
+       - Automatic Bed Leveling
     </h1>
 
     
@@ -634,26 +634,27 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <p>
     
       
-        </p>
-<p>Probes the bed at 3 or more points and prints a report. The printer must be homed with G28 before G29.</p>
+        <p>Probes the bed at 3 or more points and enables bed leveling compensation. The style of bed leveling depends on the type of bed leveling chosen in <code class="highlighter-rouge">Configuration.h</code>:</p>
 
-        
+      
+        <ul>
+  <li>
+<code class="highlighter-rouge">AUTO_BED_LEVELING_3POINT</code> probes 3 points and compensates for bed tilt.</li>
+  <li>
+<code class="highlighter-rouge">AUTO_BED_LEVELING_LINEAR</code> also compensates for tilt but probes a grid and uses a “least-squares” solution.</li>
+  <li>
+<code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> probes a grid and produces a mesh to adjust Z across the bed.</li>
+</ul>
+
+      
+        <p>The printer must be homed with <code class="highlighter-rouge">G28</code> before <code class="highlighter-rouge">G29</code>.</p>
+
       
     
-    
 
 
-  
-
-  
-    <div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
-<p>You’re reading a document which has been marked as <code class="highlighter-rouge">needs-review</code>, this means that the following information maybe outdated or no longer applies to the latest Marlin versions.</p>
-
-    </div>  </div>
-</div>
   
 
   </div>
@@ -687,9 +688,19 @@
               -->]
             </span>
           
-            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Dry-Run mode, don't apply or clean the rotation Matrix">
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Dry-Run mode. Just probe the grid but don't update the bed leveling data">
               [<!--
               -->D<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->flag<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
               --><!--
               -->]
             </span>
@@ -771,8 +782,6 @@
                   --><!--
                     -->rate<!--
                     --><!--
-                      --> in per min<!--
-                    --><!--
                   --><!--
                   -->&gt;<!--
                 --><!--
@@ -783,6 +792,16 @@
             <span data-toggle="tooltip" data-placement="bottom" data-original-title="Generate a Bed Topology Report">
               [<!--
               -->T<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->flag<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
               --><!--
               -->]
             </span>
@@ -811,6 +830,38 @@
                   --><!--
                     -->4<!--
                     --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Override the X-size of the grid that will be probed">
+              [<!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->int<!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Override the Y-size of the grid that will be probed">
+              [<!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->int<!--
                   --><!--
                   -->&gt;<!--
                 --><!--
@@ -876,10 +927,24 @@
                       [<!--
                       -->D<!--
                       --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->flag<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
                       -->]
                     </code></td>
                     <td>
-                      <p>Dry-Run mode, don't apply or clean the rotation Matrix</p>
+                      <p>Dry-Run mode. Just probe the grid but don't update the bed leveling data</p>
+                      
+                        
+                          
+                        
                       
                     </td>
                   </tr>
@@ -1002,8 +1067,6 @@
                           --><!--
                             -->rate<!--
                             --><!--
-                              --> in per min<!--
-                            --><!--
                           --><!--
                           -->&gt;<!--
                         --><!--
@@ -1025,10 +1088,24 @@
                       [<!--
                       -->T<!--
                       --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->flag<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
                       -->]
                     </code></td>
                     <td>
                       <p>Generate a Bed Topology Report</p>
+                      
+                        
+                          
+                        
                       
                     </td>
                   </tr>
@@ -1080,6 +1157,58 @@
                     </td>
                   </tr>
                 
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->int<!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Override the X-size of the grid that will be probed</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->int<!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Override the Y-size of the grid that will be probed</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
               </tbody>
             </table>
           
@@ -1095,7 +1224,7 @@
       <h2>Notes</h2>
         
           <p></p>
-<p>The command G29 can be used standalone to apply the Automatic Bed Leveling algorithm using the default values set in Configuration.h.</p>
+<p>Any arguments left out of <code class="highlighter-rouge">G29</code> will use the default values set in <code class="highlighter-rouge">Configuration.h</code>.</p>
 
         
     </div>
@@ -1110,7 +1239,7 @@
         
           
             <p></p>
-<p>The most common usage form is to use G29 without any arguments as it will follow the definitions set at compile time on the Configuration.h file.</p>
+<p><code class="highlighter-rouge">G29</code> is most commonly used without any arguments. This uses the parameters set in <code class="highlighter-rouge">Configuration.h</code>.</p>
 
           
         
@@ -1122,12 +1251,24 @@
         
           
             <p></p>
-<p>To probe a 5x5 matrix you may use the following:</p>
+<p>Probe a 5x5 matrix:</p>
 
           
         
         
 <figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G29 P5 ; 5x5 matrix</code></pre></figure>
+
+        
+      
+        
+          
+            <p></p>
+<p>Probe a 4x8 matrix from <code class="highlighter-rouge">X50</code> <code class="highlighter-rouge">Y50</code> to <code class="highlighter-rouge">X150</code> <code class="highlighter-rouge">Y150</code>, printing a full report:</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G29 X4 Y8 L50 R150 F50 B150 T V4</code></pre></figure>
 
         
       
