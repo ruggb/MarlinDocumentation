@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/meta/gcode/">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-16T05:36:14+00:00">
+<meta property="article:published_time" content="2016-12-17T03:50:24+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Gcode",
-"datePublished": "2016-12-16T05:36:14+00:00",
+"datePublished": "2016-12-17T03:50:24+00:00",
 "description": "Printing the planet, one layer at a time.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -109,7 +109,7 @@
   <div class="container">
     <div class="navbar-header">
       <a href="/" class="navbar-brand">
-        <img src="/assets/images/logo/marlin/text.png" alt="Marlin" height="25">
+        <img src="/assets/images/logo/marlin/text-25.png" alt="Marlin">
       </a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
@@ -201,7 +201,15 @@
                           
                             <li><a href="/docs/development/getting_started_pull_requests.html">
                               
-                                Contributing code with pull requests
+                                Contributing Code with Pull Requests
+                              
+                            </a></li>
+                          
+                        
+                          
+                            <li><a href="/docs/development/contributing.html">
+                              
+                                Contributing to Marlin
                               
                             </a></li>
                           
@@ -646,17 +654,13 @@
       
         <p>The <code class="highlighter-rouge">G0</code> and <code class="highlighter-rouge">G1</code> commands add a linear move to the queue to be performed after all previous moves are completed. These commands yield control back to the command parser as soon as the move is queued, but they may delay the command parser while awaiting a slot in the queue.</p>
 
-      
-        <p>A linear move traces a straight line from one point to another, ensuring that the specified axes will arrive simultaneously at the given coordinates (by linear interpolation). The speed may change over time following an acceleration curve, according to the acceleration and jerk settings of the given axes.</p>
+<p>A linear move traces a straight line from one point to another, ensuring that the specified axes will arrive simultaneously at the given coordinates (by linear interpolation). The speed may change over time following an acceleration curve, according to the acceleration and jerk settings of the given axes.</p>
 
-      
-        <p>A command like <code class="highlighter-rouge">G1 F1000</code> sets the feedrate for all subsequent moves.</p>
+<p>A command like <code class="highlighter-rouge">G1 F1000</code> sets the feedrate for all subsequent moves.</p>
 
-      
-        <p>Marlin treats <code class="highlighter-rouge">G0</code> (rapid linear movement) as an alias to <code class="highlighter-rouge">G1</code> (rapid movement).</p>
+<p>Marlin treats <code class="highlighter-rouge">G0</code> (rapid linear movement) as an alias to <code class="highlighter-rouge">G1</code> (rapid movement).</p>
 
-      
-        <p>By convention, most G-Code generators use <code class="highlighter-rouge">G0</code> for non-extrusion movements (those without the E axis) and <code class="highlighter-rouge">G1</code> for moves that include extrusion. This is meant to allow a kinematic system to, optionally, do a more rapid uninterpolated movement requiring much less calculation.</p>
+<p>By convention, most G-Code generators use <code class="highlighter-rouge">G0</code> for non-extrusion movements (those without the E axis) and <code class="highlighter-rouge">G1</code> for moves that include extrusion. This is meant to allow a kinematic system to, optionally, do a more rapid uninterpolated movement requiring much less calculation.</p>
 
       
     
@@ -935,23 +939,13 @@
       <h2>Notes</h2>
         
           <p></p>
-<p>Coordinates are given in millimeters by default. Units may be set to inches by <code class="highlighter-rouge">G20</code>.</p>
-
-        
-          <p></p>
-<p>In Relative Mode (<code class="highlighter-rouge">G91</code>) all coordinates are interpreted as relative, adding onto the previous position.</p>
-
-        
-          <p></p>
-<p>A single linear move may generate several smaller moves due to kinematics and bed leveling compensation.</p>
-
-        
-          <p></p>
-<p>Developers, keep using <code class="highlighter-rouge">G0</code> for non-print moves. It makes GCode more adaptable to lasers, engravers, etc.</p>
-
-        
-          <p></p>
-<p>In a future version of Marlin, <code class="highlighter-rouge">G0</code> will do rapid movement, optionally, on SCARA machines.</p>
+<ul>
+  <li>Coordinates are given in millimeters by default. Units may be set to inches by <code class="highlighter-rouge">G20</code>.</li>
+  <li>In Relative Mode (<code class="highlighter-rouge">G91</code>) all coordinates are interpreted as relative, adding onto the previous position.</li>
+  <li>A single linear move may generate several smaller moves due to kinematics and bed leveling compensation.</li>
+  <li>Developers, keep using <code class="highlighter-rouge">G0</code> for non-print moves. It makes GCode more adaptable to lasers, engravers, etc.</li>
+  <li>In a future version of Marlin, <code class="highlighter-rouge">G0</code> will do rapid movement, optionally, on SCARA machines.</li>
+</ul>
 
         
     </div>
@@ -4120,7 +4114,7 @@ v Y-axis  1-n</code></pre></figure>
       
       
         
-          <a href="https://github.com/MarlinFirmware" data-toggle="tooltip" data-placement="bottom" title="Visit MarlinFirmware's profile on Github"><img class="avatar avatar-small" src="https://avatars0.githubusercontent.com/MarlinFirmware?v=3&amp;s=30" alt="MarlinFirmware" srcset="https://avatars0.githubusercontent.com/MarlinFirmware?v=3&amp;s=30 1x, https://avatars0.githubusercontent.com/MarlinFirmware?v=3&amp;s=60 2x, https://avatars0.githubusercontent.com/MarlinFirmware?v=3&amp;s=90 3x, https://avatars0.githubusercontent.com/MarlinFirmware?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
+          <a href="https://github.com/thinkyhead" data-toggle="tooltip" data-placement="bottom" title="Visit thinkyhead's profile on Github"><img class="avatar avatar-small" src="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30" alt="thinkyhead" srcset="https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=30 1x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=60 2x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=90 3x, https://avatars1.githubusercontent.com/thinkyhead?v=3&amp;s=120 4x" width="30" height="30" data-proofer-ignore="true"></a>
         
       
     </p>
@@ -4144,7 +4138,7 @@ v Y-axis  1-n</code></pre></figure>
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Probes bed at current XY location</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Probe bed at current XY location</span>
     
   </div>
 </div>
