@@ -28,25 +28,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Set to Absolute Positioning - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Set to Absolute Positioning">
+<title>Bézier cubic spline - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Bézier cubic spline">
 <meta name="description" content="">
 <meta property="og:description" content="">
-<link rel="canonical" href="http://marlinfw.org/docs/gcode/G90.html">
-<meta property="og:url" content="http://marlinfw.org/docs/gcode/G90.html">
+<link rel="canonical" href="http://marlinfw.org/docs/gcode/G5.html">
+<meta property="og:url" content="http://marlinfw.org/docs/gcode/G5.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-12-19T07:32:03+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Set to Absolute Positioning",
+"headline": "Bézier cubic spline",
 "datePublished": "2016-12-19T07:32:03+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
-"url": "http://marlinfw.org/docs/gcode/G90.html"}</script>
+"url": "http://marlinfw.org/docs/gcode/G5.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -497,7 +497,7 @@
 
       <ul class="nav navbar-nav navbar-right visible-lg-block">
         <li>
-          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G90.md" data-proofer-ignore>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G5.md" data-proofer-ignore>
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span class="">Improve this page</span></a>
         </li>
@@ -536,7 +536,7 @@
                     <a href="/docs/gcode/G4.html">G4: Dwell</a>
 </li>
               
-                  <li class="tocify-item" style="cursor: pointer;">
+                  <li class="tocify-item active" style="cursor: pointer;">
                     <a href="/docs/gcode/G5.html">G5: Bézier cubic spline</a>
 </li>
               
@@ -588,7 +588,7 @@
                     <a href="/docs/gcode/G32.html">G32: Undock sled</a>
 </li>
               
-                  <li class="tocify-item active" style="cursor: pointer;">
+                  <li class="tocify-item" style="cursor: pointer;">
                     <a href="/docs/gcode/G90.html">G90: Set to Absolute Positioning</a>
 </li>
               
@@ -635,15 +635,17 @@
 
     <h1 class="custom-no-margin-bottom">
       
-        G90
-       - Set to Absolute Positioning
+        G5
+       - Bézier cubic spline
     </h1>
 
+    
+      <span class="label label-warning"><span data-toggle="tooltip" data-placement="bottom" title="Experimental feature"><i class="fa fa-flask" aria-hidden="true"></i></span></span>
     
 
     
       <span class="label label-success"><span data-toggle="tooltip" data-placement="bottom" title="Available since"><i class="fa fa-code" aria-hidden="true"></i>
-      1.0.0-beta</span></span>
+      1.1.0-RC7</span></span>
     
 
     
@@ -652,7 +654,7 @@
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Use absolute coordinates</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Cubic B-spline with XYZE destination and IJPQ offsets</span>
     
   </div>
 </div>
@@ -661,7 +663,7 @@
   <div class="col-lg-12">
     
       
-        <p>All coordinates from now on are absolute relative to the origin of the machine.</p>
+        <p>G5 creates a cubic B-spline in the XY plane with the X and Y axes only. P and Q must both be specified for every G5 command. For the first G5 command in a series of G5 commands, I and J must both be specified. For subsequent G5 commands, either both I and J must be specified, or neither. If I and J are unspecified, the starting direction of this cubic will automatically match the ending direction of the previous cubic (as if I and J are the negation of the previous P and Q).</p>
 
       
     
@@ -671,12 +673,311 @@
 <div class="row">
   <div class="col-lg-12">
     <h2>Usage</h2>
-    <code>G90
+    <code>G5
+      
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="X incremental offset from start point to first control point">
+              <!--
+              -->I<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Y incremental offset from start point to first control point">
+              <!--
+              -->J<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="X incremental offset from start point to first control point">
+              <!--
+              -->P<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Y incremental offset from start point to first control point">
+              <!--
+              -->Q<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the X axis">
+              <!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the Y axis">
+              <!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+        
       
     </code>
   </div>
 </div>
 
+
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->I<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>X incremental offset from start point to first control point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->J<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>Y incremental offset from start point to first control point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->P<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>X incremental offset from start point to first control point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->Q<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>Y incremental offset from start point to first control point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the X axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the Y axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
 
 
 
@@ -685,13 +986,45 @@
       <h2>Notes</h2>
         
           <p></p>
-<p>This is the default mode of Marlin</p>
+<p>It is an error if an axis other than X or Y is specified.</p>
 
         
     </div>
   </div>
 
 
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Examples</h2>
+      
+        
+          
+            <p></p>
+<p>For example, to program a curvy N shape:</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G0 X0 Y0
+G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
+
+        
+      
+        
+          
+            <p></p>
+<p>A second curvy N that attaches smoothly to this one can now be made without specifying I and J:</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G5 P0 Q-3 X2 Y2</code></pre></figure>
+
+        
+      
+    </div>
+  </div>
 
 
           

@@ -28,25 +28,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Set to Absolute Positioning - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Set to Absolute Positioning">
+<title>Linear Move - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Linear Move">
 <meta name="description" content="">
 <meta property="og:description" content="">
-<link rel="canonical" href="http://marlinfw.org/docs/gcode/G90.html">
-<meta property="og:url" content="http://marlinfw.org/docs/gcode/G90.html">
+<link rel="canonical" href="http://marlinfw.org/docs/gcode/G0-G1.html">
+<meta property="og:url" content="http://marlinfw.org/docs/gcode/G0-G1.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-12-19T07:32:03+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Set to Absolute Positioning",
+"headline": "Linear Move",
 "datePublished": "2016-12-19T07:32:03+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
-"url": "http://marlinfw.org/docs/gcode/G90.html"}</script>
+"url": "http://marlinfw.org/docs/gcode/G0-G1.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -497,7 +497,7 @@
 
       <ul class="nav navbar-nav navbar-right visible-lg-block">
         <li>
-          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G90.md" data-proofer-ignore>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G0-G1.md" data-proofer-ignore>
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span class="">Improve this page</span></a>
         </li>
@@ -524,7 +524,7 @@
             <ul class="tocify-header nav nav-list">
               
               
-                  <li class="tocify-item" style="cursor: pointer;">
+                  <li class="tocify-item active" style="cursor: pointer;">
                     <a href="/docs/gcode/G0-G1.html">G0-G1: Linear Move</a>
 </li>
               
@@ -588,7 +588,7 @@
                     <a href="/docs/gcode/G32.html">G32: Undock sled</a>
 </li>
               
-                  <li class="tocify-item active" style="cursor: pointer;">
+                  <li class="tocify-item" style="cursor: pointer;">
                     <a href="/docs/gcode/G90.html">G90: Set to Absolute Positioning</a>
 </li>
               
@@ -635,8 +635,10 @@
 
     <h1 class="custom-no-margin-bottom">
       
-        G90
-       - Set to Absolute Positioning
+        G0, 
+      
+        G1
+       - Linear Move
     </h1>
 
     
@@ -652,7 +654,7 @@
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Use absolute coordinates</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Add a straight line movement to the planner</span>
     
   </div>
 </div>
@@ -661,7 +663,15 @@
   <div class="col-lg-12">
     
       
-        <p>All coordinates from now on are absolute relative to the origin of the machine.</p>
+        <p>The <code class="highlighter-rouge">G0</code> and <code class="highlighter-rouge">G1</code> commands add a linear move to the queue to be performed after all previous moves are completed. These commands yield control back to the command parser as soon as the move is queued, but they may delay the command parser while awaiting a slot in the queue.</p>
+
+<p>A linear move traces a straight line from one point to another, ensuring that the specified axes will arrive simultaneously at the given coordinates (by linear interpolation). The speed may change over time following an acceleration curve, according to the acceleration and jerk settings of the given axes.</p>
+
+<p>A command like <code class="highlighter-rouge">G1 F1000</code> sets the feedrate for all subsequent moves.</p>
+
+<p>Marlin treats <code class="highlighter-rouge">G0</code> (rapid linear movement) as an alias to <code class="highlighter-rouge">G1</code> (rapid movement).</p>
+
+<p>By convention, most G-Code generators use <code class="highlighter-rouge">G0</code> for non-extrusion movements (those without the E axis) and <code class="highlighter-rouge">G1</code> for moves that include extrusion. This is meant to allow a kinematic system to, optionally, do a more rapid uninterpolated movement requiring much less calculation.</p>
 
       
     
@@ -671,12 +681,267 @@
 <div class="row">
   <div class="col-lg-12">
     <h2>Usage</h2>
-    <code>G90
+    <code>G0
+      
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="The length of filament to feed into the extruder between the start and end point">
+              [<!--
+              -->E<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="The maximum movement rate of the move between the start and end point. The feedrate set here applies to subsequent moves that omit this parameter.">
+              [<!--
+              -->F<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->rate<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the X axis">
+              [<!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the Y axis">
+              [<!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the Z axis">
+              [<!--
+              -->Z<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
       
     </code>
   </div>
 </div>
 
+
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->E<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>The length of filament to feed into the extruder between the start and end point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->F<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->rate<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>The maximum movement rate of the move between the start and end point. The feedrate set here applies to subsequent moves that omit this parameter.</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the X axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the Y axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Z<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the Z axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
 
 
 
@@ -685,13 +950,72 @@
       <h2>Notes</h2>
         
           <p></p>
-<p>This is the default mode of Marlin</p>
+<ul>
+  <li>Coordinates are given in millimeters by default. Units may be set to inches by <code class="highlighter-rouge">G20</code>.</li>
+  <li>In Relative Mode (<code class="highlighter-rouge">G91</code>) all coordinates are interpreted as relative, adding onto the previous position.</li>
+  <li>A single linear move may generate several smaller moves due to kinematics and bed leveling compensation.</li>
+  <li>Developers, keep using <code class="highlighter-rouge">G0</code> for non-print moves. It makes GCode more adaptable to lasers, engravers, etc.</li>
+  <li>In a future version of Marlin, <code class="highlighter-rouge">G0</code> will do rapid movement, optionally, on SCARA machines.</li>
+</ul>
 
         
     </div>
   </div>
 
 
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Examples</h2>
+      
+        
+          
+            <p></p>
+<p>The most basic move sets a feedrate and moves the tool to the given position.</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G0 X12   ; move to 12mm on the X axis
+G0 F1500 ; set the feedrate to 1500mm/minute
+G1 X90.6 Y13.8 ; move to 90.6mm on the X axis and 13.8mm on the Y axis</code></pre></figure>
+
+        
+      
+        
+          
+            <p></p>
+<p>There are some caveats related with feedrates. Consider the following:</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G1 F1500 ; set the feedrate to 1500mm/minute
+G1 X50 Y25.3 E22.4 ; move while extruding</code></pre></figure>
+
+        
+          
+            <p></p>
+<p>In the above example the feedrate is set to 1500mm/minute on line 1, then move the tool 50mm on the X axis and 25.3mm on the Y axis while extruding 22.4mm of filament between the two points.</p>
+
+          
+        
+      
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G1 F1500
+G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
+
+        
+          
+            <p></p>
+<p>However, in the above example, we set a feedrate of 1500 mm/minute on line 1, then do the move described above accelerating to a feedrate of 3000 mm/minute as it does so. The extrusion will accelerate along with the X and Y movement, so everything stays synchronized.</p>
+
+          
+        
+      
+    </div>
+  </div>
 
 
           

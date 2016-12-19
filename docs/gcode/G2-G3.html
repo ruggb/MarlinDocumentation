@@ -28,25 +28,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Set to Absolute Positioning - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Set to Absolute Positioning">
+<title>Controlled Arc Move - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Controlled Arc Move">
 <meta name="description" content="">
 <meta property="og:description" content="">
-<link rel="canonical" href="http://marlinfw.org/docs/gcode/G90.html">
-<meta property="og:url" content="http://marlinfw.org/docs/gcode/G90.html">
+<link rel="canonical" href="http://marlinfw.org/docs/gcode/G2-G3.html">
+<meta property="og:url" content="http://marlinfw.org/docs/gcode/G2-G3.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-12-19T07:32:03+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Set to Absolute Positioning",
+"headline": "Controlled Arc Move",
 "datePublished": "2016-12-19T07:32:03+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
-"url": "http://marlinfw.org/docs/gcode/G90.html"}</script>
+"url": "http://marlinfw.org/docs/gcode/G2-G3.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -497,7 +497,7 @@
 
       <ul class="nav navbar-nav navbar-right visible-lg-block">
         <li>
-          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G90.md" data-proofer-ignore>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G2-G3.md" data-proofer-ignore>
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span class="">Improve this page</span></a>
         </li>
@@ -528,7 +528,7 @@
                     <a href="/docs/gcode/G0-G1.html">G0-G1: Linear Move</a>
 </li>
               
-                  <li class="tocify-item" style="cursor: pointer;">
+                  <li class="tocify-item active" style="cursor: pointer;">
                     <a href="/docs/gcode/G2-G3.html">G2-G3: Controlled Arc Move</a>
 </li>
               
@@ -588,7 +588,7 @@
                     <a href="/docs/gcode/G32.html">G32: Undock sled</a>
 </li>
               
-                  <li class="tocify-item active" style="cursor: pointer;">
+                  <li class="tocify-item" style="cursor: pointer;">
                     <a href="/docs/gcode/G90.html">G90: Set to Absolute Positioning</a>
 </li>
               
@@ -635,8 +635,10 @@
 
     <h1 class="custom-no-margin-bottom">
       
-        G90
-       - Set to Absolute Positioning
+        G2, 
+      
+        G3
+       - Controlled Arc Move
     </h1>
 
     
@@ -652,7 +654,7 @@
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Use absolute coordinates</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Add an arc movement to the planner</span>
     
   </div>
 </div>
@@ -661,7 +663,7 @@
   <div class="col-lg-12">
     
       
-        <p>All coordinates from now on are absolute relative to the origin of the machine.</p>
+        <p>G2 adds a clockwise arc move to the planner; G3 adds a counter-clockwise arc. An arc move starts at the current position and ends at the given XYZ, pivoting around a center-point offset given by I and J. Arc moves actually generate several short straight-line moves, the length of which are determined by the configuration option <code class="highlighter-rouge">MM_PER_ARC_SEGMENT</code> (default 1mm). Any change in the Z position is linearly interpolated over the whole arc.</p>
 
       
     
@@ -671,27 +673,402 @@
 <div class="row">
   <div class="col-lg-12">
     <h2>Usage</h2>
-    <code>G90
+    <code>G2
+      
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="The amount to extrude between the starting point and ending point">
+              [<!--
+              -->E<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="The maximum movement rate of the move between the starting and ending point">
+              [<!--
+              -->F<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->rate<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="An offset from the current X position to use as the arc center">
+              <!--
+              -->I<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->offset<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="An offset from the current Y position to use as the arc center">
+              <!--
+              -->J<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->offset<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the X axis">
+              [<!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the Y axis">
+              [<!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="A coordinate on the Z axis">
+              [<!--
+              -->Z<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->pos<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
       
     </code>
   </div>
 </div>
 
 
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->E<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>The amount to extrude between the starting point and ending point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->F<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->rate<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>The maximum movement rate of the move between the starting and ending point</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->I<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->offset<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>An offset from the current X position to use as the arc center</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      <!--
+                      -->J<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->offset<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->
+                    </code></td>
+                    <td>
+                      <p>An offset from the current Y position to use as the arc center</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the X axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the Y axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Z<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->pos<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>A coordinate on the Z axis</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
+
+
+
 
 
   <div class="row">
     <div class="col-lg-12">
-      <h2>Notes</h2>
+      <h2>Examples</h2>
+      
         
-          <p></p>
-<p>This is the default mode of Marlin</p>
+          
+            <p></p>
+<p>Move in a clockwise arc from the current position to (125, 32) with the center offset from the current position by (10.5, 10.5).</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G2 X125 Y32 I10.5 J10.5</code></pre></figure>
 
         
+      
+        
+          
+            <p></p>
+<p>Move in a counter-clockwise arc from the current position to (125, 32) with the center offset from the current position by (10.5, 10.5).</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G3 X125 Y32 I10.5 J10.5</code></pre></figure>
+
+        
+      
+        
+          
+            <p></p>
+<p>Move in a complete clockwise circle with the center offset from the current position by 20, 20.</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G2 I20 J20</code></pre></figure>
+
+        
+      
     </div>
   </div>
-
-
 
 
           

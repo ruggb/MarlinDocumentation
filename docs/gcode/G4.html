@@ -28,25 +28,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Set to Absolute Positioning - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Set to Absolute Positioning">
+<title>Dwell - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Dwell">
 <meta name="description" content="">
 <meta property="og:description" content="">
-<link rel="canonical" href="http://marlinfw.org/docs/gcode/G90.html">
-<meta property="og:url" content="http://marlinfw.org/docs/gcode/G90.html">
+<link rel="canonical" href="http://marlinfw.org/docs/gcode/G4.html">
+<meta property="og:url" content="http://marlinfw.org/docs/gcode/G4.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-12-19T07:32:03+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Set to Absolute Positioning",
+"headline": "Dwell",
 "datePublished": "2016-12-19T07:32:03+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://marlinfw.org/assets/images/logo/marlin/small.png"}},
-"url": "http://marlinfw.org/docs/gcode/G90.html"}</script>
+"url": "http://marlinfw.org/docs/gcode/G4.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -497,7 +497,7 @@
 
       <ul class="nav navbar-nav navbar-right visible-lg-block">
         <li>
-          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G90.md" data-proofer-ignore>
+          <a href="https://github.com/MarlinFirmware/MarlinDocumentation/edit/master/_gcode/G4.md" data-proofer-ignore>
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           <span class="">Improve this page</span></a>
         </li>
@@ -532,7 +532,7 @@
                     <a href="/docs/gcode/G2-G3.html">G2-G3: Controlled Arc Move</a>
 </li>
               
-                  <li class="tocify-item" style="cursor: pointer;">
+                  <li class="tocify-item active" style="cursor: pointer;">
                     <a href="/docs/gcode/G4.html">G4: Dwell</a>
 </li>
               
@@ -588,7 +588,7 @@
                     <a href="/docs/gcode/G32.html">G32: Undock sled</a>
 </li>
               
-                  <li class="tocify-item active" style="cursor: pointer;">
+                  <li class="tocify-item" style="cursor: pointer;">
                     <a href="/docs/gcode/G90.html">G90: Set to Absolute Positioning</a>
 </li>
               
@@ -635,8 +635,8 @@
 
     <h1 class="custom-no-margin-bottom">
       
-        G90
-       - Set to Absolute Positioning
+        G4
+       - Dwell
     </h1>
 
     
@@ -652,7 +652,7 @@
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Use absolute coordinates</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Add a pause moment to the planner</span>
     
   </div>
 </div>
@@ -661,7 +661,7 @@
   <div class="col-lg-12">
     
       
-        <p>All coordinates from now on are absolute relative to the origin of the machine.</p>
+        <p>Dwell pauses the command queue, and waits for a given period of time.</p>
 
       
     
@@ -671,12 +671,143 @@
 <div class="row">
   <div class="col-lg-12">
     <h2>Usage</h2>
-    <code>G90
+    <code>G4
+      
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Amount of time to dwell">
+              [<!--
+              -->P<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->time<!--
+                    --><!--
+                      --> in ms<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Amount of time to dwell">
+              [<!--
+              -->S<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->time<!--
+                    --><!--
+                      --> in sec<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
       
     </code>
   </div>
 </div>
 
+
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->P<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->time<!--
+                            --><!--
+                              --> in ms<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Amount of time to dwell</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->S<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->time<!--
+                            --><!--
+                              --> in sec<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Amount of time to dwell</p>
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
 
 
 
@@ -685,13 +816,30 @@
       <h2>Notes</h2>
         
           <p></p>
-<p>This is the default mode of Marlin</p>
+<p>If both <code class="highlighter-rouge">S</code> and <code class="highlighter-rouge">P</code> are included, <code class="highlighter-rouge">S</code> will take precedence.</p>
+
+        
+          <p></p>
+<p>Using <code class="highlighter-rouge">G4</code> with no arguments is effectively the same as <code class="highlighter-rouge">M400</code>.</p>
 
         
     </div>
   </div>
 
 
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Examples</h2>
+      
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">G4 P500 ; Dwell for 1/2 second</code></pre></figure>
+
+        
+      
+    </div>
+  </div>
 
 
           
