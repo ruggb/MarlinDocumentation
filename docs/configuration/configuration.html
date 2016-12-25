@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-23T02:11:48+00:00">
+<meta property="article:published_time" content="2016-12-25T10:42:14+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-23T02:11:48+00:00",
+"datePublished": "2016-12-25T10:42:14+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -1566,7 +1566,7 @@
 
 <h2 id="sources-of-documentation">Sources of Documentation</h2>
 
-<p>While we’re getting this site together, the most authoritative source on configuration options will always be <strong>the configuration files themselves</strong>. They provide good descriptions of each option, and are themselves the source for most of the information presented here.</p>
+<p>The most authoritative source on configuration details will always be <strong>the configuration files themselves</strong>. They provide good descriptions of each option, and are themselves the source for most of the information presented here.</p>
 
 <p>If you’ve never configured and calibrated a RepRap machine before, here are some good resources:</p>
 
@@ -1600,7 +1600,7 @@
 
 <h1 id="configurationh"><code class="highlighter-rouge">Configuration.h</code></h1>
 
-<p>This document covers the <code class="highlighter-rouge">Configuration.h</code> file, following the order of settings as they appear. The order isn’t always logical, so “Search In Page” may be helpful. We’ve tried to keep descriptions brief and to the point. For more detailed information on various topics, please read the main articles and follow the links provided here in option descriptions.</p>
+<p>This document covers the <code class="highlighter-rouge">Configuration.h</code> file, following the order of settings as they appear. The order isn’t always logical, so “Search In Page” may be helpful. We’ve tried to keep descriptions brief and to the point. For more detailed information on various topics, please read the main articles and follow the links provided in the option descriptions.</p>
 
 <h2 id="configuration-versioning">Configuration versioning</h2>
 
@@ -1660,7 +1660,7 @@
 <pre class="highlight"><code><span class="cp">#define MOTHERBOARD BOARD_RAMPS_14_EFB
 </span></code></pre>
 </div>
-<p>The motherboard setting allows Marlin to allocate the correct pins to various functions and determine the available capabilities of the hardware.</p>
+<p>The most important setting is Marlin is the motherboard. The firmware needs to know what board it will be running on so it can assign the right functions to all pins and take advantage of the full capabilities of the board. Setting this incorrectly will lead to unpredictable results.</p>
 
 <p>Using <code class="highlighter-rouge">boards.h</code> as a reference, replace <code class="highlighter-rouge">BOARD_RAMPS_14_EFB</code> with your board’s ID. The <code class="highlighter-rouge">boards.h</code> file has the most up-to-date listing of supported boards, so check it first if you don’t see yours listed here.</p>
 
@@ -1676,7 +1676,7 @@
 </script>
 
 <div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
-<p>For the Sanguino board with Arduino IDE 1.6.8 you’ll need to add Sanguino to the Board list. Select menu item <code class="highlighter-rouge">File</code> &gt; <code class="highlighter-rouge">Preferences</code> &gt; <code class="highlighter-rouge">Additional Boards Manager URLs</code> and add <a href="https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json">this source URL</a>. Then use <code class="highlighter-rouge">Tools &gt; Boards &gt; Boards Manager</code> to install Sanguino from the list. An internet connection is required. (Credit to <a href="http://dustsreprap.blogspot.my/2015/06/better-way-to-install-sanguino-in.html">Dust’s RepRap Blog</a>.)</p>
+<p>The Sanguino board requires adding “Sanguino” support to Arduino IDE. Open <code class="highlighter-rouge">Preferences</code> and locate the <code class="highlighter-rouge">Additional Boards Manager URLs</code> field. Copy and paste <a href="https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json">this source URL</a>. Then use <code class="highlighter-rouge">Tools</code> &gt; <code class="highlighter-rouge">Boards</code> &gt; <code class="highlighter-rouge">Boards Manager</code> to install “Sanguino” from the list. An internet connection is required. (Thanks to <a href="http://dustsreprap.blogspot.my/2015/06/better-way-to-install-sanguino-in.html">Dust’s RepRap Blog</a> for the tip.)</p>
     </div>  </div>
 </div>
 
@@ -1862,7 +1862,6 @@
 #define BED_MAXTEMP 130
 </span></code></pre>
 </div>
-
 <p>Maximum temperature for each temperature sensor. If Marlin reads a temperature above these values, it will immediately shut down for safety reasons. For the E3D V6 hotend, many use 285 as a maximum value.</p>
 
 <div class="container-fluid">  <div class="row alert alert-primary custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-comment fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
@@ -2032,12 +2031,9 @@
 //#define CONFIG_STEPPERS_TOSHIBA
 </span></code></pre>
 </div>
+<p>Leave this option disabled for standard NEMA steppers.</p>
 
-<p>For standard NEMA steppers, leave CONFIG_STEPPERS_TOSHIBA alone.</p>
-
-<hr>
-
-<h3 id="endstops">Endstops</h3>
+<h2 id="endstops">Endstops</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define USE_XMIN_PLUG
@@ -2048,8 +2044,7 @@
 //#define USE_ZMAX_PLUG
 </span></code></pre>
 </div>
-
-<p>This allows you to select where the endstops are located on your printer. Most printers will use a single endstop per axis on the min side. It is possible to place endstops on both ends of an axis but it is rarely necessary in practice. Instead you should make sure that your stepper and build area setting are correct. One noteable exception here is that Delta’s use three endstops on the max side of the towers.</p>
+<p>Specify all the endstop connectors that are connected to any endstop or probe. Most printers will use all three min plugs. On delta machines, all the max plugs should be used. Probes can share the Z min plug, or can use one or more of the extra connectors. Don’t enable plugs used for non-endstop and non-probe purposes here.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">// coarse Endstop Settings
@@ -2067,7 +2062,6 @@
 </span><span class="cp">#endif
 </span></code></pre>
 </div>
-
 <p>Edit these values if you need to disable the pullup resistors for your endstop. Most likely you will not need to edit this.</p>
 
 <div class="language-cpp highlighter-rouge">
@@ -2081,415 +2075,16 @@
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 </span></code></pre>
 </div>
+<p>Use <code class="highlighter-rouge">M119</code> to test if these are set correctly. If an endstop shows up as “TRIGGERED” when not pressed, and “open” when pressed, then it should be inverted here.</p>
 
-<p>These value can be toggled by issuing the M119 command. Usually these are left alone. However if you would rather change it here then mess with your wiring go ahead.</p>
-
-<hr>
-
-<h3 id="z-probe-options">Z Probe Options</h3>
+<h3 id="endstop-interrupts">Endstop Interrupts</h3>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define Z_MIN_PROBE_ENDSTOP
+<pre class="highlight"><code><span class="c1">//#define ENDSTOP_INTERRUPTS_FEATURE
 </span></code></pre>
 </div>
-
-<p>If you want to use both probe and end-switch for homing and endstop, enable this. However, This requires extra setups to be done. If you’re using Ramps 1.4, the probe pins are located in D32 of the aux4 array that is also used by the lcd panel. You will have to change the pin assignments from your specified board pin file (for example “pins_RAMPS_14.h”) located at <code class="highlighter-rouge">#define Z_MIN_PROBE_PIN  32</code>. I would change this to pin 19 (z max) since it is rarely if ever used. This extra port is actually the Z Probe that is used for your auto bed leveling.</p>
-
-<p>Another way is to change between these pins: <code class="highlighter-rouge">#define Z_MIN_PROBE_PIN  32</code>, <code class="highlighter-rouge">#define Z_MIN_PIN 18</code>, and <code class="highlighter-rouge">#define Z_MAX_PIN 19</code>  according to your board. This is not for beginners.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-</span></code></pre>
-</div>
-
-<p>This uses the same pin for the end-switch and the probe. The advantage is that you don’t need to alter any pin-out assignments, however you can only have ONE active at a time.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define DISABLE_Z_MIN_PROBE_ENDSTOP
-</span></code></pre>
-</div>
-
-<p>This typically disables your probe feature. Only applicable to <code class="highlighter-rouge">//#define Z_MIN_PROBE_ENDSTOP</code> enabled</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define Z_MIN_PROBE_REPEATABILITY_TEST
-</span></code></pre>
-</div>
-
-<p>This enables you to test the reliability of your probe.
-Issue a M48 command to start testing. It will give you a standard deviation for the probe.
-Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
-
-<hr>
-
-<h3 id="motor-movement">Motor Movement</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
-// :{0:'Low',1:'High'}
-</span><span class="cp">#define X_ENABLE_ON 0
-#define Y_ENABLE_ON 0
-#define Z_ENABLE_ON 0
-#define E_ENABLE_ON 0 // For all extruders
-</span></code></pre>
-</div>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define DISABLE_X false
-#define DISABLE_Y false
-#define DISABLE_Z false
-</span></code></pre>
-</div>
-
-<p>Enabling this value will disable the given stepper when it is not being issued a movement. This is a hack for running steppers at higher than normal current in an effort to produce more torque at the cost of increased thermals for driver and stepper.</p>
-
-<p>Disabling the steppers in between moves gives the motors and drivers have a chance to cool off. That sounds good but there’s a catch. Because the steppers are disabled they will not be holding the carriage stable. This WILL result in bad accuracy and carries a strong probability of axial drift. The most benefit is achieved where long moves on a single axis are performed.</p>
-
-<p>Most 3d printers use open loop control systems. This means that the software has no idea what the actual position of the carriage is at a given time. It simply sends commands and assumes they have been obeyed. In practice with a well calibrated machine this is not an issue and using an open loop is a major cost saving with excellent quality.</p>
-
-<p>We really don’t recommend this hack as the cons far outweigh the pros. There are much better ways to address the problem of stepper/driver overheating. Some examples: stepper/driver heatsink, active cooling, dual motors on the axis, reduce microstepping, check belt for over tension, check components for smooth motion, etc.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define DISABLE_REDUCED_ACCURACY_WARNING
-</span></code></pre>
-</div>
-
-<p>This can be enabled to prevent a warning displaying on the screen if the warning given above is ignored.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define DISABLE_E false // For all extruders
-#define DISABLE_INACTIVE_EXTRUDER true //disable only inactive extruders and keep active extruder enabled
-</span></code></pre>
-</div>
-
-<p>This is similar to the above stepper disable but is a little different because it is regards to the extruder. The default value is to keep the active extruder enabled, and to disable inactive extruders. An example situation where this applies is  the experimental 4 extruder 1 hotend setup for the Original Prusa i3 MK2.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define INVERT_X_DIR true
-#define INVERT_Y_DIR false
-#define INVERT_Z_DIR true
-#define INVERT_E0_DIR false
-#define INVERT_E1_DIR false
-#define INVERT_E2_DIR false
-#define INVERT_E3_DIR false
-</span></code></pre>
-</div>
-
-<p>This value inverts the motor movement for each axis. If proper caution is not exercised when setting this, the axes WILL crash to the wrong direction when you attempt to home potentially causing damage. Make sure before homing that the carriage is close to the middle and manually move each axis via the lcd menu or printer host to check that the carriage moves as expected. If it is discovered that an axis is inverted, change the wiring or invert the value above, not both.</p>
-
-<hr>
-
-<h3 id="axis-homing">Axis Homing</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define MIN_Z_HEIGHT_FOR_HOMING 4
-</span></code></pre>
-</div>
-
-<p>This value raises z to the specified height above the bed before homing in x or y. This is useful to prevent the head crashing into bed mountings such as screws, bulldog clips and the like that project above the printing bed surface. This also works with auto bed leveling enabled and will be triggered only when the z axis height is less than the defined value, otherwise the z axis will not move.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define X_HOME_DIR -1
-#define Y_HOME_DIR -1
-#define Z_HOME_DIR -1
-</span></code></pre>
-</div>
-
-<p>This tells Marlin where the head is located when all the endstop have been triggered. -1 indicates min and 1 indicates max. The typical configuration for cartesian and core xy is to put the endstops at the min and for deltas to put the endstops at the max. If your machine is custom it’s up to you to set these values correctly. Setting the <code class="highlighter-rouge">home_dir</code> incorrectly will lead to a mirrored print.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define min_software_endstops true
-#define max_software_endstops true
-</span></code></pre>
-</div>
-
-<p>These values when enabled (default) allow you to set software limits on how far these axis can travel via manual control.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define X_MIN_POS 0
-#define Y_MIN_POS 0
-#define Z_MIN_POS 0
-#define X_MAX_POS 200
-#define Y_MAX_POS 200
-#define Z_MAX_POS 170
-</span></code></pre>
-</div>
-
-<p>Usually the <code class="highlighter-rouge">MIN_POS</code> values are left at 0. <code class="highlighter-rouge">MAX_POS</code> is the maximum travel distance from the minimum. Setting the maximum too high will result in the axis crashing. If your home position is not in the printable area you will also need to set the home offset variable in the eeprom. If you don’t want to set it using eeprom, you can fiddle with the <code class="highlighter-rouge">MIN_POS</code> value above instead.</p>
-
-<div class="panel panel-info">
-<div class="panel-heading">
-<i class="fa fa-info-circle pull-left" aria-hidden="true"></i><h4 class="panel-title">Home Offset</h4>
-</div>
-<div class="panel-body">
-<p>
-</p>
-<p>Values are pulled from <code class="highlighter-rouge">MIN_POS</code>. Use <code class="highlighter-rouge">M206</code> from host program console.</p>
-</div>
-</div>
-
-<hr>
-
-<h3 id="filament-runout-sensor">Filament Runout Sensor</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define FILAMENT_RUNOUT_SENSOR
-</span><span class="n">In</span> <span class="n">RAMPS</span> <span class="n">uses</span> <span class="n">servo</span> <span class="n">pin</span> <span class="mf">2.</span> <span class="n">Can</span> <span class="n">be</span> <span class="n">changed</span> <span class="n">in</span> <span class="n">pins</span> <span class="n">file</span><span class="p">.</span> <span class="n">For</span> <span class="n">other</span> <span class="n">boards</span> <span class="n">pin</span> <span class="n">definition</span> <span class="n">should</span> <span class="n">be</span> <span class="n">made</span><span class="p">.</span>
-<span class="cp">#if ENABLED(FILAMENT_RUNOUT_SENSOR)
-</span>  <span class="k">const</span> <span class="kt">bool</span> <span class="n">FIL_RUNOUT_INVERTING</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="cp">#define ENDSTOPPULLUP_FIL_RUNOUT
-</span>  <span class="cp">#define FILAMENT_RUNOUT_SCRIPT "M600"
-#endif
-</span></code></pre>
-</div>
-
-<p>This is an optional but cool feature to have. A switch is used to detect if the filament is present in the feeder (usually an extra endstop switch located at the inlet of the feeder, with the switch in a closed state when the filament is present. If the filament runs out, an M600 command will be issued immediately. If you are using a RAMPS board the default input is servo pin 2. For all other boards you will need to create a pin definition in the corresponding file in order to use this feature.</p>
-
-<hr>
-
-<h2 id="bed-leveling">Bed Leveling</h2>
-
-<h3 id="meshmanual-bed-leveling">Mesh/Manual Bed Leveling</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
-</span></code></pre>
-</div>
-
-<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option provides a procedure for measuring the bed height at several points using a piece of paper or feeler gauge. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
-
-<p>Enable <code class="highlighter-rouge">MANUAL_BED_LEVELING</code> to be able to do interactive Mesh Bed Leveling from the LCD controller.</p>
-
-<hr>
-
-<h3 id="auto-bed-leveling">Auto Bed Leveling</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define AUTO_BED_LEVELING_3POINT
-//#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
-</span></code></pre>
-</div>
-
-<p>If you have a bed probe, you can enable one of these options to use Auto Bed Leveling. The <code class="highlighter-rouge">G29</code> command can then be used to automatically probe the bed and measure its height at various points and produce a correction grid or matrix.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define DEBUG_LEVELING_FEATURE
-</span></code></pre>
-</div>
-
-<p>Use this option to enable extra debugging of homing and leveling. You can then use <code class="highlighter-rouge">M111 S32</code> before issuing <code class="highlighter-rouge">G28</code> and <code class="highlighter-rouge">G29 V4</code> to get a detailed log of the process for diagnosis. This option is useful to figure out the cause of unexpected behaviors, or when reporting issues to the project.</p>
-
-<hr>
-
-<h4 id="linear--bilinear-options">
-<code class="highlighter-rouge">LINEAR</code> / <code class="highlighter-rouge">BILINEAR</code> options</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define LEFT_PROBE_BED_POSITION 15
-#define RIGHT_PROBE_BED_POSITION 145
-#define FRONT_PROBE_BED_POSITION 20
-#define BACK_PROBE_BED_POSITION 150
-</span></code></pre>
-</div>
-
-<p>These settings specify the boundaries for probing with <code class="highlighter-rouge">G29</code>. This will most likely be a sub-section of the bed because probes are not usually able to reach every point that the nozzle can. Take account of the probe’s XY offsets when setting these boundaries.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define ABL_GRID_MAX_POINTS_X 3
-#define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
-</span></code></pre>
-</div>
-
-<p>These options specify the default number of points to probe in each dimension during <code class="highlighter-rouge">G29</code>.</p>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define PROBE_Y_FIRST
-</span></code></pre>
-</div>
-
-<p>Enable this option if probing should proceed in the Y dimension first instead of X first.</p>
-
-<hr>
-
-<h4 id="leveling-fade-height">Leveling Fade Height</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define ENABLE_LEVELING_FADE_HEIGHT
-</span></code></pre>
-</div>
-
-<p>Available only with <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> and <code class="highlighter-rouge">MESH_BED_LEVELING</code>. With this option the <code class="highlighter-rouge">M420 Zn</code> command can be used to set a fade distance over which leveling will be gradually reduced. Above the given Z height, leveling compensation will no longer be applied.</p>
-
-<p>Example: <code class="highlighter-rouge">M420 Z10</code> sets leveling to fade within the first 10mm of layer printing. If each layer is 0.2mm high, then leveling compensation is reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
-
-<hr>
-
-<h4 id="point-options">
-<code class="highlighter-rouge">3POINT</code> options</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define ABL_PROBE_PT_1_X 15
-#define ABL_PROBE_PT_1_Y 180
-#define ABL_PROBE_PT_2_X 15
-#define ABL_PROBE_PT_2_Y 20
-#define ABL_PROBE_PT_3_X 170
-#define ABL_PROBE_PT_3_Y 20
-</span></code></pre>
-</div>
-
-<p>These options specify the three points that will be probed during <code class="highlighter-rouge">G29</code>.</p>
-
-<h2 id="z-probe-options-1">Z Probe Options</h2>
-
-<h3 id="probe-type">Probe Type</h3>
-
-<p>Marlin supports any kind of probe that can be made to work like a switch. Specific types of probes have different needs.</p>
-
-<h4 id="fix-mounted-probe">Fix Mounted Probe</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define FIX_MOUNTED_PROBE
-</span></code></pre>
-</div>
-<p>This option is for any probe that’s fixed in place, with no need to be deployed or stowed. Specify this type for an inductive probe or when using the nozzle itself as the probe.</p>
-
-<h4 id="bltouch">BLTouch</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define BLTOUCH
-</span></code></pre>
-</div>
-<p>The ANTCLABS BLTouch probe uses custom circuitry and a magnet to raise and lower a metal pin which acts as a touch probe. The BLTouch uses the servo connector and is controlled using specific servo angles.</p>
-
-<h4 id="servo-z-probe">Servo Z Probe</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define Z_ENDSTOP_SERVO_NR 0
-//#define Z_SERVO_ANGLES {70,0} // Z Servo Deploy and Stow angles
-</span></code></pre>
-</div>
-<p>To indicate a Servo Z Probe (e.g., an endstop switch mounted on a rotating arm) just specify the servo index. Use the <code class="highlighter-rouge">M280</code> command to find the best <code class="highlighter-rouge">Z_SERVO_ANGLES</code> values.</p>
-
-<h4 id="z-probe-sled">Z Probe Sled</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define Z_PROBE_SLED
-//#define SLED_DOCKING_OFFSET 5
-</span></code></pre>
-</div>
-<p>This type of probe is mounted on a detachable “sled” that sits at the far end of the X axis. Before probing, the X carriage moves to the far end and picks up the sled. When probing is completed, it drops the sled off. The <code class="highlighter-rouge">SLED_DOCKING_OFFSET</code> specifies the extra distance the X axis must travel to pickup the sled. 0 should be fine but it may be pushed further if needed.</p>
-
-<p>See the <a href="http://www.thingiverse.com/thing:396692">Prusa i3 Z-probe Sled Mount</a> for an example of this kind of probe.</p>
-
-<h4 id="allen-key">Allen Key</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define Z_PROBE_ALLEN_KEY
-</span></code></pre>
-</div>
-<p>A retractable z-probe for deltas that uses an Allen key as the probe. See “<a href="http://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe">Kossel automatic bed leveling probe</a>” at the RepRap wiki. It deploys by leveraging against the z-axis belt, and retracts by pushing the probe down.</p>
-
-<h3 id="probe-offsets-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Probe Offsets <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
-</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define X_PROBE_OFFSET_FROM_EXTRUDER -44  // X offset: -left  [of the nozzle] +right
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -8  // Y offset: -front [of the nozzle] +behind
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.50   // Z offset: -below [the nozzle](for most negative! positive when using tilt probes or the nozzle based probes)
-</span></code></pre>
-</div>
-
-<p>These offsets specify the distance from the tip of the nozzle to the probe — or more precisely, to the point at which the probe triggers. The X and Y offsets are specified as integers. The Z offset should be specified as exactly as possible using a decimal value. The Z offset can be overridden with <code class="highlighter-rouge">M851 Z</code> or the LCD controller. The <code class="highlighter-rouge">M851</code> offset is saved to EEPROM with <code class="highlighter-rouge">M500</code>.</p>
-
-<h3 id="probe-clearance">Probe Clearance</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
-</span></code></pre>
-</div>
-
-<p>Z probes require clearance when deploying, stowing, and moving between probe points to avoid hitting the bed and other hardware. Servo-mounted probes require extra space for the arm to rotate. Inductive probes need space to keep from triggering early.</p>
-
-<p>Use these settings to specify the distance (mm) to raise the probe (or lower the bed). The values set here apply over and above any (negative) probe Z Offset set with <code class="highlighter-rouge">Z_PROBE_OFFSET_FROM_EXTRUDER</code>, <code class="highlighter-rouge">M851</code>, or the LCD. Only integer values &gt;= 1 are valid for these settings.</p>
-
-<ul>
-  <li>
-<em>Example</em>: <code class="highlighter-rouge">M851 Z-5</code> with a CLEARANCE of 4  =&gt;  9mm from bed to nozzle.</li>
-  <li>
-<em>But</em>: <code class="highlighter-rouge">M851 Z+1</code> with a CLEARANCE of 2  =&gt;  2mm from bed to nozzle.</li>
-</ul>
-
-<div class="panel panel-warning">
-<div class="panel-heading">
-<i class="fa fa-exclamation-circle pull-left" aria-hidden="true"></i><h4 class="panel-title">G29 Movement</h4>
-</div>
-<div class="panel-body">
-<p>
-</p>
-<p>Make sure you have enough clearance for the probe to move between points!</p>
-</div>
-</div>
-
-<h3 id="probing-speed">Probing Speed</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// X and Y axis travel speed (mm/m) between probes
-</span><span class="cp">#define XY_PROBE_SPEED 4000
-</span><span class="c1">// Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-</span><span class="cp">#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
-</span><span class="c1">// Speed for the "accurate" probe of each point
-</span><span class="cp">#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
-</span></code></pre>
-</div>
-<p>Probing should be done quickly, but the Z speed should be tuned for best repeatability. Depending on the probe, a slower Z probing speed may be needed for repeatable results.</p>
-
-<h3 id="probe-double-touch">Probe Double Touch</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// Use double touch for probing
-//#define PROBE_DOUBLE_TOUCH
-</span></code></pre>
-</div>
-<p>Some probes may be more accurate with this option, which causes all probes to be done twice — first fast, then slow. The second result is used as the measured Z position.</p>
-
-<h3 id="z-probe-end-script">Z Probe End Script</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
-</span></code></pre>
-</div>
-
-<p>A custom script to do at the very end of <code class="highlighter-rouge">G29</code>. If multiple commands are needed, divide them with <code class="highlighter-rouge">\n</code> (the newline character).</p>
-
-<h3 id="z-safe-homing">Z Safe Homing</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cm">/**
- * Z Safe Homing
- *
- * Enable this option to avoid homing with a Z probe outside the bed area.
- *
- * With safe homing enabled:
- *
- * - Allow Z homing only after X and Y homing AND stepper drivers still enabled.
- * - If stepper drivers time out, it will need X and Y homing again before Z homing.
- * - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
- * - Prevent Z homing when the Z probe is outside bed area.
- */</span>
-<span class="cp">#define Z_SAFE_HOMING
-</span>
-<span class="cp">#if ENABLED(Z_SAFE_HOMING)
-</span>  <span class="cp">#define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
-</span>  <span class="cp">#define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
-#endif
-</span></code></pre>
-</div>
-
-<p>This option causes the nozzle to move to a selected point (by default, the middle of the bed) when homing the Z axis. As a side-effect, homing of XY is required for Z to home. Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY move to some custom position after homing.</p>
-
-<hr>
+<p>Enable this feature if all enabled endstop pins are interrupt-capable.
+This will remove the need to poll the interrupt pins, saving many CPU cycles.</p>
 
 <h2 id="movement">Movement</h2>
 
@@ -2501,7 +2096,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define HOMING_FEEDRATE_Z  (4*60)
 </span></code></pre>
 </div>
-
 <p>Homing speed for use in auto home and auto bed leveling. These values may be set to the fastest speeds your machine can achieve. Homing and probing speeds are constrained by the current max feedrate and max acceleration settings.</p>
 
 <div class="container-fluid">  <div class="row alert alert-warning custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-exclamation-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
@@ -2522,7 +2116,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <span class="cp">#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
 </span></code></pre>
 </div>
-
 <p>These are the most crucial settings for your printer, as they determine how accurately the steppers will position the axes. Here we’re telling the firmware how many individual steps produce a single millimeter (or degree on SCARA) of movement. These depend on various factors, including belt pitch, number of teeth on the pulley, thread pitch on leadscrews, micro-stepping settings, and extruder style.</p>
 
 <p>A useful trick is to let the compiler do the calculations for you and just supply the raw values. For example:</p>
@@ -2573,7 +2166,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <span class="cp">#define DEFAULT_MAX_FEEDRATE { 500, 500, 2.25, 45 }
 </span></code></pre>
 </div>
-
 <p>In any move, the velocities (in mm/sec) in the X, Y, Z, and E directions will be limited to the corresponding <code class="highlighter-rouge">DEFAULT_MAX_FEEDRATE</code>.</p>
 
 <div class="container-fluid">  <div class="row alert alert-danger custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-exclamation-triangle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
@@ -2597,7 +2189,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <span class="cp">#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
 </span></code></pre>
 </div>
-
 <p>When the velocity of any axis changes, its acceleration (or deceleration) in mm/s/s is limited by the current max acceleration setting. Also see the <em>jerk</em> settings below, which specify the largest instant speed change that can occur between segments.</p>
 
 <p>A value of 3000 means that an axis may accelerate from 0 to 3000mm/m (50mm/s) within a one second movement.</p>
@@ -2622,7 +2213,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
 </span></code></pre>
 </div>
-
 <p>The planner uses the default accelerations set here (or by <code class="highlighter-rouge">M204</code>) as the starting values for movement acceleration, and then constrains them further, if needed. There are separate default acceleration values for printing moves, retraction moves, and travel moves.</p>
 
 <ul>
@@ -2657,12 +2247,396 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define DEFAULT_EJERK                  5.0
 </span></code></pre>
 </div>
-
 <p>Jerk works in conjunction with acceleration (see above). Jerk is the maximum change in velocity (in mm/sec) that can occur instantaneously. It can also be thought of as the minimum change in velocity that will be done as an accelerated (not instantaneous) move.</p>
 
 <p>Both acceleration and jerk affect your print quality. If jerk is too low, the extruder will linger too long on small segments and corners, possibly leaving blobs. If the jerk is set too high, direction changes will apply too much torque and you may see “ringing” artifacts or dropped steps.</p>
 
+<h2 id="z-probe-options">Z Probe Options</h2>
+
+<h3 id="probe-type">Probe Type</h3>
+
+<p>Marlin supports any kind of probe that can be made to work like a switch. Specific types of probes have different needs.</p>
+
+<h4 id="fix-mounted-probe">Fix Mounted Probe</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define FIX_MOUNTED_PROBE
+</span></code></pre>
+</div>
+<p>This option is for any probe that’s fixed in place, with no need to be deployed or stowed. Specify this type for an inductive probe or when using the nozzle itself as the probe.</p>
+
+<h4 id="bltouch">BLTouch</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define BLTOUCH
+</span></code></pre>
+</div>
+<p>The ANTCLABS BLTouch probe uses custom circuitry and a magnet to raise and lower a metal pin which acts as a touch probe. The BLTouch uses the servo connector and is controlled using specific servo angles. With this option enabled the other required settings are automatically configured (so there’s no need to enter servo angles, for example).</p>
+
+<h4 id="servo-z-probe">Servo Z Probe</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_ENDSTOP_SERVO_NR 0
+//#define Z_SERVO_ANGLES {70,0} // Z Servo Deploy and Stow angles
+</span></code></pre>
+</div>
+<p>To indicate a Servo Z Probe (e.g., an endstop switch mounted on a rotating arm) just specify the servo index. Use the <code class="highlighter-rouge">M280</code> command to find the best <code class="highlighter-rouge">Z_SERVO_ANGLES</code> values.</p>
+
+<h4 id="z-probe-sled">Z Probe Sled</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_PROBE_SLED
+//#define SLED_DOCKING_OFFSET 5
+</span></code></pre>
+</div>
+<p>This type of probe is mounted on a detachable “sled” that sits at the far end of the X axis. Before probing, the X carriage moves to the far end and picks up the sled. When probing is completed, it drops the sled off. The <code class="highlighter-rouge">SLED_DOCKING_OFFSET</code> specifies the extra distance the X axis must travel to pickup the sled. 0 should be fine but it may be pushed further if needed.</p>
+
+<p>See the <a href="http://www.thingiverse.com/thing:396692">Prusa i3 Z-probe Sled Mount</a> for an example of this kind of probe.</p>
+
+<h4 id="allen-key">Allen Key</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_PROBE_ALLEN_KEY
+</span></code></pre>
+</div>
+<p>A retractable z-probe for deltas that uses an Allen key as the probe. See “<a href="http://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe">Kossel automatic bed leveling probe</a>” at the RepRap wiki. It deploys by leveraging against the z-axis belt, and retracts by pushing the probe down.</p>
+
+<h3 id="probe-offsets-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Probe Offsets <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define X_PROBE_OFFSET_FROM_EXTRUDER -44  // X offset: -left  [of the nozzle] +right
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -8  // Y offset: -front [of the nozzle] +behind
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.50   // Z offset: -below [the nozzle](for most negative! positive when using tilt probes or the nozzle based probes)
+</span></code></pre>
+</div>
+<p>These offsets specify the distance from the tip of the nozzle to the probe — or more precisely, to the point at which the probe triggers. The X and Y offsets are specified as integers. The Z offset should be specified as exactly as possible using a decimal value. The Z offset can be overridden with <code class="highlighter-rouge">M851 Z</code> or the LCD controller. The <code class="highlighter-rouge">M851</code> offset is saved to EEPROM with <code class="highlighter-rouge">M500</code>.</p>
+
+<h3 id="probing-speed">Probing Speed</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">// X and Y axis travel speed (mm/m) between probes
+</span><span class="cp">#define XY_PROBE_SPEED 4000
+</span><span class="c1">// Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
+</span><span class="cp">#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+</span><span class="c1">// Speed for the "accurate" probe of each point
+</span><span class="cp">#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+</span></code></pre>
+</div>
+<p>Probing should be done quickly, but the Z speed should be tuned for best repeatability. Depending on the probe, a slower Z probing speed may be needed for repeatable results.</p>
+
+<h3 id="probe-double-touch">Probe Double Touch</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">// Use double touch for probing
+//#define PROBE_DOUBLE_TOUCH
+</span></code></pre>
+</div>
+<p>Some probes may be more accurate with this option, which causes all probes to be done twice — first fast, then slow. The second result is used as the measured Z position.</p>
+
+<h3 id="z-probe-end-script">Z Probe End Script</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+</span></code></pre>
+</div>
+<p>A custom script to do at the very end of <code class="highlighter-rouge">G29</code>. If multiple commands are needed, divide them with <code class="highlighter-rouge">\n</code> (the newline character).</p>
+
+<h3 id="z-probe-connection">Z Probe Connection</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_MIN_PROBE_ENDSTOP
+</span></code></pre>
+</div>
+<p>If you want to use both probe and end-switch for homing and endstop, enable this. However, This requires extra setups to be done. If you’re using Ramps 1.4, the probe pins are located in D32 of the aux4 array that is also used by the lcd panel. You will have to change the pin assignments from your specified board pin file (for example “pins_RAMPS_14.h”) located at <code class="highlighter-rouge">#define Z_MIN_PROBE_PIN  32</code>. I would change this to pin 19 (z max) since it is rarely if ever used. This extra port is actually the Z Probe that is used for your auto bed leveling.</p>
+
+<p>Another way is to change between these pins: <code class="highlighter-rouge">#define Z_MIN_PROBE_PIN  32</code>, <code class="highlighter-rouge">#define Z_MIN_PIN 18</code>, and <code class="highlighter-rouge">#define Z_MAX_PIN 19</code>  according to your board. This is not for beginners.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+</span></code></pre>
+</div>
+<p>This uses the same pin for the end-switch and the probe. The advantage is that you don’t need to alter any pin-out assignments, however you can only have ONE active at a time.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define DISABLE_Z_MIN_PROBE_ENDSTOP
+</span></code></pre>
+</div>
+<p>This typically disables your probe feature. Only applicable to <code class="highlighter-rouge">//#define Z_MIN_PROBE_ENDSTOP</code> enabled</p>
+
+<h3 id="z-probe-testing">Z Probe Testing</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define Z_MIN_PROBE_REPEATABILITY_TEST
+</span></code></pre>
+</div>
+<p>This enables you to test the reliability of your probe.
+Issue a M48 command to start testing. It will give you a standard deviation for the probe.
+Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
+
+<h3 id="probe-clearance">Probe Clearance</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+</span></code></pre>
+</div>
+<p>Z probes require clearance when deploying, stowing, and moving between probe points to avoid hitting the bed and other hardware. Servo-mounted probes require extra space for the arm to rotate. Inductive probes need space to keep from triggering early.</p>
+
+<p>Use these settings to specify the distance (mm) to raise the probe (or lower the bed). The values set here apply over and above any (negative) probe Z Offset set with <code class="highlighter-rouge">Z_PROBE_OFFSET_FROM_EXTRUDER</code>, <code class="highlighter-rouge">M851</code>, or the LCD. Only integer values &gt;= 1 are valid for these settings.</p>
+
+<ul>
+  <li>
+<em>Example</em>: <code class="highlighter-rouge">M851 Z-5</code> with a CLEARANCE of 4  =&gt;  9mm from bed to nozzle.</li>
+  <li>
+<em>But</em>: <code class="highlighter-rouge">M851 Z+1</code> with a CLEARANCE of 2  =&gt;  2mm from bed to nozzle.</li>
+</ul>
+
+<div class="panel panel-warning">
+<div class="panel-heading">
+<i class="fa fa-exclamation-circle pull-left" aria-hidden="true"></i><h4 class="panel-title">G29 Movement</h4>
+</div>
+<div class="panel-body">
+<p>
+</p>
+<p>Make sure you have enough clearance for the probe to move between points!</p>
+</div>
+</div>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define Z_PROBE_OFFSET_RANGE_MIN -20
+#define Z_PROBE_OFFSET_RANGE_MAX 20
+</span></code></pre>
+</div>
+<p>For <code class="highlighter-rouge">M851</code> and LCD menus give a range for adjusting the Z probe offset.</p>
+
+<h2 id="motor-movement">Motor Movement</h2>
+
+<h3 id="motor-direction">Motor Direction</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">// For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
+// :{0:'Low',1:'High'}
+</span><span class="cp">#define X_ENABLE_ON 0
+#define Y_ENABLE_ON 0
+#define Z_ENABLE_ON 0
+#define E_ENABLE_ON 0 // For all extruders
+</span></code></pre>
+</div>
+
+<h3 id="motor-disable">Motor Disable</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define DISABLE_X false
+#define DISABLE_Y false
+#define DISABLE_Z false
+</span></code></pre>
+</div>
+<p>Use these options to disable steppers when not being issued a movement. This was implemented as a hack to run steppers at higher-than-normal current in an effort to produce more torque at the cost of increased heat for drivers and steppers.</p>
+
+<p>Disabling the steppers between moves gives the motors and drivers a chance to cool off. It sounds good in theory, but in practice it has drawbacks. Disabled steppers can’t hold the carriage stable. This results in poor accuracy and carries a strong probability of axial drift.</p>
+
+<p>Most 3D printers use an “open loop” control system, meaning the software can’t ascertain the actual carriage position at a given time. It simply sends commands and assumes they have been obeyed. In practice with a well-calibrated machine this is not an issue and using open loop is a major cost saving with excellent quality.</p>
+
+<p>We don’t recommend this hack. There are much better ways to address the problem of stepper/driver overheating. Some examples: stepper/driver heatsink, active cooling, dual motors on the axis, reduce microstepping, check belt for over tension, check components for smooth motion, etc.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define DISABLE_REDUCED_ACCURACY_WARNING
+</span></code></pre>
+</div>
+<p>Enable this option to suppress the warning given in cases when reduced accuracy is likely to occur.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define DISABLE_E false // For all extruders
+#define DISABLE_INACTIVE_EXTRUDER true //disable only inactive extruders and keep active extruder enabled
+</span></code></pre>
+</div>
+<p>The E disable option works like <code class="highlighter-rouge">DISABLE_[XYZ]</code> but pertains to one or more extruders. The default setting keeps the active extruder enabled, disabling all inactive extruders. This is reasonable for situations where a “wipe tower” or other means is used to ensure that the nozzle is primed and not oozing between uses.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define INVERT_X_DIR true
+#define INVERT_Y_DIR false
+#define INVERT_Z_DIR true
+</span>
+<span class="cp">#define INVERT_E0_DIR false
+#define INVERT_E1_DIR false
+#define INVERT_E2_DIR false
+#define INVERT_E3_DIR false
+</span></code></pre>
+</div>
+<p>These settings reverse the motor direction for each axis. Be careful when first setting these. Axes moving the wrong direction can cause damage. Get these right without belts attached first, if possible. Before testing, move the carriage and bed to the middle. Test each axis for proper movemnt using the host or LCD “Move Axis” menu. If an axis is inverted, either flip the plug around or change its invert setting.</p>
+
+<h2 id="axis-homing">Axis Homing</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define Z_HOMING_HEIGHT 4
+</span></code></pre>
+</div>
+<p>This value raises Z to the specified height above the bed before homing X or Y. This is useful to prevent the head crashing into bed mountings such as screws, bulldog clips, etc. This also works with auto bed leveling enabled and will be triggered only when the Z axis height is less than the defined value, otherwise the Z axis will not move.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define X_HOME_DIR -1
+#define Y_HOME_DIR -1
+#define Z_HOME_DIR -1
+</span></code></pre>
+</div>
+<p>Homing direction for each axis: -1 = min, 1 = max. Most cartesian and core machines have three min endstops. Deltas have three max endstops. For other configurations set these values appropriately.</p>
+
+<h2 id="software-endstops">Software Endstops</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define min_software_endstops true
+#define max_software_endstops true
+</span></code></pre>
+</div>
+<p>Set to <code class="highlighter-rouge">true</code> to enable the option to constrain movement to the physical boundaries of the machine (as set by <code class="highlighter-rouge">[XYZ]_(MIN|MAX)_POS</code>). For example, <code class="highlighter-rouge">G1 Z-100</code> can be min constrained to <code class="highlighter-rouge">G1 Z0</code>. It is recommended to enable these options as a safety feature. If software endstops need to be disabled, use <code class="highlighter-rouge">M211 S0</code>.</p>
+
+<h2 id="movement-bounds">Movement Bounds</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define X_MIN_POS 0
+#define Y_MIN_POS 0
+#define Z_MIN_POS 0
+#define X_MAX_POS 200
+#define Y_MAX_POS 200
+#define Z_MAX_POS 170
+</span></code></pre>
+</div>
+<p>These values specify the physical limits of the machine. Usually the <code class="highlighter-rouge">[XYZ]_MIN_POS</code> values are set to 0, because endstops are positioned at the bed limits. <code class="highlighter-rouge">[XYZ]_MAX_POS</code> should be set to the farthest reachable point. By default, these positions are used for homing as well. However, the <code class="highlighter-rouge">MANUAL_[XYZ]_HOME_POS</code> options can be used to override these, if needed.</p>
+
+<div class="panel panel-info">
+<div class="panel-heading">
+<i class="fa fa-info-circle pull-left" aria-hidden="true"></i><h4 class="panel-title">Home Offset</h4>
+</div>
+<div class="panel-body">
+<p>
+</p>
+<p>Values are pulled from <code class="highlighter-rouge">MIN_POS</code>. Use <code class="highlighter-rouge">M206</code> from host program console.</p>
+</div>
+</div>
+
+<h2 id="filament-runout-sensor">Filament Runout Sensor</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define FILAMENT_RUNOUT_SENSOR
+</span><span class="cp">#if ENABLED(FILAMENT_RUNOUT_SENSOR)
+</span>  <span class="cp">#define FIL_RUNOUT_INVERTING false // set to true to invert the logic of the sensor.
+</span>  <span class="cp">#define ENDSTOPPULLUP_FIL_RUNOUT // Uncomment to use internal pullup for filament runout pins if the sensor is defined.
+</span>  <span class="cp">#define FILAMENT_RUNOUT_SCRIPT "M600"
+#endif
+</span></code></pre>
+</div>
+<p>With this feature, a mechanical or opto endstop switch is used to check for the presence of filament in the feeder (usually the switch is closed when filament is present). If the filament runs out, Marlin will run the specified GCode script (by default “<code class="highlighter-rouge">M600</code>”). RAMPS-based boards use <code class="highlighter-rouge">SERVO3_PIN</code>. For other boards you may need to define <code class="highlighter-rouge">FIL_RUNOUT_PIN</code>.</p>
+
+<h2 id="bed-leveling">Bed Leveling</h2>
+
+<h3 id="meshmanual-bed-leveling">Mesh/Manual Bed Leveling</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
+</span></code></pre>
+</div>
+<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option provides a procedure for measuring the bed height at several points using a piece of paper or feeler gauge. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+
+<p>Enable <code class="highlighter-rouge">MANUAL_BED_LEVELING</code> to be able to do interactive Mesh Bed Leveling from the LCD controller.</p>
+
 <hr>
+
+<h3 id="auto-bed-leveling">Auto Bed Leveling</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define AUTO_BED_LEVELING_3POINT
+//#define AUTO_BED_LEVELING_LINEAR
+//#define AUTO_BED_LEVELING_BILINEAR
+</span></code></pre>
+</div>
+<p>If you have a bed probe, you can enable one of these options to use Auto Bed Leveling. The <code class="highlighter-rouge">G29</code> command can then be used to automatically probe the bed and measure its height at various points and produce a correction grid or matrix.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define DEBUG_LEVELING_FEATURE
+</span></code></pre>
+</div>
+<p>Use this option to enable extra debugging of homing and leveling. You can then use <code class="highlighter-rouge">M111 S32</code> before issuing <code class="highlighter-rouge">G28</code> and <code class="highlighter-rouge">G29 V4</code> to get a detailed log of the process for diagnosis. This option is useful to figure out the cause of unexpected behaviors, or when reporting issues to the project.</p>
+
+<hr>
+
+<h4 id="linear--bilinear-options">
+<code class="highlighter-rouge">LINEAR</code> / <code class="highlighter-rouge">BILINEAR</code> options</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define LEFT_PROBE_BED_POSITION 15
+#define RIGHT_PROBE_BED_POSITION 145
+#define FRONT_PROBE_BED_POSITION 20
+#define BACK_PROBE_BED_POSITION 150
+</span></code></pre>
+</div>
+<p>These settings specify the boundaries for probing with <code class="highlighter-rouge">G29</code>. This will most likely be a sub-section of the bed because probes are not usually able to reach every point that the nozzle can. Take account of the probe’s XY offsets when setting these boundaries.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define ABL_GRID_MAX_POINTS_X 3
+#define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
+</span></code></pre>
+</div>
+<p>These options specify the default number of points to probe in each dimension during <code class="highlighter-rouge">G29</code>.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define PROBE_Y_FIRST
+</span></code></pre>
+</div>
+<p>Enable this option if probing should proceed in the Y dimension first instead of X first.</p>
+
+<hr>
+
+<h4 id="leveling-fade-height">Leveling Fade Height</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define ENABLE_LEVELING_FADE_HEIGHT
+</span></code></pre>
+</div>
+<p>Available only with <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> and <code class="highlighter-rouge">MESH_BED_LEVELING</code>. With this option the <code class="highlighter-rouge">M420 Zn</code> command can be used to set a fade distance over which leveling will be gradually reduced. Above the given Z height, leveling compensation will no longer be applied.</p>
+
+<p>Example: <code class="highlighter-rouge">M420 Z10</code> sets leveling to fade within the first 10mm of layer printing. If each layer is 0.2mm high, then leveling compensation is reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
+
+<hr>
+
+<h4 id="point-options">
+<code class="highlighter-rouge">3POINT</code> options</h4>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define ABL_PROBE_PT_1_X 15
+#define ABL_PROBE_PT_1_Y 180
+#define ABL_PROBE_PT_2_X 15
+#define ABL_PROBE_PT_2_Y 20
+#define ABL_PROBE_PT_3_X 170
+#define ABL_PROBE_PT_3_Y 20
+</span></code></pre>
+</div>
+<p>These options specify the three points that will be probed during <code class="highlighter-rouge">G29</code>.</p>
+
+<h2 id="z-safe-homing">Z Safe Homing</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cm">/**
+ * Z Safe Homing
+ *
+ * Enable this option to avoid homing with a Z probe outside the bed area.
+ *
+ * With safe homing enabled:
+ *
+ * - Allow Z homing only after X and Y homing AND stepper drivers still enabled.
+ * - If stepper drivers time out, it will need X and Y homing again before Z homing.
+ * - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
+ * - Prevent Z homing when the Z probe is outside bed area.
+ */</span>
+<span class="cp">#define Z_SAFE_HOMING
+</span>
+<span class="cp">#if ENABLED(Z_SAFE_HOMING)
+</span>  <span class="cp">#define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
+</span>  <span class="cp">#define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
+#endif
+</span></code></pre>
+</div>
+<p>This option causes the nozzle to move to a selected point (by default, the middle of the bed) when homing the Z axis. As a side-effect, homing of XY is required for Z to home. Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY move to some custom position after homing.</p>
 
 <h2 id="additional-features">Additional Features</h2>
 
@@ -2672,7 +2646,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="cp">#define EEPROM_SETTINGS
 </span></code></pre>
 </div>
-
 <p>Commands like <code class="highlighter-rouge">M92</code> only change the settings in volatile memory, so these settings may be lost when the machine is powered off. This option enables the built-in EEPROM to preserve these settings across reboots. Settings saved to EEPROM (with <code class="highlighter-rouge">M500</code>) are loaded automatically whenever the machine restarts (and in most setups, when connecting to a host), overriding the defaults set in the configuration files. This option is highly recommended, as it makes configurations easier to manage.</p>
 
 <p>The EEPROM-related commands are:</p>
@@ -2706,7 +2679,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="c1">//#define INCH_MODE_SUPPORT
 </span></code></pre>
 </div>
-
 <p>This option adds support for the <code class="highlighter-rouge">G20</code> and <code class="highlighter-rouge">G21</code> commands, allowing GCode to specify units in inches.</p>
 
 <hr>
@@ -2724,20 +2696,16 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 </span></code></pre>
 </div>
-
 <p>These are the default values for the <code class="highlighter-rouge">Prepare</code> &gt; <code class="highlighter-rouge">Preheat</code> LCD menu options. These values can be overridden using the <code class="highlighter-rouge">M145</code> command or the <code class="highlighter-rouge">Control</code> &gt; <code class="highlighter-rouge">Temperature</code> &gt; <code class="highlighter-rouge">Preheat Material X conf</code> submenus.</p>
 
-<hr>
+<h2 id="lcd-language">LCD Language</h2>
 
-<h2 id="lcd-and-sd-card">LCD and SD Card</h2>
-
-<h3 id="lcd-language">LCD Language</h3>
+<h3 id="lcd-language-1">LCD Language</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LCD_LANGUAGE en
 </span></code></pre>
 </div>
-
 <p>Choose your preferred language for the LCD controller here. See <code class="highlighter-rouge">language.h</code> for the current list of languages and their international language codes.</p>
 
 <h3 id="lcd-character-set">LCD Character Set</h3>
@@ -2746,7 +2714,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="cp">#define DISPLAY_CHARSET_HD44780 JAPANESE
 </span></code></pre>
 </div>
-
 <p>This option applies only to character-based displays. Character-based displays (based on the Hitachi HD44780) provide an ASCII character set plus one of the following language extensions:</p>
 
 <ul>
@@ -2768,23 +2735,97 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>See https://github.com/MarlinFirmware/Marlin/wiki/LCD-Language</p>
 
-<h3 id="sd-card-slot">SD Card Slot</h3>
+<h2 id="sd-card">SD Card</h2>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define SDSUPPORT // Enable SD Card Support in Hardware Console
+<pre class="highlight"><code><span class="c1">//#define SDSUPPORT // Enable SD Card Support in Hardware Console
 </span></code></pre>
 </div>
-
-<p>Required to use SD printing, whether as part of an LCD controller or as a standalone SDCard module.</p>
+<p>Enable to use SD printing, whether as part of an LCD controller or as a standalone SDCard slot.</p>
 
 <div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
 <p>The <code class="highlighter-rouge">SDSUPPORT</code> option must be enabled or SD printing will not be supported. It is no longer enabled automatically for LCD controllers with built-in SDCard slot.</p>
     </div>  </div>
 </div>
 
-<hr>
+<h3 id="spi-speed">SPI Speed</h3>
 
-<h3 id="lcd-type">LCD Type</h3>
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define SPI_SPEED SPI_HALF_SPEED
+//#define SPI_SPEED SPI_QUARTER_SPEED
+//#define SPI_SPEED SPI_EIGHTH_SPEED
+</span></code></pre>
+</div>
+<p>Uncomment ONE of these options to use a slower SPI transfer speed. This is usually required if you’re getting volume init errors.</p>
+
+<h3 id="enable-crc">Enable CRC</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define SD_CHECK_AND_RETRY
+</span></code></pre>
+</div>
+<p>Use CRC checks and retries on the SD communication.</p>
+
+<h2 id="encoder">Encoder</h2>
+
+<h3 id="encoder-resolution">Encoder Resolution</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define ENCODER_PULSES_PER_STEP 1
+</span></code></pre>
+</div>
+<p>This option overrides the default number of encoder pulses needed to produce one step. Should be increased for high-resolution encoders.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define ENCODER_STEPS_PER_MENU_ITEM 5
+</span></code></pre>
+</div>
+<p>Use this option to override the number of step signals required to move between next/prev menu items.</p>
+
+<h3 id="encoder-direction">Encoder Direction</h3>
+
+<p>Test your encoder’s behavior first with both of the following options disabled.</p>
+
+<ul>
+  <li>Reversed Value Edit and Menu Nav? Enable <code class="highlighter-rouge">REVERSE_ENCODER_DIRECTION</code>.</li>
+  <li>Reversed Menu Navigation only? Enable <code class="highlighter-rouge">REVERSE_MENU_DIRECTION</code>.</li>
+  <li>Reversed Value Editing only? Enable <em>BOTH</em> options.</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define REVERSE_ENCODER_DIRECTION
+</span></code></pre>
+</div>
+<p>This option reverses the encoder direction everywhere. Set if CLOCKWISE causes values to DECREASE.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define REVERSE_MENU_DIRECTION
+</span></code></pre>
+</div>
+<p>This option reverses the encoder direction for navigating LCD menus. If CLOCKWISE normally moves DOWN this makes it go UP. If CLOCKWISE normally moves UP this makes it go DOWN.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define INDIVIDUAL_AXIS_HOMING_MENU
+</span></code></pre>
+</div>
+<p>Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.</p>
+
+<h2 id="speaker">Speaker</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define SPEAKER
+</span></code></pre>
+</div>
+<p>By default Marlin assumes you have a buzzer with a fixed frequency. If you have a speaker that can produce tones, enable it here.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 100
+//#define LCD_FEEDBACK_FREQUENCY_HZ 1000
+</span></code></pre>
+</div>
+<p>The duration and frequency for the UI feedback sound. Set these to 0 to disable audio feedback in the LCD menus. Test audio output with the G-Code <code class="highlighter-rouge">M300 S&lt;frequency Hz&gt; P&lt;duration ms&gt;</code></p>
+
+<h2 id="lcd-controller">LCD Controller</h2>
 
 <p>Marlin includes support for several controllers. The two most popular controllers supported by Marlin are:</p>
 
@@ -2792,12 +2833,113 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
   <li>
 <code class="highlighter-rouge">REPRAP_DISCOUNT_SMART_CONTROLLER</code> A 20 x 4 character-based LCD controller with click-wheel.</li>
   <li>
-<code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code> A monochrome 128 x 64 pixel-based LCD controller with click-wheel.</li>
+<code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code> A monochrome 128 x 64 pixel-based LCD controller with click-wheel. Able to display simple bitmap graphics and up to 5 lines of text.</li>
 </ul>
 
-<p>See <code class="highlighter-rouge">Configuration.h</code> for the full list of supported controllers.</p>
+<h3 id="standard-controllers">Standard Controllers</h3>
 
-<hr>
+<ul>
+  <li>
+<code class="highlighter-rouge">ULTIMAKERCONTROLLER</code>: The original Ultimaker Controller.</li>
+  <li>
+<code class="highlighter-rouge">ULTIPANEL</code>: <a href="http://www.thingiverse.com/thing:15081">ULTIPANEL</a> as seen on Thingiverse.</li>
+  <li>
+<code class="highlighter-rouge">CARTESIO_UI</code>: <a href="http://mauk.cc/webshop/cartesio-shop/electronics/user-interface">Cartesio UI</a>.</li>
+  <li>
+<code class="highlighter-rouge">PANEL_ONE</code>: <a href="http://reprap.org/wiki/PanelOne">PanelOne from T3P3</a> (via RAMPS 1.4 AUX2/AUX3).</li>
+  <li>
+<code class="highlighter-rouge">MAKRPANEL</code>: <a href="http://reprap.org/wiki/MaKr3d_MaKrPanel">MaKr3d Makr-Panel</a> with graphic controller and SD support.</li>
+  <li>
+<code class="highlighter-rouge">REPRAPWORLD_GRAPHICAL_LCD</code>: <a href="https://reprapworld.com/?products_details&amp;products_id/1218">ReprapWorld Graphical LCD</a>.</li>
+  <li>
+<code class="highlighter-rouge">VIKI2</code>: <a href="http://panucatt.com">Panucatt Devices</a> <a href="http://panucatt.com">Viki 2.0</a>.</li>
+  <li>
+<code class="highlighter-rouge">miniVIKI</code>: <a href="http://panucatt.com">mini Viki with Graphic LCD</a>.</li>
+  <li>
+<code class="highlighter-rouge">ELB_FULL_GRAPHIC_CONTROLLER</code>: (Adafruit ST7565 Full Graphic Controller)(https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/).</li>
+  <li>
+<code class="highlighter-rouge">REPRAP_DISCOUNT_SMART_CONTROLLER</code>: <a href="http://reprap.org/wiki/RepRapDiscount_Smart_Controller">RepRapDiscount Smart Controller</a>. Usually sold with a white PCB.</li>
+  <li>
+<code class="highlighter-rouge">G3D_PANEL</code>: <a href="http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel">Gadgets3D G3D LCD/SD Controller</a>. Usually sold with a blue PCB.</li>
+  <li>
+<code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code>: <a href="http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller">RepRapDiscount Full Graphic Smart Controller</a>.</li>
+  <li>
+<code class="highlighter-rouge">MINIPANEL</code>: <a href="http://reprap.org/wiki/Mini_panel">MakerLab Mini Panel</a> with graphic controller and SD support.</li>
+  <li>
+<code class="highlighter-rouge">REPRAPWORLD_KEYPAD</code>: <a href="http://reprapworld.com/?products_details&amp;products_id=202&amp;cPath=1591_1626">RepRapWorld Keypad v1.1</a> Use <code class="highlighter-rouge">REPRAPWORLD_KEYPAD_MOVE_STEP</code> to set how much the robot should move on each keypress (e.g., 10mm per click).</li>
+  <li>
+<code class="highlighter-rouge">RIGIDBOT_PANEL</code>: <a href="http://www.inventapart.com/">RigidBot Panel V1.0</a>.</li>
+  <li>
+<code class="highlighter-rouge">BQ_LCD_SMART_CONTROLLER</code>: BQ LCD Smart Controller shipped with the BQ Hephestos 2 and Witbox 2.</li>
+</ul>
+
+<h3 id="i2c-controllers">I2C Controllers</h3>
+
+<p>These controllers all require the <a href="https://github.com/kiyoshigawa/LiquidCrystal_I2C">LiquidCrystal_I2C library</a>.</p>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">RA_CONTROL_PANEL</code>: <a href="http://www.elefu.com/index.php?route=product/product&amp;product_id=53">Elefu RA Board Control Panel</a>
+</li>
+  <li>
+<code class="highlighter-rouge">LCD_I2C_SAINSMART_YWROBOT</code>: Sainsmart YW Robot (LCM1602) LCD Display.</li>
+  <li>
+<code class="highlighter-rouge">LCM1602</code>: Generic LCM1602 LCD adapter</li>
+  <li>
+<code class="highlighter-rouge">LCD_I2C_PANELOLU2</code>: PANELOLU2 LCD with status LEDs, separate encoder and click inputs. The click input can either be directly connected to a pin (if <code class="highlighter-rouge">BTN_ENC</code> is defined) or read through I2C (with <code class="highlighter-rouge">BTN_ENC</code> undefined). Requires <a href="https://github.com/lincomatic/LiquidTWI2">LiquidTWI2 library</a> v1.2.3 or later.</li>
+  <li>
+<code class="highlighter-rouge">LCD_I2C_VIKI</code>: Panucatt VIKI LCD with status LEDs, integrated click &amp; L/R/U/D buttons, separate encoder inputs.</li>
+  <li>
+<code class="highlighter-rouge">U8GLIB_SSD1306</code>: SSD1306 OLED full graphics generic display.</li>
+  <li>
+<code class="highlighter-rouge">SAV_3DGLCD</code>: SAV OLED LCD module support using either SSD1306 or SH1106 based LCD modules.</li>
+  <li>
+<code class="highlighter-rouge">SAV_3DLCD</code>: Shift register panels. <a href="https://goo.gl/aJJ4sH">2 wire Non-latching LCD SR</a>. See <a href="http://reprap.org/wiki/SAV_3D_LCD">LCD configuration</a>.</li>
+</ul>
+
+<h2 id="fan-pwm">Fan PWM</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define FAST_PWM_FAN
+</span></code></pre>
+</div>
+<p>Increase the FAN PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define FAN_SOFT_PWM
+</span></code></pre>
+</div>
+<p>Use software PWM to drive the fan, as with the heaters. This uses a very low frequency which is not as annoying as with the hardware PWM. On the other hand, if this frequency is too low, you should also increment <code class="highlighter-rouge">SOFT_PWM_SCALE</code>.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define SOFT_PWM_SCALE 0
+</span></code></pre>
+</div>
+<p>Incrementing this by 1 will double the software PWM frequency, affecting heaters (and the fan if <code class="highlighter-rouge">FAN_SOFT_PWM</code> is enabled). However, control resolution will be halved for each increment; at zero value, there are 128 effective control positions.</p>
+
+<h2 id="temperature-status-leds">Temperature Status LEDs</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define TEMP_STAT_LEDS
+</span></code></pre>
+</div>
+<p>Temperature status LEDs that display the hotend and bed temperature. If all hotend and bed temperature setpoint are &lt; 54C then the BLUE led is on. Otherwise the RED led is on. There is 1C hysteresis.</p>
+
+<h2 id="photo-pin">Photo Pin</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define PHOTOGRAPH_PIN     23
+</span></code></pre>
+</div>
+<p><code class="highlighter-rouge">M240</code> triggers a camera by emulating a Canon RC-1 Remote Data as described on <a href="http://www.doc-diy.net/photo/rc-1_hacked/">this site</a>.</p>
+
+<h2 id="skeinforge-arc-fix">SkeinForge Arc Fix</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define SF_ARC_FIX
+</span></code></pre>
+</div>
+<p>Files sliced with SkeinForge contain the wrong arc GCodes when using “Arc Point” as fillet procedure. This option works around that bug, but otherwise should be left off.</p>
 
 <h2 id="paste-extruder">Paste Extruder</h2>
 
@@ -2806,10 +2948,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 //#define BARICUDA
 </span></code></pre>
 </div>
-
 <p>Marlin includes support for the <a href="http://www.thingiverse.com/thing:26343">Baricuda Extruder for 3D Printing Sugar and Chocolate</a> also <a href="http://www.github.com/jmil/BariCUDA">hosted on GitHub</a>. The feature adds the codes <code class="highlighter-rouge">M126</code>, <code class="highlighter-rouge">M127</code>, <code class="highlighter-rouge">M128</code>, and <code class="highlighter-rouge">M129</code> for controlling the pump and valve of the Baricuda.</p>
-
-<hr>
 
 <h2 id="indicator-leds">Indicator LEDs</h2>
 
@@ -2820,7 +2959,6 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 //#define BLINKM
 </span></code></pre>
 </div>
-
 <p>The BLINKM board supplies the backlighting for some LCD controllers. Its color is set using I2C messages.</p>
 
 <div class="language-cpp highlighter-rouge">
@@ -2833,67 +2971,56 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #endif
 </span></code></pre>
 </div>
-
 <p>An inexpensive RGB LED can be used simply by assigning digital pins for each component. If the pins are able to do hardware PWM then a wide range of colors will be available. With simple digital pins only 7 colors are possible.</p>
 
-<hr>
-
 <h2 id="servos">Servos</h2>
+
+<h3 id="number-of-servos">Number of Servos</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define NUM_SERVOS 1 // Servo index starts with 0 for M280 command
 </span></code></pre>
 </div>
-
-<p>The total number of servos to enable for use. One common application for a servo is a Z bed probe consisting of an endstop switch mounted on a rotating arm. To use one of the servo connectors for this type of probe, set <code class="highlighter-rouge">Z_ENDSTOP_SERVO_NR</code> below.</p>
-
-<hr>
+<p>The total number of servos to enable for use. One common application for a servo is a Z bed probe consisting of an endstop switch mounted on a rotating arm. To use one of the servo connectors for this type of probe, set <code class="highlighter-rouge">Z_ENDSTOP_SERVO_NR</code> in the probe options above.</p>
 
 <h3 id="servo-deactivation">Servo Deactivation</h3>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define DEACTIVATE_SERVOS_AFTER_MOVE
-</span>
-<span class="cp">#if ENABLED(DEACTIVATE_SERVOS_AFTER_MOVE)
-</span>  <span class="cp">#define SERVO_DEACTIVATION_DELAY 1250
-#endif
+<pre class="highlight"><code><span class="cp">#define SERVO_DELAY 300
 </span></code></pre>
 </div>
+<p>Delay (in microseconds) before the next move will start, to give the servo time to reach its target angle. 300ms is a good value but you can try less delay. Specify a large enough delay so the servo has enough time to complete a full motion before deactivation.</p>
 
-<p>This setting causes servos to deactivate after every movement. It is recommended to enable this option to keep the electrical noise from active servos from interfering with other components. The high amperage generated by extruder motor wiring during movement can also induce movement in active servos. Leave this option enabled to avoid all such servo-related troubles.</p>
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define DEACTIVATE_SERVOS_AFTER_MOVE
+</span></code></pre>
+</div>
+<p>With this option servos are powered only during movement, then turned off to prevent jitter. We recommend enabling this option to keep electrical noise from active servos from interfering with other components. The high amperage generated by extruder motor wiring during movement can also induce movement in active servos. Leave this option enabled to avoid all such servo-related troubles.</p>
 
-<p>Specify a large enough delay so the servo has enough time to complete a full motion before deactivation.</p>
-
-<hr>
-
-<h2 id="filament-sensor">Filament Sensor</h2>
+<h2 id="filament-width-sensor">Filament Width Sensor</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define FILAMENT_WIDTH_SENSOR
 </span></code></pre>
 </div>
-
 <p>Enable if you have a filament width sensor (e.g., <a href="http://www.thingiverse.com/thing:454584">Filament Width Sensor Prototype Version 3</a>). With a filament sensor installed, Marlin can adjust the flow rate according to the measured filament width. Adjust the sub-options below according to your setup.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define DEFAULT_NOMINAL_FILAMENT_DIA 3.00
 </span></code></pre>
 </div>
-
 <p>The “nominal” filament diameter as written on the filament spool. If you typically use 1.75mm filament, but physically measure the diameter as 1.70mm, you should still use 1.75. Marlin will compensate automatically. The same goes for 3.00mm filament that measures closer to 2.85mm.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define FILAMENT_SENSOR_EXTRUDER_NUM 0
 </span></code></pre>
 </div>
-
 <p>Only one extruder can have a filament sensor. Specify here which extruder has it.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define MEASUREMENT_DELAY_CM        14
 </span></code></pre>
 </div>
-
 <p>Distance from the filament width sensor to the middle of the filament path (i.e., the nozzle opening).</p>
 
 <div class="language-cpp highlighter-rouge">
@@ -2901,21 +3028,18 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #define MEASURED_LOWER_LIMIT         1.90  //lower limit factor for sensor reading validation in mm
 </span></code></pre>
 </div>
-
 <p>The range of your filament width. Set these according to your filament preferences. The sample values here apply to 3mm. For 1.75mm you’ll use a range more like 1.60 to 1.90.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define MAX_MEASUREMENT_DELAY       20
 </span></code></pre>
 </div>
-
 <p>This defines the size of the buffer to allocate for use with <code class="highlighter-rouge">MEASUREMENT_DELAY_CM</code>. The value must be greater than or equal to <code class="highlighter-rouge">MEASUREMENT_DELAY_CM</code>. Keep this setting low to reduce RAM usage.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define FILAMENT_LCD_DISPLAY
 </span></code></pre>
 </div>
-
 <p>Periodically display a message on the LCD showing the measured filament diameter.</p>
 
             </div>
