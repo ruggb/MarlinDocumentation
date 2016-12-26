@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-25T10:42:14+00:00">
+<meta property="article:published_time" content="2016-12-26T04:49:10+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-25T10:42:14+00:00",
+"datePublished": "2016-12-26T04:49:10+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -2530,27 +2530,13 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <h2 id="bed-leveling">Bed Leveling</h2>
 
-<h3 id="meshmanual-bed-leveling">Mesh/Manual Bed Leveling</h3>
+<p>There are many cases where it’s useful to measure variances in bed height. Even if the bed on a 3D printer is perfectly flat and level, there may still be imperfections in the mechanics. For example, a machine may have a very flat bed, but a corner of the XY gantry is a half-mm high. The ends of the Z axis may not be perfectly level. The bed may move slightly in the Z plane as it moves in the X and/or Y plane. On a Delta there may be a lingering bowl-shape to its XY trajectory.</p>
 
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
-</span></code></pre>
-</div>
-<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option provides a procedure for measuring the bed height at several points using a piece of paper or feeler gauge. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+<p>Bed Compensation or “— Bed Leveling” allows the machine —with a bed probe or user assistance— to take accurate measurements of the “bed height” at various points in the XY plane. With this data the machine can then adjust movement to align better to the tilt or “height” variances in the bed. (I’m scare-quoting “height” here because variances may come from other than the bed.)</p>
 
-<p>Enable <code class="highlighter-rouge">MANUAL_BED_LEVELING</code> to be able to do interactive Mesh Bed Leveling from the LCD controller.</p>
+<p>For more details on these features, see <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> and <a href="/docs/gcode/G29-abl.html"><code class="highlighter-rouge">G29</code> for ABL</a>.</p>
 
-<hr>
-
-<h3 id="auto-bed-leveling">Auto Bed Leveling</h3>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">//#define AUTO_BED_LEVELING_3POINT
-//#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
-</span></code></pre>
-</div>
-<p>If you have a bed probe, you can enable one of these options to use Auto Bed Leveling. The <code class="highlighter-rouge">G29</code> command can then be used to automatically probe the bed and measure its height at various points and produce a correction grid or matrix.</p>
+<h3 id="debug-leveling">Debug Leveling</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define DEBUG_LEVELING_FEATURE
@@ -2558,10 +2544,55 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Use this option to enable extra debugging of homing and leveling. You can then use <code class="highlighter-rouge">M111 S32</code> before issuing <code class="highlighter-rouge">G28</code> and <code class="highlighter-rouge">G29 V4</code> to get a detailed log of the process for diagnosis. This option is useful to figure out the cause of unexpected behaviors, or when reporting issues to the project.</p>
 
-<hr>
+<h3 id="leveling-fade-height">Leveling Fade Height</h3>
 
-<h4 id="linear--bilinear-options">
-<code class="highlighter-rouge">LINEAR</code> / <code class="highlighter-rouge">BILINEAR</code> options</h4>
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define ENABLE_LEVELING_FADE_HEIGHT
+</span></code></pre>
+</div>
+<p>Available with both <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> and <code class="highlighter-rouge">MESH_BED_LEVELING</code>, this option adds the <code class="highlighter-rouge">M420 Zn</code> command to set a fade distance over which leveling will be gradually reduced. Above the given Z height, leveling compensation will no longer be applied.</p>
+
+<p>This feature exists to prevent irregularities in the bed from propagating through the model’s entire height. This reduces computational requirements and resonance from the Z axis above the fade height.</p>
+
+<p>Example: To have leveling fade out over the first 10mm of layer printing use <code class="highlighter-rouge">M420 Z10</code>. If each layer is 0.2mm high, leveling compensation will be reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
+
+<h2 id="mesh-manual-bed-leveling">Mesh (Manual) Bed Leveling</h2>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
+</span></code></pre>
+</div>
+<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option provides a custom <code class="highlighter-rouge">G29</code> command for measuring the bed height at several points using a piece of paper or feeler gauge. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+
+<p>Not compatible with Delta and SCARA.</p>
+
+<h3 id="mbl-lcd-menu">MBL LCD Menu</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define MANUAL_BED_LEVELING
+</span></code></pre>
+</div>
+<p>Enable to add interactive Mesh Bed Leveling to the LCD controller. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+
+<h2 id="auto-bed-leveling">Auto Bed Leveling</h2>
+
+<p>Auto Bed Leveling is a standard feature on many 3D printers. It takes the guess-work out of getting a good first layer and good bed adhesion.</p>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define AUTO_BED_LEVELING_3POINT
+//#define AUTO_BED_LEVELING_LINEAR
+//#define AUTO_BED_LEVELING_BILINEAR
+</span></code></pre>
+</div>
+<p>If you have a bed probe, you can enable one of three types of Auto Bed Leveling (described below). With this feature you can use <code class="highlighter-rouge">G29</code> to automatically probe the bed, measure its height at various points, and produce a correction grid or matrix.</p>
+
+<p>New in Marlin 1.1.0: For all forms of bed leveling you can save the results to EEPROM and re-use them later. Use <code class="highlighter-rouge">M500</code> to save the bed probing data gathered by <code class="highlighter-rouge">G29</code>. <code class="highlighter-rouge">M501</code> to load, <code class="highlighter-rouge">M502</code> to clear, <code class="highlighter-rouge">M503</code> to report.</p>
+
+<p>Auto Bed Leveling also adds the <code class="highlighter-rouge">M420 S&lt;bool&gt;</code> command to enable / disable Auto Bed Leveling. Outside of a dry-run or a probing error, <code class="highlighter-rouge">G29</code> enables bed compensation automatically. Use <code class="highlighter-rouge">M420 S0</code> to disable it. The <code class="highlighter-rouge">M501</code> command disables leveling compensation before loading the last-saved bed leveling data, but it is not automatically enabled. Use <code class="highlighter-rouge">M420 S1</code> to enable bed compensation.</p>
+
+<p>Only <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> is supported for Delta and SCARA.</p>
+
+<h3 id="linear--bilinear-options">Linear / Bilinear Options</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LEFT_PROBE_BED_POSITION 15
@@ -2585,22 +2616,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Enable this option if probing should proceed in the Y dimension first instead of X first.</p>
 
-<hr>
-
-<h4 id="leveling-fade-height">Leveling Fade Height</h4>
-
-<div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#define ENABLE_LEVELING_FADE_HEIGHT
-</span></code></pre>
-</div>
-<p>Available only with <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> and <code class="highlighter-rouge">MESH_BED_LEVELING</code>. With this option the <code class="highlighter-rouge">M420 Zn</code> command can be used to set a fade distance over which leveling will be gradually reduced. Above the given Z height, leveling compensation will no longer be applied.</p>
-
-<p>Example: <code class="highlighter-rouge">M420 Z10</code> sets leveling to fade within the first 10mm of layer printing. If each layer is 0.2mm high, then leveling compensation is reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
-
-<hr>
-
-<h4 id="point-options">
-<code class="highlighter-rouge">3POINT</code> options</h4>
+<h3 id="point-options">3-Point Options</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define ABL_PROBE_PT_1_X 15
@@ -2616,19 +2632,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <h2 id="z-safe-homing">Z Safe Homing</h2>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="cm">/**
- * Z Safe Homing
- *
- * Enable this option to avoid homing with a Z probe outside the bed area.
- *
- * With safe homing enabled:
- *
- * - Allow Z homing only after X and Y homing AND stepper drivers still enabled.
- * - If stepper drivers time out, it will need X and Y homing again before Z homing.
- * - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
- * - Prevent Z homing when the Z probe is outside bed area.
- */</span>
-<span class="cp">#define Z_SAFE_HOMING
+<pre class="highlight"><code><span class="cp">#define Z_SAFE_HOMING
 </span>
 <span class="cp">#if ENABLED(Z_SAFE_HOMING)
 </span>  <span class="cp">#define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
@@ -2636,7 +2640,9 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 #endif
 </span></code></pre>
 </div>
-<p>This option causes the nozzle to move to a selected point (by default, the middle of the bed) when homing the Z axis. As a side-effect, homing of XY is required for Z to home. Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY move to some custom position after homing.</p>
+<p><strong>Z Safe Homing</strong> prevents Z from homing when the probe (or nozzle) is outside bed area by moving to a defined XY point (by default, the middle of the bed) before Z Homing when homing all axes with <code class="highlighter-rouge">G28</code>. As a side-effect, X and Y homing are required before Z homing. If stepper drivers time out, X and Y homing will be required again.</p>
+
+<p>Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY always move to some custom position after homing.</p>
 
 <h2 id="additional-features">Additional Features</h2>
 
@@ -2700,7 +2706,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <h2 id="lcd-language">LCD Language</h2>
 
-<h3 id="lcd-language-1">LCD Language</h3>
+<h3 id="ui-language">UI Language</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LCD_LANGUAGE en
@@ -2708,7 +2714,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Choose your preferred language for the LCD controller here. See <code class="highlighter-rouge">language.h</code> for the current list of languages and their international language codes.</p>
 
-<h3 id="lcd-character-set">LCD Character Set</h3>
+<h3 id="hd44780-character-set">HD44780 Character Set</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define DISPLAY_CHARSET_HD44780 JAPANESE
@@ -2836,7 +2842,9 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code> A monochrome 128 x 64 pixel-based LCD controller with click-wheel. Able to display simple bitmap graphics and up to 5 lines of text.</li>
 </ul>
 
-<h3 id="standard-controllers">Standard Controllers</h3>
+<p>Most other LCD controllers are variants of these.</p>
+
+<h3 id="character-lcds">Character LCDs</h3>
 
 <ul>
   <li>
@@ -2844,9 +2852,20 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
   <li>
 <code class="highlighter-rouge">ULTIPANEL</code>: <a href="http://www.thingiverse.com/thing:15081">ULTIPANEL</a> as seen on Thingiverse.</li>
   <li>
-<code class="highlighter-rouge">CARTESIO_UI</code>: <a href="http://mauk.cc/webshop/cartesio-shop/electronics/user-interface">Cartesio UI</a>.</li>
+<code class="highlighter-rouge">PANEL_ONE</code>: <a href="http://reprap.org/wiki/PanelOne">PanelOne from T3P3</a> (via RAMPS 1.4 AUX2/AUX3). A variant of <code class="highlighter-rouge">ULTIMAKERCONTROLLER</code>.</li>
   <li>
-<code class="highlighter-rouge">PANEL_ONE</code>: <a href="http://reprap.org/wiki/PanelOne">PanelOne from T3P3</a> (via RAMPS 1.4 AUX2/AUX3).</li>
+<code class="highlighter-rouge">REPRAP_DISCOUNT_SMART_CONTROLLER</code>: <a href="http://reprap.org/wiki/RepRapDiscount_Smart_Controller">RepRapDiscount Smart Controller</a>. Usually sold with a white PCB.</li>
+  <li>
+<code class="highlighter-rouge">G3D_PANEL</code>: <a href="http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel">Gadgets3D G3D LCD/SD Controller</a>. Usually sold with a blue PCB.</li>
+  <li>
+<code class="highlighter-rouge">RIGIDBOT_PANEL</code>: <a href="http://www.inventapart.com/">RigidBot Panel V1.0</a>.</li>
+</ul>
+
+<h3 id="graphical-lcds">Graphical LCDs</h3>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">CARTESIO_UI</code>: <a href="http://mauk.cc/webshop/cartesio-shop/electronics/user-interface">Cartesio UI</a>.</li>
   <li>
 <code class="highlighter-rouge">MAKRPANEL</code>: <a href="http://reprap.org/wiki/MaKr3d_MaKrPanel">MaKr3d Makr-Panel</a> with graphic controller and SD support.</li>
   <li>
@@ -2856,24 +2875,23 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
   <li>
 <code class="highlighter-rouge">miniVIKI</code>: <a href="http://panucatt.com">mini Viki with Graphic LCD</a>.</li>
   <li>
-<code class="highlighter-rouge">ELB_FULL_GRAPHIC_CONTROLLER</code>: (Adafruit ST7565 Full Graphic Controller)(https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/).</li>
-  <li>
-<code class="highlighter-rouge">REPRAP_DISCOUNT_SMART_CONTROLLER</code>: <a href="http://reprap.org/wiki/RepRapDiscount_Smart_Controller">RepRapDiscount Smart Controller</a>. Usually sold with a white PCB.</li>
-  <li>
-<code class="highlighter-rouge">G3D_PANEL</code>: <a href="http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel">Gadgets3D G3D LCD/SD Controller</a>. Usually sold with a blue PCB.</li>
+<code class="highlighter-rouge">ELB_FULL_GRAPHIC_CONTROLLER</code>: <a href="https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/">Adafruit ST7565 Full Graphic Controller</a>.</li>
   <li>
 <code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code>: <a href="http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller">RepRapDiscount Full Graphic Smart Controller</a>.</li>
   <li>
 <code class="highlighter-rouge">MINIPANEL</code>: <a href="http://reprap.org/wiki/Mini_panel">MakerLab Mini Panel</a> with graphic controller and SD support.</li>
   <li>
-<code class="highlighter-rouge">REPRAPWORLD_KEYPAD</code>: <a href="http://reprapworld.com/?products_details&amp;products_id=202&amp;cPath=1591_1626">RepRapWorld Keypad v1.1</a> Use <code class="highlighter-rouge">REPRAPWORLD_KEYPAD_MOVE_STEP</code> to set how much the robot should move on each keypress (e.g., 10mm per click).</li>
-  <li>
-<code class="highlighter-rouge">RIGIDBOT_PANEL</code>: <a href="http://www.inventapart.com/">RigidBot Panel V1.0</a>.</li>
-  <li>
 <code class="highlighter-rouge">BQ_LCD_SMART_CONTROLLER</code>: BQ LCD Smart Controller shipped with the BQ Hephestos 2 and Witbox 2.</li>
 </ul>
 
-<h3 id="i2c-controllers">I2C Controllers</h3>
+<h3 id="keypad">Keypad</h3>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">REPRAPWORLD_KEYPAD</code>: <a href="http://reprapworld.com/?products_details&amp;products_id=202&amp;cPath=1591_1626">RepRapWorld Keypad v1.1</a> Use <code class="highlighter-rouge">REPRAPWORLD_KEYPAD_MOVE_STEP</code> to set how much the robot should move on each keypress (e.g., 10mm per click).</li>
+</ul>
+
+<h3 id="i2c-character-lcds">I2C Character LCDs</h3>
 
 <p>These controllers all require the <a href="https://github.com/kiyoshigawa/LiquidCrystal_I2C">LiquidCrystal_I2C library</a>.</p>
 
@@ -2882,7 +2900,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <code class="highlighter-rouge">RA_CONTROL_PANEL</code>: <a href="http://www.elefu.com/index.php?route=product/product&amp;product_id=53">Elefu RA Board Control Panel</a>
 </li>
   <li>
-<code class="highlighter-rouge">LCD_I2C_SAINSMART_YWROBOT</code>: Sainsmart YW Robot (LCM1602) LCD Display.</li>
+<code class="highlighter-rouge">LCD_I2C_SAINSMART_YWROBOT</code>: Sainsmart <a href="http://henrysbench.capnfatz.com/henrys-bench/arduino-displays/ywrobot-lcm1602-iic-v1-lcd-arduino-tutorial/">YWRobot LCM1602 LCD Display</a>.</li>
   <li>
 <code class="highlighter-rouge">LCM1602</code>: Generic LCM1602 LCD adapter</li>
   <li>
@@ -2890,11 +2908,18 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
   <li>
 <code class="highlighter-rouge">LCD_I2C_VIKI</code>: Panucatt VIKI LCD with status LEDs, integrated click &amp; L/R/U/D buttons, separate encoder inputs.</li>
   <li>
+<code class="highlighter-rouge">SAV_3DLCD</code>: Shift register panels. <a href="https://goo.gl/aJJ4sH">2 wire Non-latching LCD SR</a>. See <a href="http://reprap.org/wiki/SAV_3D_LCD">LCD configuration</a>.</li>
+</ul>
+
+<h3 id="i2c-graphical-lcds">I2C Graphical LCDs</h3>
+
+<p>These controllers all require the <a href="https://github.com/kiyoshigawa/LiquidCrystal_I2C">LiquidCrystal_I2C library</a>.</p>
+
+<ul>
+  <li>
 <code class="highlighter-rouge">U8GLIB_SSD1306</code>: SSD1306 OLED full graphics generic display.</li>
   <li>
 <code class="highlighter-rouge">SAV_3DGLCD</code>: SAV OLED LCD module support using either SSD1306 or SH1106 based LCD modules.</li>
-  <li>
-<code class="highlighter-rouge">SAV_3DLCD</code>: Shift register panels. <a href="https://goo.gl/aJJ4sH">2 wire Non-latching LCD SR</a>. See <a href="http://reprap.org/wiki/SAV_3D_LCD">LCD configuration</a>.</li>
 </ul>
 
 <h2 id="fan-pwm">Fan PWM</h2>
