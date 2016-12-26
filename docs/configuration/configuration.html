@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T05:47:36+00:00">
+<meta property="article:published_time" content="2016-12-26T08:40:20+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T05:47:36+00:00",
+"datePublished": "2016-12-26T08:40:20+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -1781,6 +1781,8 @@
 </div>
 <p>Enable this if you don’t want the power supply to switch on when you turn on the printer. This is for printers that have dual powersupplies. For instance some setups have a separate powersupply for the heaters. In this situation you can save power by leaving the powersupply off until called for. If you don’t know what this is leave it.</p>
 
+<p><img src="/assets/images/config/thermal.jpg" alt="Thermometer" class="floater"></p>
+
 <h2 id="thermal-settings">Thermal Settings</h2>
 
 <h3 id="temperature-sensors">Temperature Sensors</h3>
@@ -1943,6 +1945,8 @@
 </div>
 <p>The max power delivered to the bed. All forms of bed control obey this (PID, bang-bang, bang-bang with hysteresis). Setting this to anything other than 255 enables a form of PWM. As with <code class="highlighter-rouge">PIDTEMPBED</code>, don’t enable this unless your bed hardware is ok with PWM.</p>
 
+<p><img src="/assets/images/config/safety.gif" alt="Safety" class="floater"></p>
+
 <h3 id="safety">Safety</h3>
 
 <h4 id="prevent-cold-extrusion-em-classfa-fa-sticky-note-o-aria-hiddentrueem">Prevent Cold Extrusion <em class="fa fa-sticky-note-o" aria-hidden="true"></em>
@@ -1991,6 +1995,8 @@
 </div>
 </div>
 
+<p><img src="/assets/images/config/kinematics.jpg" alt="Kinematics" class="floater"></p>
+
 <h2 id="kinematics">Kinematics</h2>
 
 <p>Marlin supports four kinematic motion systems: Cartesian, Core (H-Bot), Delta, and SCARA. Cartesian is the simplest, applying each stepper directly to an axis. CoreXY uses a special belt arrangement to do XY motion, requiring a little extra maths. Delta robots convert the motion of three vertical carriages into XYZ motion in an “effector” attached to the carriages by six arms. SCARA robots move an arm in the XY plane using two angular joints.</p>
@@ -1998,9 +2004,7 @@
 <h3 id="corexy">CoreXY</h3>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// Uncomment one of these options to enable CoreXY, CoreXZ, or CoreYZ kinematics
-// either in the usual order or reversed
-//#define COREXY
+<pre class="highlight"><code><span class="c1">//#define COREXY
 //#define COREXZ
 //#define COREYZ
 //#define COREYX
@@ -2032,6 +2036,8 @@
 </span></code></pre>
 </div>
 <p>Leave this option disabled for standard NEMA steppers.</p>
+
+<p><img src="/assets/images/config/endstop.jpg" alt="Endstop switch" class="floater"></p>
 
 <h2 id="endstops">Endstops</h2>
 
@@ -2092,6 +2098,8 @@
 </div>
 <p>Enable this feature if all enabled endstop pins are interrupt-capable.
 This will remove the need to poll the interrupt pins, saving many CPU cycles.</p>
+
+<p><img src="/assets/images/config/movement.png" alt="Movement" class="floater"></p>
 
 <h2 id="movement">Movement</h2>
 
@@ -2257,6 +2265,8 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 
 <p>Both acceleration and jerk affect your print quality. If jerk is too low, the extruder will linger too long on small segments and corners, possibly leaving blobs. If the jerk is set too high, direction changes will apply too much torque and you may see “ringing” artifacts or dropped steps.</p>
 
+<p><img src="/assets/images/config/probe.jpg" alt="Probe" class="floater framed"></p>
+
 <h2 id="z-probe-options">Z Probe Options</h2>
 
 <h3 id="probe-type">Probe Type</h3>
@@ -2348,7 +2358,7 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 </div>
 <p>A custom script to do at the very end of <code class="highlighter-rouge">G29</code>. If multiple commands are needed, divide them with <code class="highlighter-rouge">\n</code> (the newline character).</p>
 
-<h3 id="z-probe-connection">Z Probe Connection</h3>
+<h3 id="probe-pins">Probe Pins</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define Z_MIN_PROBE_ENDSTOP
@@ -2370,7 +2380,7 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 </div>
 <p>This typically disables your probe feature. Only applicable to <code class="highlighter-rouge">//#define Z_MIN_PROBE_ENDSTOP</code> enabled</p>
 
-<h3 id="z-probe-testing">Z Probe Testing</h3>
+<h3 id="probe-testing">Probe Testing</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -2416,19 +2426,20 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>For <code class="highlighter-rouge">M851</code> and LCD menus give a range for adjusting the Z probe offset.</p>
 
+<p><img src="/assets/images/config/motor-dir.jpg" alt="Motor Movement" class="floater"></p>
+
 <h2 id="motor-movement">Motor Movement</h2>
 
 <h3 id="motor-direction">Motor Direction</h3>
 
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
-// :{0:'Low',1:'High'}
-</span><span class="cp">#define X_ENABLE_ON 0
+<pre class="highlight"><code><span class="cp">#define X_ENABLE_ON 0
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
 </span></code></pre>
 </div>
+<p>These options set the pin states used for stepper enable. The most common setting is 0 (<code class="highlighter-rouge">LOW</code>) for Active Low. For Active High use 1 or <code class="highlighter-rouge">HIGH</code>.</p>
 
 <h3 id="motor-disable">Motor Disable</h3>
 
@@ -2474,13 +2485,19 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>These settings reverse the motor direction for each axis. Be careful when first setting these. Axes moving the wrong direction can cause damage. Get these right without belts attached first, if possible. Before testing, move the carriage and bed to the middle. Test each axis for proper movemnt using the host or LCD “Move Axis” menu. If an axis is inverted, either flip the plug around or change its invert setting.</p>
 
-<h2 id="axis-homing">Axis Homing</h2>
+<h2 id="homing-and-bounds">Homing and Bounds</h2>
+
+<h3 id="z-homing-height">Z Homing Height</h3>
+
+<p><img src="/assets/images/config/home.jpg" alt="Home Icon" class="floater"></p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define Z_HOMING_HEIGHT 4
 </span></code></pre>
 </div>
 <p>This value raises Z to the specified height above the bed before homing X or Y. This is useful to prevent the head crashing into bed mountings such as screws, bulldog clips, etc. This also works with auto bed leveling enabled and will be triggered only when the Z axis height is less than the defined value, otherwise the Z axis will not move.</p>
+
+<h3 id="homing-direction">Homing Direction</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define X_HOME_DIR -1
@@ -2490,7 +2507,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Homing direction for each axis: -1 = min, 1 = max. Most cartesian and core machines have three min endstops. Deltas have three max endstops. For other configurations set these values appropriately.</p>
 
-<h2 id="software-endstops">Software Endstops</h2>
+<h3 id="software-endstops">Software Endstops</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define min_software_endstops true
@@ -2499,7 +2516,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Set to <code class="highlighter-rouge">true</code> to enable the option to constrain movement to the physical boundaries of the machine (as set by <code class="highlighter-rouge">[XYZ]_(MIN|MAX)_POS</code>). For example, <code class="highlighter-rouge">G1 Z-100</code> can be min constrained to <code class="highlighter-rouge">G1 Z0</code>. It is recommended to enable these options as a safety feature. If software endstops need to be disabled, use <code class="highlighter-rouge">M211 S0</code>.</p>
 
-<h2 id="movement-bounds">Movement Bounds</h2>
+<h3 id="movement-bounds">Movement Bounds</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define X_MIN_POS 0
@@ -2525,6 +2542,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <h2 id="filament-runout-sensor">Filament Runout Sensor</h2>
 
+<p><img src="/assets/images/config/filament-sensor.jpg" alt="Filament Sensor" class="floater framed"></p>
+
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define FILAMENT_RUNOUT_SENSOR
 </span><span class="cp">#if ENABLED(FILAMENT_RUNOUT_SENSOR)
@@ -2537,6 +2556,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <p>With this feature, a mechanical or opto endstop switch is used to check for the presence of filament in the feeder (usually the switch is closed when filament is present). If the filament runs out, Marlin will run the specified GCode script (by default “<code class="highlighter-rouge">M600</code>”). RAMPS-based boards use <code class="highlighter-rouge">SERVO3_PIN</code>. For other boards you may need to define <code class="highlighter-rouge">FIL_RUNOUT_PIN</code>.</p>
 
 <h2 id="bed-leveling">Bed Leveling</h2>
+
+<p><img src="/assets/images/config/bedlevel.png" alt="Bed Level" class="floater"></p>
 
 <p>There are many cases where it’s useful to measure variances in bed height. Even if the bed on a 3D printer is perfectly flat and level, there may still be imperfections in the mechanics. For example, a machine may have a very flat bed, but a corner of the XY gantry is a half-mm high. The ends of the Z axis may not be perfectly level. The bed may move slightly in the Z plane as it moves in the X and/or Y plane. On a Delta there may be a lingering bowl-shape to its XY trajectory.</p>
 
@@ -2652,9 +2673,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY always move to some custom position after homing.</p>
 
-<h2 id="additional-features">Additional Features</h2>
-
-<h3 id="eeprom">EEPROM</h3>
+<h2 id="eeprom">EEPROM</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define EEPROM_SETTINGS
@@ -2685,9 +2704,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
     </div>  </div>
 </div>
 
-<hr>
-
-<h3 id="inch-units-support">Inch Units Support</h3>
+<h2 id="inch-units-support">Inch Units Support</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define INCH_MODE_SUPPORT
@@ -2695,10 +2712,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>This option adds support for the <code class="highlighter-rouge">G20</code> and <code class="highlighter-rouge">G21</code> commands, allowing GCode to specify units in inches.</p>
 
-<hr>
-
-<h3 id="material-preheat-presets-em-classfa-fa-sticky-note-o-text-info-aria-hiddentrueem-em-classfa-fa-desktop-text-info-aria-hiddentrueem">Material Preheat Presets <em class="fa fa-sticky-note-o text-info" aria-hidden="true"></em> <em class="fa fa-desktop text-info" aria-hidden="true"></em>
-</h3>
+<h2 id="lcd-material-presets-em-classfa-fa-sticky-note-o-text-info-aria-hiddentrueem-em-classfa-fa-desktop-text-info-aria-hiddentrueem">LCD Material Presets <em class="fa fa-sticky-note-o text-info" aria-hidden="true"></em> <em class="fa fa-desktop text-info" aria-hidden="true"></em>
+</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define PREHEAT_1_TEMP_HOTEND 180
@@ -2714,13 +2729,134 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <h2 id="lcd-language">LCD Language</h2>
 
-<h3 id="ui-language">UI Language</h3>
+<h3 id="user-interface-language">User Interface Language</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LCD_LANGUAGE en
 </span></code></pre>
 </div>
-<p>Choose your preferred language for the LCD controller here. See <code class="highlighter-rouge">language.h</code> for the current list of languages and their international language codes.</p>
+<p>Choose your preferred language for the LCD controller here. Supported languages include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>an</td>
+      <td>Aragonese</td>
+    </tr>
+    <tr>
+      <td>bg</td>
+      <td>Bulgarian</td>
+    </tr>
+    <tr>
+      <td>ca</td>
+      <td>Catalan</td>
+    </tr>
+    <tr>
+      <td>cn</td>
+      <td>Chinese</td>
+    </tr>
+    <tr>
+      <td>cz</td>
+      <td>Czech</td>
+    </tr>
+    <tr>
+      <td>de</td>
+      <td>German</td>
+    </tr>
+    <tr>
+      <td>el</td>
+      <td>Greek</td>
+    </tr>
+    <tr>
+      <td>el-gr</td>
+      <td>Greek (Greece)</td>
+    </tr>
+    <tr>
+      <td>en</td>
+      <td>English</td>
+    </tr>
+    <tr>
+      <td>es</td>
+      <td>Spanish</td>
+    </tr>
+    <tr>
+      <td>eu</td>
+      <td>Basque-Euskera</td>
+    </tr>
+    <tr>
+      <td>fi</td>
+      <td>Finnish</td>
+    </tr>
+    <tr>
+      <td>fr</td>
+      <td>French</td>
+    </tr>
+    <tr>
+      <td>gl</td>
+      <td>Galician</td>
+    </tr>
+    <tr>
+      <td>hr</td>
+      <td>Croatian</td>
+    </tr>
+    <tr>
+      <td>it</td>
+      <td>Italian</td>
+    </tr>
+    <tr>
+      <td>kana</td>
+      <td>Japanese</td>
+    </tr>
+    <tr>
+      <td>kana_utf8</td>
+      <td>Japanese (UTF8)</td>
+    </tr>
+    <tr>
+      <td>nl</td>
+      <td>Dutch</td>
+    </tr>
+    <tr>
+      <td>pl</td>
+      <td>Polish</td>
+    </tr>
+    <tr>
+      <td>pt</td>
+      <td>Portuguese</td>
+    </tr>
+    <tr>
+      <td>pt-br</td>
+      <td>Portuguese (Brazilian)</td>
+    </tr>
+    <tr>
+      <td>pt-</td>
+      <td>Portuguese (Brazilian UTF8)</td>
+    </tr>
+    <tr>
+      <td>pt_utf8</td>
+      <td>Portuguese (UTF8)</td>
+    </tr>
+    <tr>
+      <td>ru</td>
+      <td>Russian</td>
+    </tr>
+    <tr>
+      <td>tr</td>
+      <td>Turkish</td>
+    </tr>
+    <tr>
+      <td>uk</td>
+      <td>Ukrainian</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>See <code class="highlighter-rouge">language.h</code> for the latest list of supported languages and their international language codes.</p>
 
 <h3 id="hd44780-character-set">HD44780 Character Set</h3>
 
