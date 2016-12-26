@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T08:40:20+00:00">
+<meta property="article:published_time" content="2016-12-26T08:48:27+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T08:40:20+00:00",
+"datePublished": "2016-12-26T08:48:27+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -2585,7 +2585,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Example: To have leveling fade out over the first 10mm of layer printing use <code class="highlighter-rouge">M420 Z10</code>. If each layer is 0.2mm high, leveling compensation will be reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
 
-<h3 id="mesh-manual-bed-leveling">Mesh (Manual) Bed Leveling</h3>
+<h2 id="mesh-manual-bed-leveling">Mesh (Manual) Bed Leveling</h2>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
@@ -2603,7 +2603,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Enable to add interactive Mesh Bed Leveling to the LCD controller. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
 
-<h3 id="auto-bed-leveling">Auto Bed Leveling</h3>
+<h2 id="auto-bed-leveling">Auto Bed Leveling</h2>
 
 <p>Auto Bed Leveling is a standard feature on many 3D printers. It takes the guess-work out of getting a good first layer and good bed adhesion.</p>
 
@@ -2621,7 +2621,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Only <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> is supported for Delta and SCARA.</p>
 
-<h4 id="linear--bilinear-options">Linear / Bilinear Options</h4>
+<h3 id="linear--bilinear-options">Linear / Bilinear Options</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LEFT_PROBE_BED_POSITION 15
@@ -2645,7 +2645,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Enable this option if probing should proceed in the Y dimension first instead of X first.</p>
 
-<h4 id="point-options">3-Point Options</h4>
+<h3 id="point-options">3-Point Options</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define ABL_PROBE_PT_1_X 15
