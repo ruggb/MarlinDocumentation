@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T11:20:23+00:00">
+<meta property="article:published_time" content="2016-12-26T13:33:48+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T11:20:23+00:00",
+"datePublished": "2016-12-26T13:33:48+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -1654,6 +1654,8 @@
 </div>
 <p>Enable the Bluetooth serial interface. For boards based on the AT90USB.</p>
 
+<p><img src="/assets/images/config/motherboard.jpg" alt="Motherboard" class="floater"></p>
+
 <h3 id="motherboard">Motherboard</h3>
 
 <div class="language-cpp highlighter-rouge">
@@ -1697,6 +1699,8 @@
 <p>A unique ID for your 3D printer. A suitable unique ID can be generated randomly at <a href="http://www.uuidgenerator.net/version4">uuidgenerator.net</a>. Some host programs and slicers may use this identifier to differentiate between specific machines on your network.</p>
 
 <h2 id="extruder-info">Extruder Info</h2>
+
+<p><a href="https://www.youtube.com/watch?v=ocgPAAJouPs" target="_blank"><img src="/assets/images/config/extruders.png" alt="Extruders" class="floater framed"></a></p>
 
 <h3 id="extruders">Extruders</h3>
 
@@ -2265,9 +2269,9 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 
 <p>Both acceleration and jerk affect your print quality. If jerk is too low, the extruder will linger too long on small segments and corners, possibly leaving blobs. If the jerk is set too high, direction changes will apply too much torque and you may see “ringing” artifacts or dropped steps.</p>
 
-<p><img src="/assets/images/config/probe.jpg" alt="Probe" class="floater framed"></p>
-
 <h2 id="z-probe-options">Z Probe Options</h2>
+
+<p><img src="/assets/images/config/probe.jpg" alt="Probe" class="floater framed"></p>
 
 <h3 id="probe-type">Probe Type</h3>
 
@@ -2426,11 +2430,11 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>For <code class="highlighter-rouge">M851</code> and LCD menus give a range for adjusting the Z probe offset.</p>
 
-<p><img src="/assets/images/config/motor-dir.jpg" alt="Motor Movement" class="floater"></p>
+<p><img src="/assets/images/config/motor-dir.jpg" alt="Stepper Spin" class="floater"></p>
 
-<h2 id="motor-movement">Motor Movement</h2>
+<h2 id="stepper-drivers">Stepper Drivers</h2>
 
-<h3 id="motor-direction">Motor Direction</h3>
+<h3 id="motor-enable">Motor Enable</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define X_ENABLE_ON 0
@@ -2470,7 +2474,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>The E disable option works like <code class="highlighter-rouge">DISABLE_[XYZ]</code> but pertains to one or more extruders. The default setting keeps the active extruder enabled, disabling all inactive extruders. This is reasonable for situations where a “wipe tower” or other means is used to ensure that the nozzle is primed and not oozing between uses.</p>
 
-<h3 id="motor-direction-1">Motor Direction</h3>
+<h3 id="motor-direction">Motor Direction</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define INVERT_X_DIR true
@@ -2536,7 +2540,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <div class="panel-body">
 <p>
 </p>
-<p>Values are pulled from <code class="highlighter-rouge">MIN_POS</code>. Use <code class="highlighter-rouge">M206</code> from host program console.</p>
+<p>Although home positions are fixed, <code class="highlighter-rouge">M206</code> can be used to apply offsets to the home position if needed.</p>
 </div>
 </div>
 
@@ -2689,7 +2693,27 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>These options specify the three points that will be probed during <code class="highlighter-rouge">G29</code>.</p>
 
-<h2 id="z-safe-homing">Z Safe Homing</h2>
+<h2 id="homing-options">Homing Options</h2>
+
+<h3 id="bed-center-at-00">Bed Center at 0,0</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define BED_CENTER_AT_0_0
+</span></code></pre>
+</div>
+<p>Enable this option if the bed center is at X0 Y0. This setting affects the way automatic home positions (those not set with <code class="highlighter-rouge">MANUAL_[XYZ]_POS</code>) are calculated. This should always be enabled with <code class="highlighter-rouge">DELTA</code>.</p>
+
+<h3 id="manual-home-position">Manual Home Position</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define MANUAL_X_HOME_POS 0
+//#define MANUAL_Y_HOME_POS 0
+//#define MANUAL_Z_HOME_POS 0 // Distance from nozzle to printbed after homing
+</span></code></pre>
+</div>
+<p>These settings are used to override the home position. Leave them undefined for automatic settings. For <code class="highlighter-rouge">DELTA</code> Z home must be set to the top-most position.</p>
+
+<h3 id="z-safe-homing">Z Safe Homing</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define Z_SAFE_HOMING
@@ -2891,6 +2915,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <h3 id="hd44780-character-set">HD44780 Character Set</h3>
 
+<p><img src="/assets/images/config/lcd-charset.png" alt="LCD Charset" class="floater framed"></p>
+
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define DISPLAY_CHARSET_HD44780 JAPANESE
 </span></code></pre>
@@ -2915,6 +2941,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </ul>
 
 <p>See https://github.com/MarlinFirmware/Marlin/wiki/LCD-Language</p>
+
+<p><img src="/assets/images/config/sdcard.jpg" alt="SD Card" class="floater"></p>
 
 <h2 id="sd-card">SD Card</h2>
 
@@ -2946,6 +2974,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </span></code></pre>
 </div>
 <p>Use CRC checks and retries on the SD communication.</p>
+
+<p><img src="/assets/images/config/encoder.jpg" alt="Encoder Knob" class="floater"></p>
 
 <h2 id="encoder">Encoder</h2>
 
@@ -2991,6 +3021,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.</p>
 
+<p><img src="/assets/images/config/piezo.png" alt="Piezo" class="floater"></p>
+
 <h2 id="speaker">Speaker</h2>
 
 <div class="language-cpp highlighter-rouge">
@@ -3007,6 +3039,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <p>The duration and frequency for the UI feedback sound. Set these to 0 to disable audio feedback in the LCD menus. Test audio output with the G-Code <code class="highlighter-rouge">M300 S&lt;frequency Hz&gt; P&lt;duration ms&gt;</code></p>
 
 <h2 id="lcd-controller">LCD Controller</h2>
+
+<p><img src="/assets/images/config/controllers.png" alt="LCD Controllers" class="floater"></p>
 
 <p>Marlin includes support for several controllers. The two most popular controllers supported by Marlin are:</p>
 
