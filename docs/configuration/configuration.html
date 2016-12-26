@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T08:48:27+00:00">
+<meta property="article:published_time" content="2016-12-26T10:27:53+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T08:48:27+00:00",
+"datePublished": "2016-12-26T10:27:53+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -2591,9 +2591,23 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
 </span></code></pre>
 </div>
-<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option provides a custom <code class="highlighter-rouge">G29</code> command for measuring the bed height at several points using a piece of paper or feeler gauge. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+<p>If your machine lacks a probe, it is still possible to measure and correct for imperfections in the bed. The <code class="highlighter-rouge">MESH_BED_LEVELING</code> option (MBL) provides a custom <code class="highlighter-rouge">G29</code> command for measuring the bed height at several points using a piece of paper or feeler gauge.</p>
 
-<p>Not compatible with Delta and SCARA.</p>
+<p>With MBL enabled:</p>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">G29 S1</code> initiates bed probing. A piece of paper or feeler gauge is used to test the nozzle height while manually adjusting the Z position. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for the full procedure.</li>
+  <li>
+<code class="highlighter-rouge">M500</code> saves the bed leveling data to EEPROM. Use <code class="highlighter-rouge">M501</code> to load it, <code class="highlighter-rouge">M502</code> to clear it, and <code class="highlighter-rouge">M503</code> to report it.</li>
+  <li>
+<code class="highlighter-rouge">M420 S&lt;bool&gt;</code> can be used to enable/disable bed leveling. For example, <code class="highlighter-rouge">M420 S1</code> must be used after <code class="highlighter-rouge">M501</code> to enable the loaded mesh or matrix.</li>
+</ul>
+
+<div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
+<p><code class="highlighter-rouge">MESH_BED_LEVELING</code> is not compatible with Delta and SCARA.</p>
+    </div>  </div>
+</div>
 
 <h3 id="mbl-lcd-menu">MBL LCD Menu</h3>
 
@@ -2601,11 +2615,23 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="c1">//#define MANUAL_BED_LEVELING
 </span></code></pre>
 </div>
-<p>Enable to add interactive Mesh Bed Leveling to the LCD controller. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
+<p>Enable to add a “Level Bed” menu item to the LCD that initiates a fully guided leveling procedure. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
 
 <h2 id="auto-bed-leveling">Auto Bed Leveling</h2>
 
-<p>Auto Bed Leveling is a standard feature on many 3D printers. It takes the guess-work out of getting a good first layer and good bed adhesion.</p>
+<p>Auto Bed Leveling (ABL) is a standard feature on many 3D printers. It takes the guess-work out of getting a good first layer and good bed adhesion.</p>
+
+<p>With ABL enabled:</p>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">G29</code> automatically probes the bed at various points, measures the bed height, calculates a correction grid or matrix, and turns on leveling compensation.</li>
+  <li>The item “Level Bed” is added to the LCD menu.</li>
+  <li>
+<code class="highlighter-rouge">M500</code> saves the bed leveling data to EEPROM. Use <code class="highlighter-rouge">M501</code> to load it, <code class="highlighter-rouge">M502</code> to clear it, and <code class="highlighter-rouge">M503</code> to report it.</li>
+  <li>
+<code class="highlighter-rouge">M420 S&lt;bool&gt;</code> can be used to enable/disable bed leveling. For example, <code class="highlighter-rouge">M420 S1</code> must be used after <code class="highlighter-rouge">M501</code> to enable the loaded mesh or matrix.</li>
+</ul>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define AUTO_BED_LEVELING_3POINT
@@ -2613,13 +2639,18 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 //#define AUTO_BED_LEVELING_BILINEAR
 </span></code></pre>
 </div>
-<p>If you have a bed probe, you can enable one of three types of Auto Bed Leveling (described below). With this feature you can use <code class="highlighter-rouge">G29</code> to automatically probe the bed, measure its height at various points, and produce a correction grid or matrix.</p>
+<p>Enable just one type of Auto Bed Leveling:</p>
 
-<p>New in Marlin 1.1.0: For all forms of bed leveling you can save the results to EEPROM and re-use them later. Use <code class="highlighter-rouge">M500</code> to save the bed probing data gathered by <code class="highlighter-rouge">G29</code>. <code class="highlighter-rouge">M501</code> to load, <code class="highlighter-rouge">M502</code> to clear, <code class="highlighter-rouge">M503</code> to report.</p>
+<ul>
+  <li>Use <code class="highlighter-rouge">AUTO_BED_LEVELING_3POINT</code> to probe three points. The flat triangle gives a transform suitable to compensate for a flat but tilted bed.</li>
+  <li>Use <code class="highlighter-rouge">AUTO_BED_LEVELING_LINEAR</code> to probe a grid. A transform is produced by least-squares method to compensate for a flat but tilted bed.</li>
+  <li>Use <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> to probe a grid. The mesh data is used to adjust Z height across the bed using bilinear interpolation.</li>
+</ul>
 
-<p>Auto Bed Leveling also adds the <code class="highlighter-rouge">M420 S&lt;bool&gt;</code> command to enable / disable Auto Bed Leveling. Outside of a dry-run or a probing error, <code class="highlighter-rouge">G29</code> enables bed compensation automatically. Use <code class="highlighter-rouge">M420 S0</code> to disable it. The <code class="highlighter-rouge">M501</code> command disables leveling compensation before loading the last-saved bed leveling data, but it is not automatically enabled. Use <code class="highlighter-rouge">M420 S1</code> to enable bed compensation.</p>
-
-<p>Only <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> is supported for Delta and SCARA.</p>
+<div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
+<p>For Delta and SCARA, only <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> is supported.</p>
+    </div>  </div>
+</div>
 
 <h3 id="linear--bilinear-options">Linear / Bilinear Options</h3>
 
@@ -2679,7 +2710,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="cp">#define EEPROM_SETTINGS
 </span></code></pre>
 </div>
-<p>Commands like <code class="highlighter-rouge">M92</code> only change the settings in volatile memory, so these settings may be lost when the machine is powered off. This option enables the built-in EEPROM to preserve these settings across reboots. Settings saved to EEPROM (with <code class="highlighter-rouge">M500</code>) are loaded automatically whenever the machine restarts (and in most setups, when connecting to a host), overriding the defaults set in the configuration files. This option is highly recommended, as it makes configurations easier to manage.</p>
+<p>Commands like <code class="highlighter-rouge">M92</code> only change the settings in volatile memory, and these settings are lost when the machine is powered off. With this option enabled, Marlin uses the built-in EEPROM to preserve settings across reboots. Settings saved to EEPROM (with <code class="highlighter-rouge">M500</code>) are loaded automatically whenever the machine restarts (and in most setups, when connecting to a host), overriding the defaults set in the configuration files. This option is highly recommended, as it makes configurations easier to manage.</p>
 
 <p>The EEPROM-related commands are:</p>
 
@@ -2700,7 +2731,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 
 <div class="container-fluid">  <div class="row alert alert-info custom-alert">    <div class="col-lg-1 col-md-2 visible-lg-block visible-md-block custom-alert-icon">      <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>    </div>    <div class="col-lg-11 col-md-10 custom-alert-text">      
-<p>Certain EEPROM behaviors may be confusing. For example, when you edit the configurations and re-flash the firmware, you may discover that your new settings don’t have any effect! What’s going on? They are still being overridden by the EEPROM! To apply and preserve your new settings, use <code class="highlighter-rouge">M502</code> to restore settings to the configured defaults, then <code class="highlighter-rouge">M500</code> to write them to EEPROM. You can always use <code class="highlighter-rouge">M503</code> to view the current settings in volatile memory (even without EEPROM enabled).</p>
+<p>Certain EEPROM behaviors may be confusing. For example, when you edit the configurations and re-flash the firmware, you may discover that your new settings don’t have any effect! What’s going on? They are still overridden by the settings last saved to EEPROM! To apply and preserve your new settings, use <code class="highlighter-rouge">M502</code> to restore settings to your defaults, then use <code class="highlighter-rouge">M500</code> to save them to EEPROM. You can always use <code class="highlighter-rouge">M503</code> to view the current settings in volatile memory (even without <code class="highlighter-rouge">EEPROM_SETTINGS</code> enabled).</p>
     </div>  </div>
 </div>
 
