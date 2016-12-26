@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T05:12:46+00:00">
+<meta property="article:published_time" content="2016-12-26T05:47:36+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T05:12:46+00:00",
+"datePublished": "2016-12-26T05:47:36+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -2035,6 +2035,10 @@
 
 <h2 id="endstops">Endstops</h2>
 
+<p>In open loop systems, endstops are an inexpensive way to establish the actual position of the carriage on all axes. In the procedure known as “homing,” each axis is moved towards one end until the endstop switch is triggered, at which point the machine knows that the axis is at the endstop (home) position. From this point on, the machine “knows” its position by keeping track of how far the steppers have been moved. If the machine gets out of step for any reason, re-homing may be required.</p>
+
+<h3 id="endstop-plugs">Endstop Plugs</h3>
+
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
@@ -2046,9 +2050,10 @@
 </div>
 <p>Specify all the endstop connectors that are connected to any endstop or probe. Most printers will use all three min plugs. On delta machines, all the max plugs should be used. Probes can share the Z min plug, or can use one or more of the extra connectors. Don’t enable plugs used for non-endstop and non-probe purposes here.</p>
 
+<h3 id="endstop-pullups">Endstop Pullups</h3>
+
 <div class="language-cpp highlighter-rouge">
-<pre class="highlight"><code><span class="c1">// coarse Endstop Settings
-</span><span class="cp">#define ENDSTOPPULLUPS // Comment this out to disable the endstop pullup resistors
+<pre class="highlight"><code><span class="cp">#define ENDSTOPPULLUPS
 </span>
 <span class="cp">#if DISABLED(ENDSTOPPULLUPS)
 </span>  <span class="c1">// fine endstop settings: Individual pullups. will be ignored if ENDSTOPPULLUPS is defined
@@ -2062,7 +2067,9 @@
 </span><span class="cp">#endif
 </span></code></pre>
 </div>
-<p>Edit these values if you need to disable the pullup resistors for your endstop. Most likely you will not need to edit this.</p>
+<p>By default all endstops have pullup resistors enabled. This is best for NC switches, preventing the values from “floating.” If only some endstops should have pullup resistors, you can disable <code class="highlighter-rouge">ENDSTOPPULLUPS</code> and enable pullups individually.</p>
+
+<h3 id="endstop-inverting">Endstop Inverting</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">// Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
@@ -2105,7 +2112,8 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 
 <hr>
 
-<h3 id="default-steps-per-mm">Default Steps per mm</h3>
+<h3 id="default-steps-per-mm-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Default Steps per mm <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cm">/**
@@ -2153,9 +2161,8 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 </div>
 </div>
 
-<hr>
-
-<h4 id="default-max-feed-rate">Default Max Feed Rate</h4>
+<h4 id="default-max-feed-rate-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Default Max Feed Rate <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cm">/**
@@ -2173,11 +2180,10 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
     </div>  </div>
 </div>
 
-<hr>
-
 <h3 id="acceleration">Acceleration</h3>
 
-<h4 id="default-max-acceleration">Default Max Acceleration</h4>
+<h4 id="default-max-acceleration-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Default Max Acceleration <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cm">/**
@@ -2195,9 +2201,8 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 
 <p>Jerk sets the floor for accelerated moves. If the change in top speed for a given axis between segments is less than the jerk value for the axis, an instantaneous change in speed may be allowed. Limits placed on other axes also apply. Basically, lower jerk values result in more accelerated moves, which may be near-instantaneous in some cases, depending on the final acceleration determined by the planner.</p>
 
-<hr>
-
-<h4 id="default-acceleration">Default Acceleration</h4>
+<h4 id="default-acceleration-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Default Acceleration <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cm">/**
@@ -2230,7 +2235,8 @@ This will remove the need to poll the interrupt pins, saving many CPU cycles.</p
 
 <hr>
 
-<h4 id="jerk">Jerk</h4>
+<h4 id="jerk-em-classfa-fa-sticky-note-o-aria-hiddentrueem-em-classfa-fa-desktop-aria-hiddentrueem">Jerk <em class="fa fa-sticky-note-o" aria-hidden="true"></em> <em class="fa fa-desktop" aria-hidden="true"></em>
+</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cm">/**
@@ -2558,7 +2564,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Example: To have leveling fade out over the first 10mm of layer printing use <code class="highlighter-rouge">M420 Z10</code>. If each layer is 0.2mm high, leveling compensation will be reduced by 1/50th (2%) after each layer. Above 10mm the machine will move without compensation.</p>
 
-<h2 id="mesh-manual-bed-leveling">Mesh (Manual) Bed Leveling</h2>
+<h3 id="mesh-manual-bed-leveling">Mesh (Manual) Bed Leveling</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define MESH_BED_LEVELING
@@ -2576,7 +2582,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Enable to add interactive Mesh Bed Leveling to the LCD controller. See <a href="/docs/gcode/G29-mbl.html"><code class="highlighter-rouge">G29</code> for MBL</a> for more details.</p>
 
-<h2 id="auto-bed-leveling">Auto Bed Leveling</h2>
+<h3 id="auto-bed-leveling">Auto Bed Leveling</h3>
 
 <p>Auto Bed Leveling is a standard feature on many 3D printers. It takes the guess-work out of getting a good first layer and good bed adhesion.</p>
 
@@ -2594,7 +2600,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Only <code class="highlighter-rouge">AUTO_BED_LEVELING_BILINEAR</code> is supported for Delta and SCARA.</p>
 
-<h3 id="linear--bilinear-options">Linear / Bilinear Options</h3>
+<h4 id="linear--bilinear-options">Linear / Bilinear Options</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define LEFT_PROBE_BED_POSITION 15
@@ -2618,7 +2624,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Enable this option if probing should proceed in the Y dimension first instead of X first.</p>
 
-<h3 id="point-options">3-Point Options</h3>
+<h4 id="point-options">3-Point Options</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define ABL_PROBE_PT_1_X 15
@@ -2844,7 +2850,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <code class="highlighter-rouge">REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER</code> A monochrome 128 x 64 pixel-based LCD controller with click-wheel. Able to display simple bitmap graphics and up to 5 lines of text.</li>
 </ul>
 
-<p>Most other LCD controllers are variants of these.</p>
+<p>Most other LCD controllers are variants of these. Enable just one of the following options for your specific controller:</p>
 
 <h3 id="character-lcds">Character LCDs</h3>
 
@@ -3030,7 +3036,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <pre class="highlight"><code><span class="c1">//#define FILAMENT_WIDTH_SENSOR
 </span></code></pre>
 </div>
-<p>Enable if you have a filament width sensor (e.g., <a href="http://www.thingiverse.com/thing:454584">Filament Width Sensor Prototype Version 3</a>). With a filament sensor installed, Marlin can adjust the flow rate according to the measured filament width. Adjust the sub-options below according to your setup.</p>
+<p>Enable to add support for a filament width sensor such as <a href="http://www.thingiverse.com/thing:454584">Filament Width Sensor Prototype Version 3</a>. With a filament sensor installed, Marlin can adjust the flow rate according to the measured filament width. Adjust the sub-options below according to your setup.</p>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define DEFAULT_NOMINAL_FILAMENT_DIA 3.00
