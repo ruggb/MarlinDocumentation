@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/docs/configuration/configuration.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T18:02:53+00:00">
+<meta property="article:published_time" content="2016-12-27T12:33:08+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Configuring Marlin",
-"datePublished": "2016-12-26T18:02:53+00:00",
+"datePublished": "2016-12-27T12:33:08+00:00",
 "description": "Complete guide to Marlin configuration options.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -659,7 +659,7 @@
                           
                             <li><a href="/docs/gcode/M092.html">
                               
-                                M92: Coming Soon
+                                M92: Set Axis Steps-per-unit
                               
                             </a></li>
                           
@@ -667,7 +667,7 @@
                           
                             <li><a href="/docs/gcode/M100.html">
                               
-                                M100: Coming Soon
+                                M100: Free Memory
                               
                             </a></li>
                           
@@ -867,7 +867,7 @@
                           
                             <li><a href="/docs/gcode/M155.html">
                               
-                                M155: Coming Soon
+                                M155: Temperature Auto-Report
                               
                             </a></li>
                           
@@ -2449,7 +2449,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Use these options to disable steppers when not being issued a movement. This was implemented as a hack to run steppers at higher-than-normal current in an effort to produce more torque at the cost of increased heat for drivers and steppers.</p>
 
-<p>Disabling the steppers between moves gives the motors and drivers a chance to cool off. It sounds good in theory, but in practice it has drawbacks. Disabled steppers can’t hold the carriage stable. This results in poor accuracy and carries a strong probability of axial drift.</p>
+<p>Disabling the steppers between moves gives the motors and drivers a chance to cool off. It sounds good in theory, but in practice it has drawbacks. Disabled steppers can’t hold the carriage stable. This results in poor accuracy and carries a strong probability of axial drift (i.e., lost steps).</p>
 
 <p>Most 3D printers use an “open loop” control system, meaning the software can’t ascertain the actual carriage position at a given time. It simply sends commands and assumes they have been obeyed. In practice with a well-calibrated machine this is not an issue and using open loop is a major cost saving with excellent quality.</p>
 
@@ -2722,7 +2722,9 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p>Enable this option if a probe (not an endstop) is being used for Z homing. Z Safe Homing isn’t needed if a Z endstop is used for homing, but it may also be enabled just to have XY always move to some custom position after homing.</p>
 
-<h2 id="eeprom">EEPROM</h2>
+<h2 id="extras-1">Extras 1</h2>
+
+<h3 id="eeprom">EEPROM</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define EEPROM_SETTINGS
@@ -2753,7 +2755,24 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
     </div>  </div>
 </div>
 
-<h2 id="inch-units-support">Inch Units Support</h2>
+<h3 id="host-keepalive">Host Keepalive</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#define HOST_KEEPALIVE_FEATURE
+#define DEFAULT_KEEPALIVE_INTERVAL 2
+</span></code></pre>
+</div>
+<p>When Host Keepalive is enabled Marlin will send a busy status message to the host every couple of seconds when it can’t accept commands. Disable if your host doesn’t like keepalive messages. Use <code class="highlighter-rouge">DEFAULT_KEEPALIVE_INTERVAL</code> for the default number of seconds between “busy” messages. Override with <a href="M113.html"><code class="highlighter-rouge">M113</code></a>.</p>
+
+<h3 id="free-memory-watcher">Free Memory Watcher</h3>
+
+<div class="language-cpp highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//#define M100_FREE_MEMORY_WATCHER
+</span></code></pre>
+</div>
+<p>Uncomment to add the <code class="highlighter-rouge">M100</code> Free Memory Watcher for debugging purposes.</p>
+
+<h3 id="inch-units-support">Inch Units Support</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define INCH_MODE_SUPPORT
@@ -2761,8 +2780,8 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>This option adds support for the <code class="highlighter-rouge">G20</code> and <code class="highlighter-rouge">G21</code> commands, allowing GCode to specify units in inches.</p>
 
-<h2 id="lcd-material-presets-em-classfa-fa-sticky-note-o-text-info-aria-hiddentrueem-em-classfa-fa-desktop-text-info-aria-hiddentrueem">LCD Material Presets <em class="fa fa-sticky-note-o text-info" aria-hidden="true"></em> <em class="fa fa-desktop text-info" aria-hidden="true"></em>
-</h2>
+<h3 id="lcd-material-presets-em-classfa-fa-sticky-note-o-text-info-aria-hiddentrueem-em-classfa-fa-desktop-text-info-aria-hiddentrueem">LCD Material Presets <em class="fa fa-sticky-note-o text-info" aria-hidden="true"></em> <em class="fa fa-desktop text-info" aria-hidden="true"></em>
+</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define PREHEAT_1_TEMP_HOTEND 180
@@ -3113,7 +3132,9 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 <code class="highlighter-rouge">SAV_3DGLCD</code>: SAV OLED LCD module support using either SSD1306 or SH1106 based LCD modules.</li>
 </ul>
 
-<h2 id="fan-pwm">Fan PWM</h2>
+<h2 id="extras-2">Extras 2</h2>
+
+<h3 id="fan-pwm">Fan PWM</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define FAST_PWM_FAN
@@ -3133,7 +3154,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Incrementing this by 1 will double the software PWM frequency, affecting heaters (and the fan if <code class="highlighter-rouge">FAN_SOFT_PWM</code> is enabled). However, control resolution will be halved for each increment; at zero value, there are 128 effective control positions.</p>
 
-<h2 id="temperature-status-leds">Temperature Status LEDs</h2>
+<h3 id="temperature-status-leds">Temperature Status LEDs</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define TEMP_STAT_LEDS
@@ -3141,7 +3162,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Temperature status LEDs that display the hotend and bed temperature. If all hotend and bed temperature setpoint are &lt; 54C then the BLUE led is on. Otherwise the RED led is on. There is 1C hysteresis.</p>
 
-<h2 id="photo-pin">Photo Pin</h2>
+<h3 id="photo-pin">Photo Pin</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define PHOTOGRAPH_PIN     23
@@ -3149,7 +3170,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p><code class="highlighter-rouge">M240</code> triggers a camera by emulating a Canon RC-1 Remote Data as described on <a href="http://www.doc-diy.net/photo/rc-1_hacked/">this site</a>.</p>
 
-<h2 id="skeinforge-arc-fix">SkeinForge Arc Fix</h2>
+<h3 id="skeinforge-arc-fix">SkeinForge Arc Fix</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">//#define SF_ARC_FIX
@@ -3157,7 +3178,9 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>Files sliced with SkeinForge contain the wrong arc GCodes when using “Arc Point” as fillet procedure. This option works around that bug, but otherwise should be left off.</p>
 
-<h2 id="paste-extruder">Paste Extruder</h2>
+<h2 id="extras-3">Extras 3</h2>
+
+<h3 id="paste-extruder">Paste Extruder</h3>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="c1">// Support for the BariCUDA Paste Extruder.
@@ -3168,7 +3191,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 
 <p><a href="http://www.instructables.com/id/3D-Printer-RGB-LED-Feedback/" target="_blank"><img src="/assets/images/config/led-lights.jpg" alt="LED Lights" class="floater framed"></a></p>
 
-<h2 id="indicator-leds">Indicator LEDs</h2>
+<h3 id="indicator-leds">Indicator LEDs</h3>
 
 <p>Marlin currently supplies two options for RGB-addressable color indicators. In both cases the color is set using <code class="highlighter-rouge">M150 Rr Ug Bb</code> to specify RGB components from 0 to 255.</p>
 
@@ -3191,11 +3214,11 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>An inexpensive RGB LED can be used simply by assigning digital pins for each component. If the pins are able to do hardware PWM then a wide range of colors will be available. With simple digital pins only 7 colors are possible.</p>
 
-<h2 id="servos">Servos</h2>
+<h3 id="servos">Servos</h3>
 
 <p><img src="/assets/images/config/servo.png" alt="Servo" class="floater"></p>
 
-<h3 id="number-of-servos">Number of Servos</h3>
+<h4 id="number-of-servos">Number of Servos</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define NUM_SERVOS 1 // Servo index starts with 0 for M280 command
@@ -3203,7 +3226,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>The total number of servos to enable for use. One common application for a servo is a Z bed probe consisting of an endstop switch mounted on a rotating arm. To use one of the servo connectors for this type of probe, set <code class="highlighter-rouge">Z_ENDSTOP_SERVO_NR</code> in the probe options above.</p>
 
-<h3 id="servo-deactivation">Servo Deactivation</h3>
+<h4 id="servo-deactivation">Servo Deactivation</h4>
 
 <div class="language-cpp highlighter-rouge">
 <pre class="highlight"><code><span class="cp">#define SERVO_DELAY 300
@@ -3217,7 +3240,7 @@ Tip: 0.02 mm is normally acceptable for bed leveling to work.</p>
 </div>
 <p>With this option servos are powered only during movement, then turned off to prevent jitter. We recommend enabling this option to keep electrical noise from active servos from interfering with other components. The high amperage generated by extruder motor wiring during movement can also induce movement in active servos. Leave this option enabled to avoid all such servo-related troubles.</p>
 
-<h2 id="filament-width-sensor">Filament Width Sensor</h2>
+<h3 id="filament-width-sensor">Filament Width Sensor</h3>
 
 <iframe style="float:right;margin:0 0 1em 1em;" title="YouTube video player" width="240" height="195" src="http://www.youtube.com/embed/W93dFxF425s?autoplay=0" frameborder="0" allowfullscreen=""></iframe>
 

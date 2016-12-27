@@ -36,12 +36,12 @@
 <meta property="og:url" content="http://marlinfw.org/meta/gcode/">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T18:02:53+00:00">
+<meta property="article:published_time" content="2016-12-27T12:33:08+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Gcode",
-"datePublished": "2016-12-26T18:02:53+00:00",
+"datePublished": "2016-12-27T12:33:08+00:00",
 "description": "Printing the planet, one layer at a time.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -659,7 +659,7 @@
                           
                             <li><a href="/docs/gcode/M092.html">
                               
-                                M92: Coming Soon
+                                M92: Set Axis Steps-per-unit
                               
                             </a></li>
                           
@@ -667,7 +667,7 @@
                           
                             <li><a href="/docs/gcode/M100.html">
                               
-                                M100: Coming Soon
+                                M100: Free Memory
                               
                             </a></li>
                           
@@ -867,7 +867,7 @@
                           
                             <li><a href="/docs/gcode/M155.html">
                               
-                                M155: Coming Soon
+                                M155: Temperature Auto-Report
                               
                             </a></li>
                           
@@ -1701,11 +1701,11 @@
 </li>
               
                   <li class="tocify-item">
-                    <a href="/docs/gcode/M092.html">M92: Coming Soon</a>
+                    <a href="/docs/gcode/M092.html">M92: Set Axis Steps-per-unit</a>
 </li>
               
                   <li class="tocify-item">
-                    <a href="/docs/gcode/M100.html">M100: Coming Soon</a>
+                    <a href="/docs/gcode/M100.html">M100: Free Memory</a>
 </li>
               
                   <li class="tocify-item">
@@ -1805,7 +1805,7 @@
 </li>
               
                   <li class="tocify-item">
-                    <a href="/docs/gcode/M155.html">M155: Coming Soon</a>
+                    <a href="/docs/gcode/M155.html">M155: Temperature Auto-Report</a>
 </li>
               
                   <li class="tocify-item">
@@ -2285,6 +2285,7 @@
                     </code></td>
                     <td>
                       <p>The length of filament to feed into the extruder between the start and end point</p>
+
                       
                         
                           
@@ -2312,6 +2313,7 @@
                     </code></td>
                     <td>
                       <p>The maximum movement rate of the move between the start and end point. The feedrate set here applies to subsequent moves that omit this parameter.</p>
+
                       
                         
                           
@@ -2339,6 +2341,7 @@
                     </code></td>
                     <td>
                       <p>A coordinate on the X axis</p>
+
                       
                         
                           
@@ -2366,6 +2369,7 @@
                     </code></td>
                     <td>
                       <p>A coordinate on the Y axis</p>
+
                       
                         
                           
@@ -2393,6 +2397,7 @@
                     </code></td>
                     <td>
                       <p>A coordinate on the Z axis</p>
+
                       
                         
                           
@@ -2710,6 +2715,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>The amount to extrude between the starting point and ending point</p>
+
                       
                         
                           
@@ -2737,6 +2743,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>The maximum movement rate of the move between the starting and ending point</p>
+
                       
                         
                           
@@ -2764,6 +2771,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>An offset from the current X position to use as the arc center</p>
+
                       
                         
                           
@@ -2791,6 +2799,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>An offset from the current Y position to use as the arc center</p>
+
                       
                         
                           
@@ -2818,6 +2827,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the X axis</p>
+
                       
                         
                           
@@ -2845,6 +2855,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the Y axis</p>
+
                       
                         
                           
@@ -2872,6 +2883,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the Z axis</p>
+
                       
                         
                           
@@ -3081,6 +3093,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Amount of time to dwell</p>
+
                       
                         
                           
@@ -3110,6 +3123,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Amount of time to dwell</p>
+
                       
                         
                           
@@ -3372,6 +3386,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>X incremental offset from start point to first control point</p>
+
                       
                         
                           
@@ -3399,6 +3414,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Y incremental offset from start point to first control point</p>
+
                       
                         
                           
@@ -3426,6 +3442,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>X incremental offset from start point to first control point</p>
+
                       
                         
                           
@@ -3453,6 +3470,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Y incremental offset from start point to first control point</p>
+
                       
                         
                           
@@ -3480,6 +3498,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the X axis</p>
+
                       
                         
                           
@@ -3507,6 +3526,7 @@ G1 X50 Y25.3 E22.4 F3000</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the Y axis</p>
+
                       
                         
                           
@@ -3899,6 +3919,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Pattern style selection</p>
+
                       
                         
                           
@@ -3927,6 +3948,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Sets the number of strokes i.e. back-and-forth movements</p>
+
                       
                         
                           
@@ -3953,6 +3975,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Sets the number of repetitions</p>
+
                       
                         
                           
@@ -4326,6 +4349,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Z axis action</p>
+
                       
                         
                           
@@ -4529,6 +4553,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Flag to go back to the X axis origin</p>
+
                       
                     </td>
                   </tr>
@@ -4542,6 +4567,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Flag to go back to the Y axis origin</p>
+
                       
                     </td>
                   </tr>
@@ -4555,6 +4581,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A coordinate on the Z axis</p>
+
                       
                     </td>
                   </tr>
@@ -4932,6 +4959,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the back limit of the probing grid</p>
+
                       
                         
                           
@@ -4958,7 +4986,8 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                       -->]
                     </code></td>
                     <td>
-                      <p>Dry-Run mode. Just probe the grid but don't update the bed leveling data</p>
+                      <p>Dry-Run mode. Just probe the grid but don’t update the bed leveling data</p>
+
                       
                         
                           
@@ -4986,6 +5015,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the front limit of the probing grid</p>
+
                       
                         
                           
@@ -5013,6 +5043,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the left limit of the probing grid</p>
+
                       
                         
                           
@@ -5039,6 +5070,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the size of the grid that will be probed (P x P points)</p>
+
                       
                         
                           
@@ -5066,6 +5098,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the right limit of the probing grid</p>
+
                       
                         
                           
@@ -5093,6 +5126,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the XY travel speed between probe points</p>
+
                       
                         
                           
@@ -5120,6 +5154,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Generate a Bed Topology Report</p>
+
                       
                         
                           
@@ -5161,6 +5196,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Set the verbose level</p>
+
                       
                         
                           
@@ -5193,6 +5229,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Override the X-size of the grid that will be probed</p>
+
                       
                         
                           
@@ -5219,6 +5256,7 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Override the Y-size of the grid that will be probed</p>
+
                       
                         
                           
@@ -5488,7 +5526,8 @@ G5 I0 J3 P0 Q-3 X1 Y1</code></pre></figure>
                       -->
                     </code></td>
                     <td>
-                      <p></p>
+                      
+
                       
                         
                           
@@ -5991,6 +6030,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Feedrate for the move</p>
+
                       
                         
                           
@@ -6018,6 +6058,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Target X</p>
+
                       
                         
                           
@@ -6045,6 +6086,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Target Y</p>
+
                       
                         
                           
@@ -6072,6 +6114,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Target Z</p>
+
                       
                         
                           
@@ -6435,6 +6478,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>New extruder position</p>
+
                       
                         
                           
@@ -6462,6 +6506,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>New X axis position</p>
+
                       
                         
                           
@@ -6489,6 +6534,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>New Y axis position</p>
+
                       
                         
                           
@@ -6516,6 +6562,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>New Z axis position</p>
+
                       
                         
                           
@@ -6951,6 +6998,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>E Disable</p>
+
                       
                         
                           
@@ -6978,6 +7026,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Inactivity Timeout. If none specified, disable now.</p>
+
                       
                         
                           
@@ -7005,6 +7054,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>X Disable</p>
+
                       
                         
                           
@@ -7032,6 +7082,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Y Disable</p>
+
                       
                         
                           
@@ -7059,6 +7110,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Z Disable</p>
+
                       
                         
                           
@@ -8164,6 +8216,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>DOS 8.3 path to a file or folder</p>
+
                       
                     </td>
                   </tr>
@@ -8363,6 +8416,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Folder Sorting</p>
+
                       
                         
                           
@@ -8390,6 +8444,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Enable Flag</p>
+
                       
                         
                           
@@ -8454,7 +8509,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      control</span>
     
 
     
@@ -8556,6 +8611,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>A digital pin number (even for analog pins) to write to</p>
+
                       
                         
                           
@@ -8582,6 +8638,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>The state to set. PWM-able pins may be set from 0-255.</p>
+
                       
                         
                           
@@ -8630,12 +8687,14 @@ v Y-axis  1-n</code></pre></figure>
     </h1>
 
     
+      <span class="label label-warning"><span data-toggle="tooltip" data-placement="bottom" title="Experimental feature"><i class="fa fa-flask" aria-hidden="true"></i></span></span>
+    
 
     
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      debug</span>
     
 
     
@@ -8765,6 +8824,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Watch endstops</p>
+
                       
                         
                           
@@ -8792,6 +8852,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Digital Pin Number</p>
+
                       
                         
                           
@@ -8819,6 +8880,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Watch pins</p>
+
                       
                         
                           
@@ -8920,7 +8982,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      probes</span>
     
 
     
@@ -9098,6 +9160,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Engage for each probe</p>
+
                       
                         
                           
@@ -9125,6 +9188,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Number of legs to probe</p>
+
                       
                         
                           
@@ -9152,6 +9216,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Number of probes to do</p>
+
                       
                         
                           
@@ -9179,6 +9244,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Verbose Level</p>
+
                       
                         
                           
@@ -9206,6 +9272,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>X Position</p>
+
                       
                         
                           
@@ -9233,6 +9300,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Y Position</p>
+
                       
                         
                           
@@ -9297,7 +9365,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      printjob</span>
     
 
     
@@ -9381,7 +9449,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      printjob</span>
     
 
     
@@ -9465,7 +9533,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      printjob</span>
     
 
     
@@ -9549,7 +9617,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      printjob</span>
     
 
     
@@ -9611,7 +9679,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      control</span>
     
 
     
@@ -9689,7 +9757,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      control</span>
     
 
     
@@ -9767,7 +9835,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      planner</span>
     
 
     
@@ -9834,7 +9902,7 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      planner</span>
     
 
     
@@ -9994,6 +10062,7 @@ v Y-axis  1-n</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Max inactive seconds</p>
+
                       
                         
                           
@@ -10038,7 +10107,7 @@ v Y-axis  1-n</code></pre></figure>
     <h1 class="custom-no-margin-bottom">
       
         M92
-       - Coming Soon
+       - Set Axis Steps-per-unit
     </h1>
 
     
@@ -10047,17 +10116,22 @@ v Y-axis  1-n</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      planner</span>
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Description Here</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Set the number of steps-per-mm or steps-per-inch</span>
     
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-12">
+    
+      
+        <p>Use <code class="highlighter-rouge">M92</code> to set the steps-per-unit for one or more axes. This setting affects how far  Units will be in steps/mm unless <em>inch</em> mode is set with <a href="G020.html"><code class="highlighter-rouge">G20</code></a> (which requires <code class="highlighter-rouge">INCH_MODE_SUPPORT</code>).</p>
+
+      
     
   </div>
 </div>
@@ -10067,14 +10141,265 @@ v Y-axis  1-n</code></pre></figure>
     <h2>Usage</h2>
     <code>M92
       
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="E steps per unit">
+              [<!--
+              -->E<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="X steps per unit">
+              [<!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Y steps per unit">
+              [<!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Z steps per unit">
+              [<!--
+              -->Z<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
+      
     </code>
   </div>
 </div>
 
 
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->E<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>E steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>X steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Y steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Z<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Z steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
 
 
 
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Notes</h2>
+        
+          <p></p>
+<p>Get current steps-per-unit settings with <code class="highlighter-rouge">M503</code>.</p>
+
+<p>With <code class="highlighter-rouge">EEPROM_SETTINGS</code> enabled:</p>
+
+<ul>
+  <li>This setting for all axes is saved with <code class="highlighter-rouge">M500</code> and loaded with <code class="highlighter-rouge">M501</code>.</li>
+  <li>
+<code class="highlighter-rouge">M502</code> resets steps-per-unit for all axes to the values from <code class="highlighter-rouge">DEFAULT_AXIS_STEPS_PER_UNIT</code>.</li>
+</ul>
+
+        
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Examples</h2>
+      
+        
+          
+            <p></p>
+<p>Set E steps for a new extruder</p>
+
+          
+        
+        <figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">M92 E688.4</code></pre></figure>
+        
+      
+    </div>
+  </div>
 
 
                 <hr>
@@ -10100,7 +10425,7 @@ v Y-axis  1-n</code></pre></figure>
     <h1 class="custom-no-margin-bottom">
       
         M100
-       - Coming Soon
+       - Free Memory
     </h1>
 
     
@@ -10121,6 +10446,11 @@ v Y-axis  1-n</code></pre></figure>
 <div class="row">
   <div class="col-lg-12">
     
+      
+        <p>Use <code class="highlighter-rouge">M100</code> for development purposes to observe how much memory (particularly stack) is being used by code. Proper AVR code should avoid use of <code class="highlighter-rouge">new</code>, <code class="highlighter-rouge">malloc</code>, etc., and instead use either pre-allocated static variables or stack.</p>
+
+      
+    
   </div>
 </div>
 
@@ -10129,12 +10459,166 @@ v Y-axis  1-n</code></pre></figure>
     <h2>Usage</h2>
     <code>M100
       
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Corrupt 'n' locations in the free memory pool and report the locations of the corruption. This is useful to check the correctness of the `M100 D` and `M100 F` commands.">
+              [<!--
+              -->C<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->n<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Dump the free memory block from `__brkval` to the stack pointer.">
+              [<!--
+              -->D<!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Return the number of free bytes in the memory pool along with other vital statistics that define the memory pool.">
+              [<!--
+              -->F<!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Initialize the free memory pool so it can be watched and print vital statistics that define the free memory pool.">
+              [<!--
+              -->I<!--
+              --><!--
+              -->]
+            </span>
+          
+        
+      
     </code>
   </div>
 </div>
 
 
+  
+  
 
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->C<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->n<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Corrupt ‘n’ locations in the free memory pool and report the locations of the corruption. This is useful to check the correctness of the <code class="highlighter-rouge">M100 D</code> and <code class="highlighter-rouge">M100 F</code> commands.</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->D<!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Dump the free memory block from <code class="highlighter-rouge">__brkval</code> to the stack pointer.</p>
+
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->F<!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Return the number of free bytes in the memory pool along with other vital statistics that define the memory pool.</p>
+
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->I<!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Initialize the free memory pool so it can be watched and print vital statistics that define the free memory pool.</p>
+
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Notes</h2>
+        
+          <p></p>
+<p>Requires <code class="highlighter-rouge">M100_FREE_MEMORY_WATCHER</code>.</p>
+
+        
+    </div>
+  </div>
 
 
 
@@ -11691,7 +12175,7 @@ M108               ; as your "Continue" button</code></pre></figure>
     <h1 class="custom-no-margin-bottom">
       
         M155
-       - Coming Soon
+       - Temperature Auto-Report
     </h1>
 
     
@@ -11700,11 +12184,11 @@ M108               ; as your "Continue" button</code></pre></figure>
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      hosts</span>
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Description Here</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Auto-report temperatures to host periodically.</span>
     
   </div>
 </div>
@@ -11720,12 +12204,107 @@ M108               ; as your "Continue" button</code></pre></figure>
     <h2>Usage</h2>
     <code>M155
       
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Interval in seconds between auto-reports">
+              [<!--
+              -->S<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->seconds<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
+      
     </code>
   </div>
 </div>
 
 
+  
+  
 
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->S<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->seconds<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Interval in seconds between auto-reports</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Notes</h2>
+        
+          <p></p>
+<p>Requires <code class="highlighter-rouge">AUTO_REPORT_TEMPERATURES</code> in <code class="highlighter-rouge">Configuration_adv.h</code>.</p>
+
+        
+          <p></p>
+<p>Also enable <code class="highlighter-rouge">EXTENDED_CAPABILITIES_REPORT</code> to notify hosts about this capability.</p>
+
+        
+    </div>
+  </div>
 
 
 
@@ -15340,6 +15919,7 @@ M108               ; as your "Continue" button</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Retract before moving to change position (negative)</p>
+
                       
                         
                           
@@ -15367,6 +15947,7 @@ M108               ; as your "Continue" button</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Load/unload lenght, longer for bowden (negative)</p>
+
                       
                         
                           
@@ -15394,6 +15975,7 @@ M108               ; as your "Continue" button</code></pre></figure>
                     </code></td>
                     <td>
                       <p>X position for filament change</p>
+
                       
                         
                           
@@ -15421,6 +16003,7 @@ M108               ; as your "Continue" button</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Y position for filament change</p>
+
                       
                         
                           
@@ -15448,6 +16031,7 @@ M108               ; as your "Continue" button</code></pre></figure>
                     </code></td>
                     <td>
                       <p>Z relative lift for filament change position</p>
+
                       
                         
                           

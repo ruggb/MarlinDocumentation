@@ -28,20 +28,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Coming Soon - Marlin 3D Printer Firmware</title>
-<meta property="og:title" content="Coming Soon">
+<title>Set Axis Steps-per-unit - Marlin 3D Printer Firmware</title>
+<meta property="og:title" content="Set Axis Steps-per-unit">
 <meta name="description" content="">
 <meta property="og:description" content="">
 <link rel="canonical" href="http://marlinfw.org/docs/gcode/M092.html">
 <meta property="og:url" content="http://marlinfw.org/docs/gcode/M092.html">
 <meta property="og:site_name" content="Marlin 3D Printer Firmware">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2016-12-26T18:02:53+00:00">
+<meta property="article:published_time" content="2016-12-27T12:33:08+00:00">
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "Coming Soon",
-"datePublished": "2016-12-26T18:02:53+00:00",
+"headline": "Set Axis Steps-per-unit",
+"datePublished": "2016-12-27T12:33:08+00:00",
 "description": "",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
@@ -659,7 +659,7 @@
                           
                             <li><a href="/docs/gcode/M092.html">
                               
-                                M92: Coming Soon
+                                M92: Set Axis Steps-per-unit
                               
                             </a></li>
                           
@@ -667,7 +667,7 @@
                           
                             <li><a href="/docs/gcode/M100.html">
                               
-                                M100: Coming Soon
+                                M100: Free Memory
                               
                             </a></li>
                           
@@ -867,7 +867,7 @@
                           
                             <li><a href="/docs/gcode/M155.html">
                               
-                                M155: Coming Soon
+                                M155: Temperature Auto-Report
                               
                             </a></li>
                           
@@ -1701,11 +1701,11 @@
 </li>
               
                   <li class="tocify-item active">
-                    <a href="/docs/gcode/M092.html">M92: Coming Soon</a>
+                    <a href="/docs/gcode/M092.html">M92: Set Axis Steps-per-unit</a>
 </li>
               
                   <li class="tocify-item">
-                    <a href="/docs/gcode/M100.html">M100: Coming Soon</a>
+                    <a href="/docs/gcode/M100.html">M100: Free Memory</a>
 </li>
               
                   <li class="tocify-item">
@@ -1805,7 +1805,7 @@
 </li>
               
                   <li class="tocify-item">
-                    <a href="/docs/gcode/M155.html">M155: Coming Soon</a>
+                    <a href="/docs/gcode/M155.html">M155: Temperature Auto-Report</a>
 </li>
               
                   <li class="tocify-item">
@@ -2100,7 +2100,7 @@
     <h1 class="custom-no-margin-bottom">
       
         M92
-       - Coming Soon
+       - Set Axis Steps-per-unit
     </h1>
 
     
@@ -2109,17 +2109,22 @@
 
     
       <span class="label label-default"><i class="fa fa-tags" aria-hidden="true"></i>
-      none</span>
+      planner</span>
     
 
     
-      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Description Here</span>
+      <span class="label label-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i> Set the number of steps-per-mm or steps-per-inch</span>
     
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-12">
+    
+      
+        <p>Use <code class="highlighter-rouge">M92</code> to set the steps-per-unit for one or more axes. This setting affects how far  Units will be in steps/mm unless <em>inch</em> mode is set with <a href="G020.html"><code class="highlighter-rouge">G20</code></a> (which requires <code class="highlighter-rouge">INCH_MODE_SUPPORT</code>).</p>
+
+      
     
   </div>
 </div>
@@ -2129,14 +2134,267 @@
     <h2>Usage</h2>
     <code>M92
       
+        
+        
+
+        
+          
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="E steps per unit">
+              [<!--
+              -->E<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="X steps per unit">
+              [<!--
+              -->X<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Y steps per unit">
+              [<!--
+              -->Y<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Z steps per unit">
+              [<!--
+              -->Z<!--
+              --><!--
+                --><!--
+                  --><!--
+                  -->&lt;<!--
+                  --><!--
+                    -->steps<!--
+                    --><!--
+                  --><!--
+                  -->&gt;<!--
+                --><!--
+              --><!--
+              -->]
+            </span>
+          
+        
+      
     </code>
   </div>
 </div>
 
 
+  
+  
+
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <p>
+            </p>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>Argument</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->E<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>E steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->X<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>X steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Y<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Y steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td><code>
+                      [<!--
+                      -->Z<!--
+                      --><!--
+                        --><!--
+                          --><!--
+                          -->&lt;<!--
+                          --><!--
+                            -->steps<!--
+                            --><!--
+                          --><!--
+                          -->&gt;<!--
+                        --><!--
+                      --><!--
+                      -->]
+                    </code></td>
+                    <td>
+                      <p>Z steps per unit</p>
+
+                      
+                        
+                          
+                        
+                      
+                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </div>
+      </div>
+    </div>
+  
 
 
 
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Notes</h2>
+        
+          <p></p>
+<p>Get current steps-per-unit settings with <code class="highlighter-rouge">M503</code>.</p>
+
+<p>With <code class="highlighter-rouge">EEPROM_SETTINGS</code> enabled:</p>
+
+<ul>
+  <li>This setting for all axes is saved with <code class="highlighter-rouge">M500</code> and loaded with <code class="highlighter-rouge">M501</code>.</li>
+  <li>
+<code class="highlighter-rouge">M502</code> resets steps-per-unit for all axes to the values from <code class="highlighter-rouge">DEFAULT_AXIS_STEPS_PER_UNIT</code>.</li>
+</ul>
+
+        
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Examples</h2>
+      
+        
+          
+            <p></p>
+<p>Set E steps for a new extruder</p>
+
+          
+        
+        
+<figure class="highlight"><pre><code class="language-gcode" data-lang="gcode">M92 E688.4</code></pre></figure>
+
+        
+      
+    </div>
+  </div>
 
 
           
