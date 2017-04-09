@@ -90,7 +90,7 @@ Marlin now checks for a configuration version and won't compile without this set
 ```
 - `STRING_CONFIG_H_AUTHOR` is shown in the Marlin startup message, and is meant to identify the author (and optional variant) of the firmware. Use this setting as a way to uniquely identify all your custom configurations. The startup message is printed when connecting to host software, and whenever the board reboots.
 - `SHOW_BOOTSCREEN` enables the boot screen for LCD controllers.
-- `STRING_SPLASH_LINE1` and `STRING_SPLASH_LINE1` are shown on the boot screen.
+- `STRING_SPLASH_LINE1` and `STRING_SPLASH_LINE2` are shown on the boot screen.
 
 
 ## Hardware Info
@@ -457,13 +457,6 @@ For Delta use one of the sample configurations in the `example_configurations/de
 //#define SCARA
 ```
 For SCARA use the sample configuration in the `example_configurations/SCARA` folder as a starting point.
-
-
-```cpp
-// Enable this option for Toshiba steppers
-//#define CONFIG_STEPPERS_TOSHIBA
-```
-Leave this option disabled for standard NEMA steppers.
 
 
 ![Endstop switch](/assets/images/config/endstop.jpg){: .floater}
@@ -857,6 +850,14 @@ The E disable option works like `DISABLE_[XYZ]` but pertains to one or more extr
 ```
 These settings reverse the motor direction for each axis. Be careful when first setting these. Axes moving the wrong direction can cause damage. Get these right without belts attached first, if possible. Before testing, move the carriage and bed to the middle. Test each axis for proper movemnt using the host or LCD "Move Axis" menu. If an axis is inverted, either flip the plug around or change its invert setting.
 
+### Toshiba Drivers
+
+```cpp
+// Enable this option for Toshiba stepper drivers
+//#define CONFIG_STEPPERS_TOSHIBA
+```
+Leave this option disabled for typical stepper drivers such as A4988 or DVR8825.
+
 
 ## Homing and Bounds
 
@@ -928,7 +929,7 @@ There are many cases where it's useful to measure variances in bed height. Even 
 
 Bed Compensation or "--- Bed Leveling" allows the machine —with a bed probe or user assistance— to take accurate measurements of the "bed height" at various points in the XY plane. With this data the machine can then adjust movement to align better to the tilt or "height" variances in the bed. (I'm scare-quoting "height" here because variances may come from other than the bed.)
 
-For more details on these features, see [`G29` for MBL](/docs/gcode/G29-mbl.html) and [`G29` for ABL](/docs/gcode/G29-abl.html).
+For more details on these features, see [`G29` for MBL](/docs/gcode/G029-mbl.html) and [`G29` for ABL](/docs/gcode/G029-abl.html).
 
 
 ### Debug Leveling
@@ -960,7 +961,7 @@ If your machine lacks a probe, it is still possible to measure and correct for i
 
 With MBL enabled:
 
-- `G29 S1` initiates bed probing. A piece of paper or feeler gauge is used to test the nozzle height while manually adjusting the Z position. See [`G29` for MBL](/docs/gcode/G29-mbl.html) for the full procedure.
+- `G29 S1` initiates bed probing. A piece of paper or feeler gauge is used to test the nozzle height while manually adjusting the Z position. See [`G29` for MBL](/docs/gcode/G029-mbl.html) for the full procedure.
 - `M500` saves the bed leveling data to EEPROM. Use `M501` to load it, `M502` to clear it, and `M503` to report it.
 - `M420 S<bool>` can be used to enable/disable bed leveling. For example, `M420 S1` must be used after `M501` to enable the loaded mesh or matrix.
 
@@ -973,7 +974,7 @@ With MBL enabled:
 ```cpp
 //#define MANUAL_BED_LEVELING
 ```
-Enable to add a "Level Bed" menu item to the LCD that initiates a fully guided leveling procedure. See [`G29` for MBL](/docs/gcode/G29-mbl.html) for more details.
+Enable to add a "Level Bed" menu item to the LCD that initiates a fully guided leveling procedure. See [`G29` for MBL](/docs/gcode/G029-mbl.html) for more details.
 
 
 ## Auto Bed Leveling
@@ -1099,7 +1100,7 @@ Certain EEPROM behaviors may be confusing. For example, when you edit the config
 #define HOST_KEEPALIVE_FEATURE
 #define DEFAULT_KEEPALIVE_INTERVAL 2
 ```
-When Host Keepalive is enabled Marlin will send a busy status message to the host every couple of seconds when it can't accept commands. Disable if your host doesn't like keepalive messages. Use `DEFAULT_KEEPALIVE_INTERVAL` for the default number of seconds between "busy" messages. Override with [`M113`](M113.html).
+When Host Keepalive is enabled Marlin will send a busy status message to the host every couple of seconds when it can't accept commands. Disable if your host doesn't like keepalive messages. Use `DEFAULT_KEEPALIVE_INTERVAL` for the default number of seconds between "busy" messages. Override with [`M113`](/docs/gcode/M113.html).
 
 ### Free Memory Watcher
 
@@ -1300,7 +1301,7 @@ Most other LCD controllers are variants of these. Enable just one of the followi
 
 These controllers all require the [LiquidCrystal_I2C library](https://github.com/kiyoshigawa/LiquidCrystal_I2C).
 
-- `RA_CONTROL_PANEL`: [Elefu RA Board Control Panel](http://www.elefu.com/index.php?route=product/product&product_id=53)
+- `RA_CONTROL_PANEL`: Elefu RA Board Control Panel
 - `LCD_I2C_SAINSMART_YWROBOT`: Sainsmart [YWRobot LCM1602 LCD Display](http://henrysbench.capnfatz.com/henrys-bench/arduino-displays/ywrobot-lcm1602-iic-v1-lcd-arduino-tutorial/).
 - `LCM1602`: Generic LCM1602 LCD adapter
 - `LCD_I2C_PANELOLU2`: PANELOLU2 LCD with status LEDs, separate encoder and click inputs. The click input can either be directly connected to a pin (if `BTN_ENC` is defined) or read through I2C (with `BTN_ENC` undefined). Requires [LiquidTWI2 library](https://github.com/lincomatic/LiquidTWI2) v1.2.3 or later.
